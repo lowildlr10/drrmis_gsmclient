@@ -13,21 +13,15 @@ namespace GSM_Client
 {
     public partial class SelectSerialForm : Form
     {
+        MainForm frmMain;
+
         public SelectSerialForm() {
             InitializeComponent();
         }
 
-        public string GetSelectedSerialPort {
-            get {
-                var serialPort = selSerialPort.SelectedItem;
-                return serialPort.ToString(); 
-            }
-        }
-        public int GetBaudRate {
-            get {
-                string baudRate = txtBaudRate.Text.Trim();
-                return int.Parse(baudRate);
-            }
+        public MainForm MainForm {
+            get { return frmMain; }
+            set { frmMain = value; }
         }
 
         private void SelectSerialForm_Load(object sender, EventArgs e) {
@@ -41,13 +35,16 @@ namespace GSM_Client
                 selSerialPort.Items.Add(port);
             }
 
+            selSerialPort.SelectedItem = frmMain.comPort.PortName;
             selSerialPort.Font = fntSerialPort;
+            txtBaudRate.Text = frmMain.comPort.BaudRate.ToString();
             txtBaudRate.Font = fntBaudRate;
         }
 
         private void btnConSelSerial_Click(object sender, EventArgs e) {
             var serialPort = selSerialPort.SelectedItem;
             string baudRate = txtBaudRate.Text.Trim();
+            //frmMain = new MainForm();
 
             if (serialPort != null && !string.IsNullOrEmpty(baudRate)) {
                 
@@ -64,6 +61,10 @@ namespace GSM_Client
 
                 return;
             }
+
+            frmMain.comPort.PortName = serialPort.ToString();
+            frmMain.comPort.BaudRate = int.Parse(baudRate);
+            frmMain.refreshDisplays();
 
             this.Close();
         }

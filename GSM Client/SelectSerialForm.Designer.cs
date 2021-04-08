@@ -49,7 +49,7 @@ namespace GSM_Client
             this.btnConSelSerial.Name = "btnConSelSerial";
             this.btnConSelSerial.Size = new System.Drawing.Size(290, 33);
             this.btnConSelSerial.TabIndex = 1;
-            this.btnConSelSerial.Text = "Select";
+            this.btnConSelSerial.Text = "Apply";
             this.btnConSelSerial.UseVisualStyleBackColor = false;
             this.btnConSelSerial.Click += new System.EventHandler(this.btnConSelSerial_Click);
             // 
@@ -122,7 +122,7 @@ namespace GSM_Client
             this.Name = "SelectSerialForm";
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Connect...";
+            this.Text = "Settings";
             this.Load += new System.EventHandler(this.SelectSerialForm_Load);
             this.grpSerialPort.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

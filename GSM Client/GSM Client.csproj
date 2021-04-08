@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +53,12 @@
     </Compile>
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SerialMonitorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SerialMonitorForm.Designer.cs">
+      <DependentUpon>SerialMonitorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -85,6 +93,9 @@
     <EmbeddedResource Include="SelectSerialForm.resx">
       <DependentUpon>SelectSerialForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SerialMonitorForm.resx">
+      <DependentUpon>SerialMonitorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,6 +120,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\images\icons\unlink-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\cog-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\paper-plane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\paper-plane-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\check-circle-green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\times-circle-red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\tv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\tv-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\tv-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\dost-logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
