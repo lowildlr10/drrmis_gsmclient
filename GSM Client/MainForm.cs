@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Threading;
 
 namespace GSM_Client
 {
     public partial class MainForm : Form
     {
+        RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
         SerialMonitorForm frmSerialMonitor;
         AboutBoxForm frmAboutBox;
@@ -36,6 +38,7 @@ namespace GSM_Client
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            timerMonitorPort.Enabled = false;
             disconnectCOM();
         }
 
@@ -48,10 +51,12 @@ namespace GSM_Client
         }
 
         private void btnDisconnectSerial_Click(object sender, EventArgs e) {
+            timerMonitorPort.Enabled = false;
             disconnectCOM();
         }
 
         private void toolStripMenuDisconnect_Click(object sender, EventArgs e) {
+            timerMonitorPort.Enabled = false;
             disconnectCOM();
         }
 
@@ -77,7 +82,9 @@ namespace GSM_Client
                     comPort.WriteLine("3");
                     comPort.WriteLine("5");
                     comPort.WriteLine("6");
-                   
+
+                    timerMonitorPort.Enabled = true;
+
                     toolStripMenuConnect.Visible = false;
                     toolStripMenuDisconnect.Visible = true;
                     btnConnectSerial.Visible = false;
@@ -105,31 +112,35 @@ namespace GSM_Client
         }
 
         private void disconnectCOM() {
+            if (!string.IsNullOrEmpty(comPort.PortName) &&
+                !string.IsNullOrWhiteSpace(comPort.PortName) &&
+                comPort.PortName != "N/A" &&
+                comPort.IsOpen)
+            {
+                MessageBox.Show(comPort.PortName + " is now disconnected.");
+            }
+
             if (comPort.IsOpen) {
                 try {
                     comPort.Close();
-
-                    toolStripMenuConnect.Visible = true;
-                    toolStripMenuDisconnect.Visible = false;
-                    btnConnectSerial.Visible = true;
-                    btnDisconnectSerial.Visible = false;
-                    btnSerialMonitor.Visible = false;
-                    btnSettings.Enabled = true;
-                    btnSend.Enabled = false;
-                    serialMonitorToolStripMenuItem.Enabled = false;
-
-                    MessageBox.Show(comPort.PortName + " is now disconnected.");
-
-                    lblStatus.Text = "Disconnected";
-                    lblStatus.ForeColor = System.Drawing.Color.Red;
-                    toolStripStatusLabel.Text = "Disconnected";
-                    toolStripIconConnected.Visible = false;
-                    toolStripIconDisconnected.Visible = true;
                 } catch (Exception) {
                 }
-            } else {
-                //disconnectCOM();
             }
+
+            toolStripMenuConnect.Visible = true;
+            toolStripMenuDisconnect.Visible = false;
+            btnConnectSerial.Visible = true;
+            btnDisconnectSerial.Visible = false;
+            btnSerialMonitor.Visible = false;
+            btnSettings.Enabled = true;
+            btnSend.Enabled = false;
+            serialMonitorToolStripMenuItem.Enabled = false;
+
+            lblStatus.Text = "Disconnected";
+            lblStatus.ForeColor = System.Drawing.Color.Red;
+            toolStripStatusLabel.Text = "Disconnected";
+            toolStripIconConnected.Visible = false;
+            toolStripIconDisconnected.Visible = true;
         }
 
         private void exitApplication() {
@@ -163,9 +174,16 @@ namespace GSM_Client
             frmSerialMonitor.Show();
         }
 
-        private void toolsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void timerMonitorPort_Tick(object sender, EventArgs e) {
+            if (!comPort.IsOpen) {
+                timerMonitorPort.Enabled = false;
+                disconnectCOM();
+            }
+        }
 
+        private void btnRecipients_Click(object sender, EventArgs e) {
+            frmRecipient = new RecipientForm();
+            frmRecipient.ShowDialog();
         }
     }
 }

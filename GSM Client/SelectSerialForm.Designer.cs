@@ -70,7 +70,7 @@ namespace GSM_Client
             // 
             this.selSerialPort.BackColor = System.Drawing.Color.White;
             this.selSerialPort.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.selSerialPort.DropDownHeight = 150;
+            this.selSerialPort.DropDownHeight = 125;
             this.selSerialPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.selSerialPort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.selSerialPort.ForeColor = System.Drawing.Color.Black;
@@ -81,6 +81,7 @@ namespace GSM_Client
             this.selSerialPort.Size = new System.Drawing.Size(265, 23);
             this.selSerialPort.Sorted = true;
             this.selSerialPort.TabIndex = 1;
+            this.selSerialPort.Click += new System.EventHandler(this.selSerialPort_Click);
             // 
             // groupBox1
             // 

@@ -24,9 +24,7 @@ namespace GSM_Client
             set { frmMain = value; }
         }
 
-        private void SelectSerialForm_Load(object sender, EventArgs e) {
-            Font fntSerialPort = new Font("Segoe UI", 11, FontStyle.Regular);
-            Font fntBaudRate = new Font("Segoe UI", 11, FontStyle.Regular);
+        private void RefreshPortList() {
             string[] ports = SerialPort.GetPortNames();
 
             selSerialPort.Items.Clear();
@@ -36,6 +34,14 @@ namespace GSM_Client
             }
 
             selSerialPort.SelectedItem = frmMain.comPort.PortName;
+        }
+
+        private void SelectSerialForm_Load(object sender, EventArgs e) {
+            Font fntSerialPort = new Font("Segoe UI", 11, FontStyle.Regular);
+            Font fntBaudRate = new Font("Segoe UI", 11, FontStyle.Regular);
+
+            RefreshPortList();
+
             selSerialPort.Font = fntSerialPort;
             txtBaudRate.Text = frmMain.comPort.BaudRate.ToString();
             txtBaudRate.Font = fntBaudRate;
@@ -73,6 +79,10 @@ namespace GSM_Client
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
+        }
+
+        private void selSerialPort_Click(object sender, EventArgs e) {
+            RefreshPortList();
         }
     }
 }

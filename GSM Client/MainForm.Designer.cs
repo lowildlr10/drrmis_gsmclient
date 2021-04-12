@@ -43,6 +43,8 @@ namespace GSM_Client
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serialMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,6 +60,7 @@ namespace GSM_Client
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.timerMonitorPort = new System.Windows.Forms.Timer(this.components);
             this.btnSettings = new System.Windows.Forms.ToolStripButton();
             this.btnSerialMonitor = new System.Windows.Forms.ToolStripButton();
             this.btnDisconnectSerial = new System.Windows.Forms.ToolStripButton();
@@ -65,8 +68,7 @@ namespace GSM_Client
             this.btnSend = new System.Windows.Forms.ToolStripButton();
             this.toolStripIconConnected = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripIconDisconnected = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serialMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecipients = new System.Windows.Forms.Button();
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -75,6 +77,7 @@ namespace GSM_Client
             this.grpSerialPortDetails.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // comPort
@@ -176,6 +179,23 @@ namespace GSM_Client
             this.mainMenuStrip.Size = new System.Drawing.Size(784, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "mainMenuStrip";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.serialMonitorToolStripMenuItem});
+            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // serialMonitorToolStripMenuItem
+            // 
+            this.serialMonitorToolStripMenuItem.Enabled = false;
+            this.serialMonitorToolStripMenuItem.Name = "serialMonitorToolStripMenuItem";
+            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serialMonitorToolStripMenuItem.Text = "Serial Monitor";
+            this.serialMonitorToolStripMenuItem.Click += new System.EventHandler(this.serialMonitorToolStripMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -369,12 +389,17 @@ namespace GSM_Client
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.6563F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.3437F));
+            this.tableLayoutPanel3.Controls.Add(this.btnRecipients, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(513, 39);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
@@ -382,6 +407,11 @@ namespace GSM_Client
             // 
             this.notifyIcon.Text = "notifyIcon1";
             this.notifyIcon.Visible = true;
+            // 
+            // timerMonitorPort
+            // 
+            this.timerMonitorPort.Interval = 500;
+            this.timerMonitorPort.Tick += new System.EventHandler(this.timerMonitorPort_Tick);
             // 
             // btnSettings
             // 
@@ -502,23 +532,18 @@ namespace GSM_Client
             this.toolStripIconDisconnected.Text = "toolStripStatusDisconnected";
             this.toolStripIconDisconnected.Visible = false;
             // 
-            // toolsToolStripMenuItem
+            // btnRecipients
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.serialMonitorToolStripMenuItem});
-            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            this.toolsToolStripMenuItem.Click += new System.EventHandler(this.toolsToolStripMenuItem_Click);
-            // 
-            // serialMonitorToolStripMenuItem
-            // 
-            this.serialMonitorToolStripMenuItem.Enabled = false;
-            this.serialMonitorToolStripMenuItem.Name = "serialMonitorToolStripMenuItem";
-            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.serialMonitorToolStripMenuItem.Text = "Serial Monitor";
-            this.serialMonitorToolStripMenuItem.Click += new System.EventHandler(this.serialMonitorToolStripMenuItem_Click);
+            this.btnRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRecipients.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecipients.Location = new System.Drawing.Point(416, 3);
+            this.btnRecipients.Name = "btnRecipients";
+            this.btnRecipients.Size = new System.Drawing.Size(94, 33);
+            this.btnRecipients.TabIndex = 1;
+            this.btnRecipients.Text = "Add Recipients";
+            this.btnRecipients.UseVisualStyleBackColor = true;
+            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
             // 
             // MainForm
             // 
@@ -552,6 +577,7 @@ namespace GSM_Client
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -594,6 +620,8 @@ namespace GSM_Client
         private System.Windows.Forms.ToolStripButton btnSerialMonitor;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serialMonitorToolStripMenuItem;
+        private System.Windows.Forms.Timer timerMonitorPort;
+        private System.Windows.Forms.Button btnRecipients;
     }
 }
 

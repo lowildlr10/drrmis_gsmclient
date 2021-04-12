@@ -54,6 +54,12 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="RecipientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecipientForm.Designer.cs">
+      <DependentUpon>RecipientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SerialMonitorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RecipientForm.resx">
+      <DependentUpon>RecipientForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectSerialForm.resx">
       <DependentUpon>SelectSerialForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\images\icons\dost-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
