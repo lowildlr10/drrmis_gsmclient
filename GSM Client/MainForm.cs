@@ -87,11 +87,12 @@ namespace GSM_Client
 
                     toolStripMenuConnect.Visible = false;
                     toolStripMenuDisconnect.Visible = true;
+                    settingsToolStripMenuItem.Enabled = false;
                     btnConnectSerial.Visible = false;
                     btnDisconnectSerial.Visible = true;
                     btnSerialMonitor.Visible = true;
                     btnSettings.Enabled = false;
-                    btnSend.Enabled = true;
+                    btnRecipients.Enabled = true;
                     serialMonitorToolStripMenuItem.Enabled = true;
 
                     MessageBox.Show(comPort.PortName +
@@ -129,11 +130,13 @@ namespace GSM_Client
 
             toolStripMenuConnect.Visible = true;
             toolStripMenuDisconnect.Visible = false;
+            settingsToolStripMenuItem.Enabled = true;
             btnConnectSerial.Visible = true;
             btnDisconnectSerial.Visible = false;
             btnSerialMonitor.Visible = false;
             btnSettings.Enabled = true;
             btnSend.Enabled = false;
+            btnRecipients.Enabled = false;
             serialMonitorToolStripMenuItem.Enabled = false;
 
             lblStatus.Text = "Disconnected";
@@ -158,10 +161,17 @@ namespace GSM_Client
             string portName = !string.IsNullOrEmpty(comPort.PortName.Trim()) ? 
                                comPort.PortName : "N/A";
             int baudRate = comPort.BaudRate;
+            int recipientCount = selRecipients.Items.Count;
 
             lblStatus.Text = serialStatus;
             lblPortName.Text = portName;
             lblBaudRate.Text = baudRate.ToString();
+
+            if (recipientCount > 1) {
+                btnSend.Enabled = true;
+            } else {
+                btnSend.Enabled = false;
+            }
         }
 
         private void btnSerialMonitor_Click(object sender, EventArgs e) {
@@ -183,7 +193,39 @@ namespace GSM_Client
 
         private void btnRecipients_Click(object sender, EventArgs e) {
             frmRecipient = new RecipientForm();
+            frmRecipient.MainForm = this;
             frmRecipient.ShowDialog();
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            frmSelectSerial = new SelectSerialForm();
+            frmSelectSerial.MainForm = this;
+            frmSelectSerial.ShowDialog();
+        }
+
+        private void sendMessage(string phoneNo, string message) {
+            if (comPort.IsOpen) {
+                comPort.WriteLine(message);
+                MessageBox.Show(comPort.ReadLine());
+            }
+        }
+
+        private void btnSend_Click(object sender, EventArgs e) {
+            var recipients = selRecipients.Items;
+            int recipientCount = selRecipients.Items.Count;
+            String message = txtMessage.Text;
+            int selectedIndex = int.Parse(selRecipients.SelectedIndex.ToString());
+
+            if (recipientCount > 1) {
+                if (selectedIndex == 0) {
+                    foreach (string phoneNo in recipients) {
+                        sendMessage(phoneNo.Trim(), message);
+                    }
+                } else {
+                    var phoneNo = selRecipients.SelectedItem;
+                    sendMessage(phoneNo.ToString().Trim(), message);
+                }
+            }
         }
     }
 }

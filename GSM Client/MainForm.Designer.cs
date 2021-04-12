@@ -34,7 +34,6 @@ namespace GSM_Client
             this.comPort = new System.IO.Ports.SerialPort(this.components);
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuDisconnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,8 +56,9 @@ namespace GSM_Client
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtMessage = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.selRecipients = new System.Windows.Forms.ComboBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.timerMonitorPort = new System.Windows.Forms.Timer(this.components);
             this.btnSettings = new System.Windows.Forms.ToolStripButton();
@@ -66,9 +66,10 @@ namespace GSM_Client
             this.btnDisconnectSerial = new System.Windows.Forms.ToolStripButton();
             this.btnConnectSerial = new System.Windows.Forms.ToolStripButton();
             this.btnSend = new System.Windows.Forms.ToolStripButton();
+            this.btnRecipients = new System.Windows.Forms.ToolStripButton();
             this.toolStripIconConnected = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripIconDisconnected = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btnRecipients = new System.Windows.Forms.Button();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -93,9 +94,10 @@ namespace GSM_Client
             this.toolStripIconDisconnected,
             this.toolStripStatusLabel});
             this.mainStatusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 433);
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 533);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(784, 28);
+            this.mainStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.mainStatusStrip.Size = new System.Drawing.Size(1045, 34);
             this.mainStatusStrip.SizingGrip = false;
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "mainStatusStrip";
@@ -104,19 +106,15 @@ namespace GSM_Client
             // 
             this.toolStripStatusLabel.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 23);
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 29);
             this.toolStripStatusLabel.Text = "Ready";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            this.openFileDialog.Filter = "CSV files (*.csv)|*.csv\"";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuConnect,
             this.toolStripMenuDisconnect,
+            this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
@@ -127,14 +125,14 @@ namespace GSM_Client
             // toolStripMenuConnect
             // 
             this.toolStripMenuConnect.Name = "toolStripMenuConnect";
-            this.toolStripMenuConnect.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuConnect.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuConnect.Text = "Connect...";
             this.toolStripMenuConnect.Click += new System.EventHandler(this.toolStripMenuConnect_Click);
             // 
             // toolStripMenuDisconnect
             // 
             this.toolStripMenuDisconnect.Name = "toolStripMenuDisconnect";
-            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuDisconnect.Text = "Disconnect...";
             this.toolStripMenuDisconnect.Visible = false;
             this.toolStripMenuDisconnect.Click += new System.EventHandler(this.toolStripMenuDisconnect_Click);
@@ -142,12 +140,12 @@ namespace GSM_Client
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -163,7 +161,7 @@ namespace GSM_Client
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -176,7 +174,8 @@ namespace GSM_Client
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(784, 24);
+            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1045, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -193,7 +192,7 @@ namespace GSM_Client
             // 
             this.serialMonitorToolStripMenuItem.Enabled = false;
             this.serialMonitorToolStripMenuItem.Name = "serialMonitorToolStripMenuItem";
-            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.serialMonitorToolStripMenuItem.Text = "Serial Monitor";
             this.serialMonitorToolStripMenuItem.Click += new System.EventHandler(this.serialMonitorToolStripMenuItem_Click);
             // 
@@ -208,12 +207,13 @@ namespace GSM_Client
             this.btnSerialMonitor,
             this.btnDisconnectSerial,
             this.btnConnectSerial,
-            this.btnSend});
+            this.btnSend,
+            this.btnRecipients});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Padding = new System.Windows.Forms.Padding(10, 2, 10, 4);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(13, 2, 13, 5);
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip.Size = new System.Drawing.Size(784, 55);
+            this.toolStrip.Size = new System.Drawing.Size(1045, 68);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "mainToolStrip";
@@ -222,25 +222,27 @@ namespace GSM_Client
             // 
             this.mainPanel.Controls.Add(this.tableLayoutPanel1);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 79);
+            this.mainPanel.Location = new System.Drawing.Point(0, 92);
+            this.mainPanel.Margin = new System.Windows.Forms.Padding(4);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(784, 354);
+            this.mainPanel.Size = new System.Drawing.Size(1045, 441);
             this.mainPanel.TabIndex = 4;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 67F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 3F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.48325F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 0.7655503F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.6555F));
             this.tableLayoutPanel1.Controls.Add(this.grpSerialPortDetails, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 354);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1045, 441);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // grpSerialPortDetails
@@ -249,11 +251,11 @@ namespace GSM_Client
             this.grpSerialPortDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSerialPortDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpSerialPortDetails.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpSerialPortDetails.Location = new System.Drawing.Point(551, 10);
-            this.grpSerialPortDetails.Margin = new System.Windows.Forms.Padding(3, 10, 3, 15);
+            this.grpSerialPortDetails.Location = new System.Drawing.Point(759, 12);
+            this.grpSerialPortDetails.Margin = new System.Windows.Forms.Padding(4, 12, 20, 18);
             this.grpSerialPortDetails.Name = "grpSerialPortDetails";
-            this.grpSerialPortDetails.Padding = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.grpSerialPortDetails.Size = new System.Drawing.Size(230, 329);
+            this.grpSerialPortDetails.Padding = new System.Windows.Forms.Padding(4, 6, 4, 4);
+            this.grpSerialPortDetails.Size = new System.Drawing.Size(266, 411);
             this.grpSerialPortDetails.TabIndex = 0;
             this.grpSerialPortDetails.TabStop = false;
             this.grpSerialPortDetails.Text = "DEVICE DETAILS";
@@ -261,8 +263,8 @@ namespace GSM_Client
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.64912F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.35088F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.47287F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.52713F));
             this.tableLayoutPanel4.Controls.Add(this.lblBaudRate, 1, 3);
             this.tableLayoutPanel4.Controls.Add(this.lblPortName, 1, 2);
             this.tableLayoutPanel4.Controls.Add(this.lblStatus, 1, 1);
@@ -270,7 +272,8 @@ namespace GSM_Client
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 20);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(4, 21);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 5;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
@@ -278,7 +281,7 @@ namespace GSM_Client
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22.22222F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(224, 274);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(258, 337);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // lblBaudRate
@@ -287,9 +290,10 @@ namespace GSM_Client
             this.lblBaudRate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBaudRate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblBaudRate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBaudRate.Location = new System.Drawing.Point(80, 150);
+            this.lblBaudRate.Location = new System.Drawing.Point(111, 185);
+            this.lblBaudRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBaudRate.Name = "lblBaudRate";
-            this.lblBaudRate.Size = new System.Drawing.Size(141, 60);
+            this.lblBaudRate.Size = new System.Drawing.Size(143, 74);
             this.lblBaudRate.TabIndex = 9;
             this.lblBaudRate.Text = "N/A";
             // 
@@ -299,9 +303,10 @@ namespace GSM_Client
             this.lblPortName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPortName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblPortName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPortName.Location = new System.Drawing.Point(80, 90);
+            this.lblPortName.Location = new System.Drawing.Point(111, 111);
+            this.lblPortName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPortName.Name = "lblPortName";
-            this.lblPortName.Size = new System.Drawing.Size(141, 60);
+            this.lblPortName.Size = new System.Drawing.Size(143, 74);
             this.lblPortName.TabIndex = 8;
             this.lblPortName.Text = "N/A";
             // 
@@ -312,9 +317,10 @@ namespace GSM_Client
             this.lblStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(80, 30);
+            this.lblStatus.Location = new System.Drawing.Point(111, 37);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(141, 60);
+            this.lblStatus.Size = new System.Drawing.Size(143, 74);
             this.lblStatus.TabIndex = 7;
             this.lblStatus.Text = "Disconnected";
             // 
@@ -324,9 +330,10 @@ namespace GSM_Client
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 150);
+            this.label5.Location = new System.Drawing.Point(4, 185);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 60);
+            this.label5.Size = new System.Drawing.Size(99, 74);
             this.label5.TabIndex = 6;
             this.label5.Text = "Baud Rate:";
             // 
@@ -336,9 +343,10 @@ namespace GSM_Client
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 90);
+            this.label3.Location = new System.Drawing.Point(4, 111);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 60);
+            this.label3.Size = new System.Drawing.Size(99, 74);
             this.label3.TabIndex = 4;
             this.label3.Text = "Port Name:";
             // 
@@ -348,9 +356,10 @@ namespace GSM_Client
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 30);
+            this.label1.Location = new System.Drawing.Point(4, 37);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 60);
+            this.label1.Size = new System.Drawing.Size(99, 74);
             this.label1.TabIndex = 2;
             this.label1.Text = "Status:";
             // 
@@ -359,49 +368,63 @@ namespace GSM_Client
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.txtMessage, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.21839F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.78161F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(519, 348);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.930716F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.06928F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(739, 433);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // textBox1
+            // txtMessage
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(15, 48);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(15, 3, 0, 15);
-            this.textBox1.MaxLength = 255;
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(504, 285);
-            this.textBox1.TabIndex = 0;
+            this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtMessage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMessage.Location = new System.Drawing.Point(20, 46);
+            this.txtMessage.Margin = new System.Windows.Forms.Padding(20, 4, 7, 18);
+            this.txtMessage.MaxLength = 255;
+            this.txtMessage.Multiline = true;
+            this.txtMessage.Name = "txtMessage";
+            this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtMessage.Size = new System.Drawing.Size(712, 369);
+            this.txtMessage.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.6563F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.3437F));
-            this.tableLayoutPanel3.Controls.Add(this.btnRecipients, 1, 0);
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.36842F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.63158F));
+            this.tableLayoutPanel3.Controls.Add(this.selRecipients, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(513, 39);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(731, 34);
             this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // selRecipients
+            // 
+            this.selRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selRecipients.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selRecipients.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selRecipients.FormattingEnabled = true;
+            this.selRecipients.Location = new System.Drawing.Point(16, 3);
+            this.selRecipients.Margin = new System.Windows.Forms.Padding(16, 3, 3, 3);
+            this.selRecipients.Name = "selRecipients";
+            this.selRecipients.Size = new System.Drawing.Size(712, 28);
+            this.selRecipients.TabIndex = 0;
             // 
             // notifyIcon
             // 
@@ -416,6 +439,7 @@ namespace GSM_Client
             // btnSettings
             // 
             this.btnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSettings.AutoSize = false;
             this.btnSettings.BackColor = System.Drawing.Color.Transparent;
             this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSettings.ForeColor = System.Drawing.Color.White;
@@ -426,7 +450,7 @@ namespace GSM_Client
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnSettings.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSettings.Size = new System.Drawing.Size(67, 47);
+            this.btnSettings.Size = new System.Drawing.Size(70, 59);
             this.btnSettings.Text = "Settings";
             this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSettings.ToolTipText = "Settings";
@@ -435,6 +459,7 @@ namespace GSM_Client
             // btnSerialMonitor
             // 
             this.btnSerialMonitor.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSerialMonitor.AutoSize = false;
             this.btnSerialMonitor.BackColor = System.Drawing.Color.Transparent;
             this.btnSerialMonitor.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSerialMonitor.ForeColor = System.Drawing.Color.White;
@@ -445,7 +470,7 @@ namespace GSM_Client
             this.btnSerialMonitor.Name = "btnSerialMonitor";
             this.btnSerialMonitor.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnSerialMonitor.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSerialMonitor.Size = new System.Drawing.Size(68, 47);
+            this.btnSerialMonitor.Size = new System.Drawing.Size(70, 59);
             this.btnSerialMonitor.Text = "Monitor";
             this.btnSerialMonitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSerialMonitor.Visible = false;
@@ -454,6 +479,7 @@ namespace GSM_Client
             // btnDisconnectSerial
             // 
             this.btnDisconnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnDisconnectSerial.AutoSize = false;
             this.btnDisconnectSerial.BackColor = System.Drawing.Color.Transparent;
             this.btnDisconnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDisconnectSerial.ForeColor = System.Drawing.Color.White;
@@ -464,7 +490,7 @@ namespace GSM_Client
             this.btnDisconnectSerial.Name = "btnDisconnectSerial";
             this.btnDisconnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnDisconnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnDisconnectSerial.Size = new System.Drawing.Size(80, 47);
+            this.btnDisconnectSerial.Size = new System.Drawing.Size(70, 59);
             this.btnDisconnectSerial.Text = "Disconnect";
             this.btnDisconnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnDisconnectSerial.Visible = false;
@@ -473,6 +499,7 @@ namespace GSM_Client
             // btnConnectSerial
             // 
             this.btnConnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnConnectSerial.AutoSize = false;
             this.btnConnectSerial.BackColor = System.Drawing.Color.Transparent;
             this.btnConnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnectSerial.ForeColor = System.Drawing.Color.White;
@@ -483,13 +510,14 @@ namespace GSM_Client
             this.btnConnectSerial.Name = "btnConnectSerial";
             this.btnConnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnConnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnConnectSerial.Size = new System.Drawing.Size(67, 47);
+            this.btnConnectSerial.Size = new System.Drawing.Size(70, 59);
             this.btnConnectSerial.Text = "Connect";
             this.btnConnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnConnectSerial.Click += new System.EventHandler(this.btnConnectSerial_Click);
             // 
             // btnSend
             // 
+            this.btnSend.AutoSize = false;
             this.btnSend.BackColor = System.Drawing.Color.Transparent;
             this.btnSend.Enabled = false;
             this.btnSend.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -501,9 +529,29 @@ namespace GSM_Client
             this.btnSend.Name = "btnSend";
             this.btnSend.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnSend.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSend.Size = new System.Drawing.Size(52, 47);
+            this.btnSend.Size = new System.Drawing.Size(70, 59);
             this.btnSend.Text = "Send";
             this.btnSend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // btnRecipients
+            // 
+            this.btnRecipients.AutoSize = false;
+            this.btnRecipients.BackColor = System.Drawing.Color.Transparent;
+            this.btnRecipients.Enabled = false;
+            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecipients.ForeColor = System.Drawing.Color.White;
+            this.btnRecipients.Image = global::GSM_Client.Properties.Resources.address_book_white;
+            this.btnRecipients.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRecipients.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRecipients.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnRecipients.Name = "btnRecipients";
+            this.btnRecipients.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnRecipients.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnRecipients.Size = new System.Drawing.Size(70, 59);
+            this.btnRecipients.Text = "Recipients";
+            this.btnRecipients.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
             // 
             // toolStripIconConnected
             // 
@@ -514,7 +562,7 @@ namespace GSM_Client
             this.toolStripIconConnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
             this.toolStripIconConnected.Name = "toolStripIconConnected";
             this.toolStripIconConnected.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconConnected.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconConnected.Size = new System.Drawing.Size(26, 29);
             this.toolStripIconConnected.Text = "toolStripStatusConnected";
             this.toolStripIconConnected.Visible = false;
             // 
@@ -528,29 +576,23 @@ namespace GSM_Client
             this.toolStripIconDisconnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
             this.toolStripIconDisconnected.Name = "toolStripIconDisconnected";
             this.toolStripIconDisconnected.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconDisconnected.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconDisconnected.Size = new System.Drawing.Size(26, 29);
             this.toolStripIconDisconnected.Text = "toolStripStatusDisconnected";
             this.toolStripIconDisconnected.Visible = false;
             // 
-            // btnRecipients
+            // settingsToolStripMenuItem
             // 
-            this.btnRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRecipients.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecipients.Location = new System.Drawing.Point(416, 3);
-            this.btnRecipients.Name = "btnRecipients";
-            this.btnRecipients.Size = new System.Drawing.Size(94, 33);
-            this.btnRecipients.TabIndex = 1;
-            this.btnRecipients.Text = "Add Recipients";
-            this.btnRecipients.UseVisualStyleBackColor = true;
-            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.ClientSize = new System.Drawing.Size(1045, 567);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.mainStatusStrip);
@@ -558,8 +600,9 @@ namespace GSM_Client
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(800, 500);
+            this.MinimumSize = new System.Drawing.Size(1061, 606);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GSM Client";
@@ -586,7 +629,6 @@ namespace GSM_Client
         #endregion
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -606,7 +648,7 @@ namespace GSM_Client
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox grpSerialPortDetails;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtMessage;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label5;
@@ -621,7 +663,9 @@ namespace GSM_Client
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serialMonitorToolStripMenuItem;
         private System.Windows.Forms.Timer timerMonitorPort;
-        private System.Windows.Forms.Button btnRecipients;
+        private System.Windows.Forms.ToolStripButton btnRecipients;
+        public System.Windows.Forms.ComboBox selRecipients;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
     }
 }
 

@@ -163,5 +163,17 @@
   <ItemGroup>
     <None Include="assets\images\icons\loading.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\user-plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\user-plus-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\address-book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\address-book-white.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
