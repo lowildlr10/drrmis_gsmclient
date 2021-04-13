@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
-using System.Threading;
 
 namespace GSM_Client
 {
@@ -79,9 +78,6 @@ namespace GSM_Client
             if (!comPort.IsOpen) {
                 try {
                     comPort.Open();
-                    comPort.WriteLine("3");
-                    comPort.WriteLine("5");
-                    comPort.WriteLine("6");
 
                     timerMonitorPort.Enabled = true;
 
@@ -157,30 +153,42 @@ namespace GSM_Client
         }
 
         public void refreshDisplays() {
-            string serialStatus = "Disconnected";
+            string serialStatus = comPort.IsOpen ? "Connected" : "Disconnected";
             string portName = !string.IsNullOrEmpty(comPort.PortName.Trim()) ? 
                                comPort.PortName : "N/A";
             int baudRate = comPort.BaudRate;
             int recipientCount = selRecipients.Items.Count;
+            int messageCount = txtMessage.Text.Trim().Length;
 
             lblStatus.Text = serialStatus;
             lblPortName.Text = portName;
             lblBaudRate.Text = baudRate.ToString();
 
-            if (recipientCount > 1) {
+            if (recipientCount > 1 && messageCount > 0) {
                 btnSend.Enabled = true;
             } else {
                 btnSend.Enabled = false;
             }
+
+            if (btnRecipients.Enabled == true) {
+                lblRecipientsCount.Cursor = Cursors.Hand;
+            } else {
+                lblRecipientsCount.Cursor = Cursors.Default;
+            }
+
+            lblRecipientsCount.Text = "Recipients Count: " + recipientCount.ToString();
+            lblMsgCount.Text = "Message Characters: " + messageCount.ToString();
         }
 
         private void btnSerialMonitor_Click(object sender, EventArgs e) {
-            SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
+            frmSerialMonitor = new SerialMonitorForm();
+            frmSerialMonitor.MainForm = this;
             frmSerialMonitor.Show();
         }
 
         private void serialMonitorToolStripMenuItem_Click(object sender, EventArgs e) {
-            SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
+            frmSerialMonitor = new SerialMonitorForm();
+            frmSerialMonitor.MainForm = this;
             frmSerialMonitor.Show();
         }
 
@@ -189,6 +197,7 @@ namespace GSM_Client
                 timerMonitorPort.Enabled = false;
                 disconnectCOM();
             }
+            refreshDisplays();
         }
 
         private void btnRecipients_Click(object sender, EventArgs e) {
@@ -206,7 +215,7 @@ namespace GSM_Client
         private void sendMessage(string phoneNo, string message) {
             if (comPort.IsOpen) {
                 comPort.WriteLine(message);
-                MessageBox.Show(comPort.ReadLine());
+                //MessageBox.Show(comPort.ReadLine());
             }
         }
 
@@ -225,6 +234,19 @@ namespace GSM_Client
                     var phoneNo = selRecipients.SelectedItem;
                     sendMessage(phoneNo.ToString().Trim(), message);
                 }
+            }
+        }
+
+        private void txtMessage_TextChanged(object sender, EventArgs e) {
+            int messageCount = txtMessage.Text.Trim().Length;
+            lblMsgCount.Text = "Message Characters: " + messageCount.ToString();
+        }
+
+        private void lblRecipientsCount_Click(object sender, EventArgs e) {
+            if (btnRecipients.Enabled == true) {
+                frmRecipient = new RecipientForm();
+                frmRecipient.MainForm = this;
+                frmRecipient.ShowDialog();
             }
         }
     }

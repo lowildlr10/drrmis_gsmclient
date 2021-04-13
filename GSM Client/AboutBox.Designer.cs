@@ -34,8 +34,8 @@ namespace GSM_Client
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelCompanyName = new System.Windows.Forms.Label();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
+            this.lblBoxDescription = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -50,8 +50,8 @@ namespace GSM_Client
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.labelCompanyName, 1, 3);
-            this.tableLayoutPanel.Controls.Add(this.textBoxDescription, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.btnOK, 1, 5);
+            this.tableLayoutPanel.Controls.Add(this.lblBoxDescription, 1, 4);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
@@ -130,24 +130,6 @@ namespace GSM_Client
             this.labelCompanyName.Text = "Department of Science and Technology - CAR";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBoxDescription
-            // 
-            this.textBoxDescription.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.textBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxDescription.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxDescription.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxDescription.Location = new System.Drawing.Point(179, 95);
-            this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.textBoxDescription.Multiline = true;
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.ReadOnly = true;
-            this.textBoxDescription.Size = new System.Drawing.Size(344, 82);
-            this.textBoxDescription.TabIndex = 23;
-            this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "\r\nSMS text blasting with the use of Arduino GSM Module and other microcontroller." +
-    "\r\n\r\nDeveloped by DOST-CAR MIS.\r\n";
-            // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -161,6 +143,20 @@ namespace GSM_Client
             this.btnOK.TabIndex = 24;
             this.btnOK.Text = "&OK";
             this.btnOK.UseVisualStyleBackColor = false;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // lblBoxDescription
+            // 
+            this.lblBoxDescription.AutoSize = true;
+            this.lblBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblBoxDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBoxDescription.Location = new System.Drawing.Point(178, 97);
+            this.lblBoxDescription.Margin = new System.Windows.Forms.Padding(5);
+            this.lblBoxDescription.Name = "lblBoxDescription";
+            this.lblBoxDescription.Size = new System.Drawing.Size(343, 78);
+            this.lblBoxDescription.TabIndex = 25;
+            this.lblBoxDescription.Text = "SMS text blasting with the use of Arduino GSM Module and other microcontroller.\r\n" +
+    "\r\nDeveloped by DOST-CAR MIS.";
             // 
             // AboutBoxForm
             // 
@@ -196,7 +192,7 @@ namespace GSM_Client
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.Label labelCompanyName;
-        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label lblBoxDescription;
     }
 }

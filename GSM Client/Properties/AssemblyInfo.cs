@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GSM Client")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("GSM client interface for the Arduino GSM module and other microcontrollers. Used for SMS text blasting.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Department of Science and Technology - CAR")]
 [assembly: AssemblyProduct("GSM Client")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]

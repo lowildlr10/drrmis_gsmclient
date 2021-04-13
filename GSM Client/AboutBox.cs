@@ -19,7 +19,7 @@ namespace GSM_Client
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
-            this.textBoxDescription.Text = AssemblyDescription;
+            this.lblBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
@@ -101,5 +101,10 @@ namespace GSM_Client
             }
         }
         #endregion
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
