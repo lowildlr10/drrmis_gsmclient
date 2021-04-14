@@ -70,7 +70,7 @@ namespace GSM_Client
 
             frmMain.comPort.PortName = serialPort.ToString();
             frmMain.comPort.BaudRate = int.Parse(baudRate);
-            frmMain.refreshDisplays();
+            frmMain.RefreshDisplays();
 
             this.Close();
         }

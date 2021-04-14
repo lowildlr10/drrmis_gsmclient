@@ -32,18 +32,18 @@ namespace GSM_Client
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SerialMonitorForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtSerialWrite = new System.Windows.Forms.TextBox();
             this.btnWriteSerial = new System.Windows.Forms.Button();
             this.txtFeedback = new System.Windows.Forms.TextBox();
             this.timerMonitorFeedback = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -56,81 +56,6 @@ namespace GSM_Client
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(584, 399);
             this.panel1.TabIndex = 0;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtFeedback, 0, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.24931F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.98061F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 399);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.3345F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.6655F));
-            this.tableLayoutPanel2.Controls.Add(this.txtSerialWrite, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnWriteSerial, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 13);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(578, 30);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // txtSerialWrite
-            // 
-            this.txtSerialWrite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSerialWrite.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSerialWrite.Location = new System.Drawing.Point(3, 3);
-            this.txtSerialWrite.Name = "txtSerialWrite";
-            this.txtSerialWrite.Size = new System.Drawing.Size(452, 27);
-            this.txtSerialWrite.TabIndex = 0;
-            this.txtSerialWrite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerialWrite_KeyPress);
-            // 
-            // btnWriteSerial
-            // 
-            this.btnWriteSerial.BackColor = System.Drawing.Color.White;
-            this.btnWriteSerial.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnWriteSerial.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.btnWriteSerial.FlatAppearance.BorderSize = 0;
-            this.btnWriteSerial.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWriteSerial.Location = new System.Drawing.Point(461, 3);
-            this.btnWriteSerial.Name = "btnWriteSerial";
-            this.btnWriteSerial.Size = new System.Drawing.Size(114, 27);
-            this.btnWriteSerial.TabIndex = 1;
-            this.btnWriteSerial.Text = "Write";
-            this.btnWriteSerial.UseVisualStyleBackColor = false;
-            this.btnWriteSerial.Click += new System.EventHandler(this.btnWriteSerial_Click);
-            // 
-            // txtFeedback
-            // 
-            this.txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFeedback.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtFeedback.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFeedback.Location = new System.Drawing.Point(5, 51);
-            this.txtFeedback.Margin = new System.Windows.Forms.Padding(5);
-            this.txtFeedback.Multiline = true;
-            this.txtFeedback.Name = "txtFeedback";
-            this.txtFeedback.ReadOnly = true;
-            this.txtFeedback.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtFeedback.Size = new System.Drawing.Size(574, 313);
-            this.txtFeedback.TabIndex = 1;
-            // 
-            // timerMonitorFeedback
-            // 
-            this.timerMonitorFeedback.Interval = 500;
             // 
             // toolStrip1
             // 
@@ -159,6 +84,81 @@ namespace GSM_Client
             this.btnClearFeedback.Text = "Clear";
             this.btnClearFeedback.Click += new System.EventHandler(this.btnClearFeedback_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txtFeedback, 0, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10.24931F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.98061F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(584, 399);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.3345F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.6655F));
+            this.tableLayoutPanel2.Controls.Add(this.txtSerialWrite, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnWriteSerial, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 14);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(578, 34);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // txtSerialWrite
+            // 
+            this.txtSerialWrite.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSerialWrite.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerialWrite.Location = new System.Drawing.Point(3, 3);
+            this.txtSerialWrite.Name = "txtSerialWrite";
+            this.txtSerialWrite.Size = new System.Drawing.Size(452, 27);
+            this.txtSerialWrite.TabIndex = 0;
+            this.txtSerialWrite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerialWrite_KeyPress);
+            // 
+            // btnWriteSerial
+            // 
+            this.btnWriteSerial.BackColor = System.Drawing.Color.White;
+            this.btnWriteSerial.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnWriteSerial.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnWriteSerial.FlatAppearance.BorderSize = 0;
+            this.btnWriteSerial.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWriteSerial.Location = new System.Drawing.Point(461, 3);
+            this.btnWriteSerial.Name = "btnWriteSerial";
+            this.btnWriteSerial.Size = new System.Drawing.Size(114, 28);
+            this.btnWriteSerial.TabIndex = 1;
+            this.btnWriteSerial.Text = "Write";
+            this.btnWriteSerial.UseVisualStyleBackColor = false;
+            this.btnWriteSerial.Click += new System.EventHandler(this.btnWriteSerial_Click);
+            // 
+            // txtFeedback
+            // 
+            this.txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFeedback.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtFeedback.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFeedback.Location = new System.Drawing.Point(5, 56);
+            this.txtFeedback.Margin = new System.Windows.Forms.Padding(5);
+            this.txtFeedback.Multiline = true;
+            this.txtFeedback.Name = "txtFeedback";
+            this.txtFeedback.ReadOnly = true;
+            this.txtFeedback.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtFeedback.Size = new System.Drawing.Size(574, 313);
+            this.txtFeedback.TabIndex = 1;
+            // 
+            // timerMonitorFeedback
+            // 
+            this.timerMonitorFeedback.Interval = 500;
+            // 
             // SerialMonitorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,12 +176,12 @@ namespace GSM_Client
             this.Text = "Serial Monitor";
             this.Load += new System.EventHandler(this.SerialMonitorForm_Load);
             this.panel1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -37,6 +37,7 @@ namespace GSM_Client
         private void btnImportCSV_Click(object sender, EventArgs e) {
             openFileDialog.FilterIndex = 1;
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            openFileDialog.FileName = "";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 string delimiter = ",";
@@ -56,7 +57,8 @@ namespace GSM_Client
                     }
                 }
                 
-                MessageBox.Show(filename + " was successfully imported.", "Success!", MessageBoxButtons.OK);
+                MessageBox.Show(filename + " was successfully imported.", "Success!", 
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -81,7 +83,7 @@ namespace GSM_Client
             }
 
             frmMain.selRecipients.SelectedIndex = 0;
-            frmMain.refreshDisplays();
+            frmMain.RefreshDisplays();
 
             this.Close();
         }

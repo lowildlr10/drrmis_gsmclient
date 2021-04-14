@@ -18,6 +18,11 @@ namespace GSM_Client
         SerialMonitorForm frmSerialMonitor;
         AboutBoxForm frmAboutBox;
 
+        private delegate void _ConnectSerialPort();
+        private delegate void _DisconnectSerialPort();
+        private delegate void _SendMessage(string[] recipients, string message);
+        private bool isLoading = true;
+
         public string PortName {
             get { return comPort.PortName; }
             set { comPort.PortName = value; }
@@ -33,30 +38,27 @@ namespace GSM_Client
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
-            refreshDisplays();
+            RefreshDisplays();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-            timerMonitorPort.Enabled = false;
-            disconnectCOM();
+            DisconnectSerialPort();
         }
 
         private void btnConnectSerial_Click(object sender, EventArgs e) {
-            connectCOM();
+            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
         }
 
         private void toolStripMenuConnect_Click(object sender, EventArgs e) {
-            connectCOM();
+            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
         }
 
         private void btnDisconnectSerial_Click(object sender, EventArgs e) {
-            timerMonitorPort.Enabled = false;
-            disconnectCOM();
+            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
         }
 
         private void toolStripMenuDisconnect_Click(object sender, EventArgs e) {
-            timerMonitorPort.Enabled = false;
-            disconnectCOM();
+            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
         }
 
         private void btnSettings_Click(object sender, EventArgs e) {
@@ -71,113 +73,127 @@ namespace GSM_Client
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            exitApplication();
+            ExitApplication();
         }
 
-        public void connectCOM() {
+        public void ConnectSerialPort() {
+            isLoading = true;
+            
             if (!comPort.IsOpen) {
                 try {
-                    comPort.Open();
+                    while (!comPort.IsOpen) {
+                        lblStatus.ForeColor = System.Drawing.Color.Black;
+                        lblStatus.Text = "Connecting...";
+                        toolStripStatusLabel.Text = "Connecting...";
+                        toolStripIconLoading.Visible = true;
+                        toolStripIconConnected.Visible = false;
+                        toolStripIconDisconnected.Visible = false;
 
-                    timerMonitorPort.Enabled = true;
-
-                    toolStripMenuConnect.Visible = false;
-                    toolStripMenuDisconnect.Visible = true;
-                    settingsToolStripMenuItem.Enabled = false;
-                    btnConnectSerial.Visible = false;
-                    btnDisconnectSerial.Visible = true;
-                    btnSerialMonitor.Visible = true;
-                    btnSettings.Enabled = false;
-                    btnRecipients.Enabled = true;
-                    serialMonitorToolStripMenuItem.Enabled = true;
+                        comPort.Open();
+                    }
 
                     MessageBox.Show(comPort.PortName +
                                     " is now connected with a baud rate of '" +
-                                    comPort.BaudRate + "'.");
-
-                    lblStatus.Text = "Connected";
-                    lblStatus.ForeColor = System.Drawing.Color.Green;
-                    toolStripStatusLabel.Text = "Connected";
-                    toolStripIconConnected.Visible = true;
-                    toolStripIconDisconnected.Visible = false;
+                                    comPort.BaudRate + "'.", "Success!",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } catch (Exception) {
-                    MessageBox.Show("Invalid parameters.");
+                    MessageBox.Show("Invalid parameters.", "Warning!",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             } else {
-                disconnectCOM();
+                DisconnectSerialPort();
             }
+
+            timerMonitorPort.Enabled = true;
+            isLoading = false;
         }
 
-        private void disconnectCOM() {
-            if (!string.IsNullOrEmpty(comPort.PortName) &&
-                !string.IsNullOrWhiteSpace(comPort.PortName) &&
-                comPort.PortName != "N/A" &&
-                comPort.IsOpen)
-            {
-                MessageBox.Show(comPort.PortName + " is now disconnected.");
-            }
+        private void DisconnectSerialPort() {
+            isLoading = true;
 
             if (comPort.IsOpen) {
                 try {
-                    comPort.Close();
+                    while (comPort.IsOpen) {
+                        lblStatus.ForeColor = System.Drawing.Color.Black;
+                        lblStatus.Text = "Disconnecting...";
+                        toolStripStatusLabel.Text = "Disconnecting...";
+                        toolStripIconLoading.Visible = true;
+                        toolStripIconConnected.Visible = false;
+                        toolStripIconDisconnected.Visible = false;
+
+                        comPort.Close();
+                    }
+
+                    MessageBox.Show(comPort.PortName + " is now disconnected.", "Success!",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 } catch (Exception) {
+                    MessageBox.Show("Unknown error has occured. Try again.", "Failed!",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
-            toolStripMenuConnect.Visible = true;
-            toolStripMenuDisconnect.Visible = false;
-            settingsToolStripMenuItem.Enabled = true;
-            btnConnectSerial.Visible = true;
-            btnDisconnectSerial.Visible = false;
-            btnSerialMonitor.Visible = false;
-            btnSettings.Enabled = true;
-            btnSend.Enabled = false;
-            btnRecipients.Enabled = false;
-            serialMonitorToolStripMenuItem.Enabled = false;
-
-            lblStatus.Text = "Disconnected";
-            lblStatus.ForeColor = System.Drawing.Color.Red;
-            toolStripStatusLabel.Text = "Disconnected";
-            toolStripIconConnected.Visible = false;
-            toolStripIconDisconnected.Visible = true;
+            timerMonitorPort.Enabled = false;
+            isLoading = false;
         }
 
-        private void exitApplication() {
+        private void ExitApplication() {
             if (System.Windows.Forms.Application.MessageLoop) {
-                // WinForms app
                 System.Windows.Forms.Application.Exit();
             } else {
-                // Console app
                 System.Environment.Exit(1);
             }
         }
 
-        public void refreshDisplays() {
-            string serialStatus = comPort.IsOpen ? "Connected" : "Disconnected";
+        public void RefreshDisplays() {
+            bool isPortConnected = comPort.IsOpen ? true : false;
+            string serialStatus = isPortConnected ? "Connected" : "Disconnected";
+            var serialStatusColor = isPortConnected ? System.Drawing.Color.Green : 
+                                    System.Drawing.Color.Red;
             string portName = !string.IsNullOrEmpty(comPort.PortName.Trim()) ? 
                                comPort.PortName : "N/A";
             int baudRate = comPort.BaudRate;
             int recipientCount = selRecipients.Items.Count;
             int messageCount = txtMessage.Text.Trim().Length;
 
-            lblStatus.Text = serialStatus;
-            lblPortName.Text = portName;
-            lblBaudRate.Text = baudRate.ToString();
+            if (!isLoading) {
+                toolStripMenuConnect.Visible = isPortConnected ? false : true;
+                toolStripMenuDisconnect.Visible = isPortConnected ? true : false;
+                settingsToolStripMenuItem.Enabled = isPortConnected ? false : true;
+                serialMonitorToolStripMenuItem.Enabled = isPortConnected ? true : false;
 
-            if (recipientCount > 1 && messageCount > 0) {
-                btnSend.Enabled = true;
-            } else {
-                btnSend.Enabled = false;
+                btnConnectSerial.Visible = isPortConnected ? false : true;
+                btnDisconnectSerial.Visible = isPortConnected ? true : false;
+                btnRecipients.Enabled = isPortConnected ? true : false;
+                btnSerialMonitor.Visible = isPortConnected ? true : false;
+                btnSettings.Enabled = isPortConnected ? false : true;
+
+                lblStatus.ForeColor = isPortConnected ? System.Drawing.Color.Green : 
+                                      System.Drawing.Color.Red;
+                lblStatus.Text = isPortConnected ? "Connected" : "Disconnected";
+
+                toolStripStatusLabel.Text = isPortConnected ? "Connected" : "Disconnected";
+                toolStripIconLoading.Visible = false;
+                toolStripIconConnected.Visible = isPortConnected ? true : false;
+                toolStripIconDisconnected.Visible = isPortConnected ? false : true;
+
+                lblPortName.Text = portName;
+                lblBaudRate.Text = baudRate.ToString();
+
+                if (recipientCount > 1 && messageCount > 0) {
+                    btnSend.Enabled = true;
+                } else {
+                    btnSend.Enabled = false;
+                }
+
+                if (btnRecipients.Enabled == true) {
+                    lblRecipientsCount.Cursor = Cursors.Hand;
+                } else {
+                    lblRecipientsCount.Cursor = Cursors.Default;
+                }
+
+                lblRecipientsCount.Text = "Recipients Count: " + recipientCount.ToString();
+                lblMsgCount.Text = "Message Characters: " + messageCount.ToString();
             }
-
-            if (btnRecipients.Enabled == true) {
-                lblRecipientsCount.Cursor = Cursors.Hand;
-            } else {
-                lblRecipientsCount.Cursor = Cursors.Default;
-            }
-
-            lblRecipientsCount.Text = "Recipients Count: " + recipientCount.ToString();
-            lblMsgCount.Text = "Message Characters: " + messageCount.ToString();
         }
 
         private void btnSerialMonitor_Click(object sender, EventArgs e) {
@@ -195,9 +211,10 @@ namespace GSM_Client
         private void timerMonitorPort_Tick(object sender, EventArgs e) {
             if (!comPort.IsOpen) {
                 timerMonitorPort.Enabled = false;
-                disconnectCOM();
+                DisconnectSerialPort();
             }
-            refreshDisplays();
+
+            RefreshDisplays();
         }
 
         private void btnRecipients_Click(object sender, EventArgs e) {
@@ -212,10 +229,12 @@ namespace GSM_Client
             frmSelectSerial.ShowDialog();
         }
 
-        private void sendMessage(string phoneNo, string message) {
+        private void SendMessage(string[] recipients, string message) {
             if (comPort.IsOpen) {
+                foreach (string phoneNo in recipients) {
+                    
+                }
                 comPort.WriteLine(message);
-                //MessageBox.Show(comPort.ReadLine());
             }
         }
 
@@ -227,12 +246,15 @@ namespace GSM_Client
 
             if (recipientCount > 1) {
                 if (selectedIndex == 0) {
-                    foreach (string phoneNo in recipients) {
-                        sendMessage(phoneNo.Trim(), message);
-                    }
+                    this.BeginInvoke(new _SendMessage(SendMessage), 
+                                     new object[] { recipients, message });
+                    
                 } else {
                     var phoneNo = selRecipients.SelectedItem;
-                    sendMessage(phoneNo.ToString().Trim(), message);
+                    string[] phoneNos = { phoneNo.ToString().Trim() };
+
+                    this.BeginInvoke(new _SendMessage(SendMessage),
+                                     new object[] { phoneNos, message });
                 }
             }
         }
