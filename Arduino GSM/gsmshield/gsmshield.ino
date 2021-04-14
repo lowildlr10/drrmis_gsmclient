@@ -14,6 +14,7 @@
 
 //INCLUDED LIBRARIES
 #include <GPRS_Shield_Arduino.h>
+#include <sim900.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
 #include <string.h>
@@ -22,10 +23,6 @@
 #define PIN_TX    2
 #define PIN_RX    3
 #define BAUDRATE  9600
-#define MESSAGE_LENGTH 1000
-
-char phone[13];
-char message[MESSAGE_LENGTH];
 
 GPRS GSM_MODULE(PIN_TX,PIN_RX,BAUDRATE);//RX,TX,BAUDRATE
 SoftwareSerial GSM_DEBUG(PIN_TX,PIN_RX);//TX,RX
@@ -34,39 +31,49 @@ void setup() {
   Serial.begin(BAUDRATE);
   while(!GSM_MODULE.init()) {
       delay(1000);
-      Serial.print("INIT ERROR\r\n");
-  }  
-  Serial.println("GSM INIT SUCCESS");
+      Serial.println("gsm_init_error");
+  }
+  sim900_init(&GSM_DEBUG, BAUDRATE);
+  Serial.println("gsm_init_success");
   delay(1000);
 }
 
-void sendMessage(String params) {
-  phone = getValue(params, ':', 0);
-  message = getValue(params, ':', 1);
-  Serial.println("Sending ...");
-  delay(1000);
-  GSM_MODULE.sendSMS(phone, message);
+bool sendMessage(String params) {
+  String _phone = getValue(params, ':', 0);
+  String _message = getValue(params, ':', 1);
+  const char* phone = _phone.c_str();
+  const char* message = _message.c_str();
+  //Serial.println("Sending ...");
+  delay(100);
+  return GSM_MODULE.sendSMS(const_cast<char*>(phone), const_cast<char*>(message));
 }
 
-void sendCommandDebug(String param) {
-  if(GSM_DEBUG.available()){
-    Serial.write(GSM_DEBUG.read());
+int getSignalStr() {
+  int signalVal = 2;
+  bool isSignal = false;
+  while (!isSignal) {
+    isSignal = GSM_MODULE.getSignalStrength(&signalVal);
+    signalVal++;
   }
-  if(Serial.available()){     
-    GSM_DEBUG.write(Serial.read()); 
-  }
+  return signalVal;
 }
 
 void loop() {
-  if (Serial.available() > 0) {
+  if(Serial.available()){
     while (Serial.available()) {
       String cmd = Serial.readString();
       String cond = getValue(cmd, '|', 0);
       String params = getValue(cmd, '|', 1);      
       if (cond == "send_msg") {
-        sendMessage(params);
-      } else if (cond == "debug") {
-        sendCommandDebug(params);
+        bool res = sendMessage(params);
+        Serial.println("message_stat:" + String(res) + ":" + getValue(params, ':', 0));
+      } else if (cond == "get_signal_str") {
+        int signalStr = getSignalStr();
+        Serial.println("signal_str:" + String(signalStr));
+      } else if (cond == "get_gsm_stat") {
+        bool isConnectedGSM = GSM_MODULE.init();
+        String gsmStatus = isConnectedGSM ? "gsm_init_success" : "gsm_init_error";
+        Serial.println(gsmStatus);
       }
       Serial.read();
     }

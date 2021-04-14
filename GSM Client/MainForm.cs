@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Threading;
 
 namespace GSM_Client
 {
@@ -21,7 +22,14 @@ namespace GSM_Client
         private delegate void _ConnectSerialPort();
         private delegate void _DisconnectSerialPort();
         private delegate void _SendMessage(string[] recipients, string message);
+        private delegate void _InitGSM(string data);
+        private delegate void _GetSignalStrength(string data);
         private bool isLoading = true;
+        private bool isInitGSM = false;
+        private bool isSignalAwait = true;
+        private bool isSending = false;
+        private bool isSendingProcess = false;
+        private List<string> sendMessageLogs;
 
         public string PortName {
             get { return comPort.PortName; }
@@ -90,6 +98,7 @@ namespace GSM_Client
                         toolStripIconDisconnected.Visible = false;
 
                         comPort.Open();
+                        comPort.WriteLine("get_gsm_stat|");
                     }
 
                     MessageBox.Show(comPort.PortName +
@@ -110,6 +119,7 @@ namespace GSM_Client
 
         private void DisconnectSerialPort() {
             isLoading = true;
+            isInitGSM = false;
 
             if (comPort.IsOpen) {
                 try {
@@ -149,6 +159,9 @@ namespace GSM_Client
             string serialStatus = isPortConnected ? "Connected" : "Disconnected";
             var serialStatusColor = isPortConnected ? System.Drawing.Color.Green : 
                                     System.Drawing.Color.Red;
+            string gsmStatus = isInitGSM ? "Connected" : "Disconnected";
+            var gsmStatusColor = isInitGSM ? System.Drawing.Color.Green :
+                                 System.Drawing.Color.Red;
             string portName = !string.IsNullOrEmpty(comPort.PortName.Trim()) ? 
                                comPort.PortName : "N/A";
             int baudRate = comPort.BaudRate;
@@ -178,6 +191,8 @@ namespace GSM_Client
 
                 lblPortName.Text = portName;
                 lblBaudRate.Text = baudRate.ToString();
+                lblStatusGSM.ForeColor = gsmStatusColor;
+                lblStatusGSM.Text = gsmStatus;
 
                 if (recipientCount > 1 && messageCount > 0) {
                     btnSend.Enabled = true;
@@ -193,6 +208,21 @@ namespace GSM_Client
 
                 lblRecipientsCount.Text = "Recipients Count: " + recipientCount.ToString();
                 lblMsgCount.Text = "Message Characters: " + messageCount.ToString();
+                timerRefreshSignal.Enabled = isInitGSM ? true : false;
+                lblSignalStrength.Text = !isInitGSM ? "0%" : lblSignalStrength.Text;
+                
+                if (isSendingProcess) {
+                    toolStripStatusLabel.Text = "Sending...";
+                    toolStripIconLoading.Visible = true;
+                    toolStripIconConnected.Visible = false;
+                    toolStripIconDisconnected.Visible = false;
+
+                    btnSend.Enabled = false;
+                    txtMessage.Text = string.Empty;
+                    txtMessage.Enabled = false;
+                } else {
+                    txtMessage.Enabled = true;
+                }
             }
         }
 
@@ -231,18 +261,32 @@ namespace GSM_Client
 
         private void SendMessage(string[] recipients, string message) {
             if (comPort.IsOpen) {
+                isLoading = true;
+                isSendingProcess = true;
+
                 foreach (string phoneNo in recipients) {
+                    string cmd = "send_msg|" + phoneNo.ToString().Trim() + ":" + message;
+                    isSending = true;
+                    comPort.WriteLine(cmd);
+
                     
                 }
-                comPort.WriteLine(message);
+
+                //sendMessageLogs.Clear();
+                isSendingProcess = false;
+                isLoading = false;
             }
         }
 
         private void btnSend_Click(object sender, EventArgs e) {
-            var recipients = selRecipients.Items;
+            string[] recipients = new string[selRecipients.Items.Count];
             int recipientCount = selRecipients.Items.Count;
             String message = txtMessage.Text;
             int selectedIndex = int.Parse(selRecipients.SelectedIndex.ToString());
+
+            for (int key = 0; key < selRecipients.Items.Count; key++)  {
+                recipients[key] = selRecipients.Items[key].ToString();
+            }
 
             if (recipientCount > 1) {
                 if (selectedIndex == 0) {
@@ -269,6 +313,60 @@ namespace GSM_Client
                 frmRecipient = new RecipientForm();
                 frmRecipient.MainForm = this;
                 frmRecipient.ShowDialog();
+            }
+        }
+
+        private void comPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
+            try {
+                Thread.Sleep(300);
+                string dataReceived = comPort.ReadLine();
+
+                if (dataReceived.Trim().Contains("signal_str:")) {
+                    this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
+                } else if (dataReceived.Trim().Contains("message_stat:")) {
+                    //sendMessageLogs.Add(dataReceived.ToString().Trim());
+                    isSending = false;
+                } else if (dataReceived.Trim().Contains("gsm_init_success")) {
+                    if (!isInitGSM) {
+                        this.BeginInvoke(new _InitGSM(InitGSM), new object[] { dataReceived });
+                    }
+                }
+            } catch {
+            }
+        }
+
+        private void InitGSM(string data) {
+            if (data.Trim() == "gsm_init_success") {
+                isInitGSM = true;
+            }
+        }
+
+        private void GetSignalStrength(string data) {
+            string[] signalArray = data.Split(':');
+            double signalValue = double.Parse(signalArray[1]);
+            double signalPercentage = Math.Round((signalValue / 30) * 100, 2);
+            string signalCondition = "";
+
+            if (signalValue > 0 && signalValue <= 9) {
+                signalCondition = "Marginal";
+            } else if (signalValue >= 10 && signalValue <= 14) {
+                signalCondition = "OK";
+            } else if (signalValue >= 15 && signalValue <= 19) {
+                signalCondition = "Good";
+            } else if (signalValue >= 20 && signalValue <= 30) {
+                signalCondition = "Excellent";
+            } else {
+                signalCondition = "Error";
+            }
+            
+            lblSignalStrength.Text = signalPercentage.ToString() + "% (" + signalCondition + ")";
+            isSignalAwait = true;
+        }
+
+        private void timerRefreshSignal_Tick(object sender, EventArgs e) {
+            if (isInitGSM && isSignalAwait) {
+                comPort.WriteLine("get_signal_str|");
+                isSignalAwait = false;
             }
         }
     }

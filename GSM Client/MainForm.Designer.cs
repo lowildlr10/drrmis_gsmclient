@@ -33,6 +33,9 @@ namespace GSM_Client
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.comPort = new System.IO.Ports.SerialPort(this.components);
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripIconLoading = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripIconConnected = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripIconDisconnected = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +49,12 @@ namespace GSM_Client
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.btnSettings = new System.Windows.Forms.ToolStripButton();
+            this.btnSerialMonitor = new System.Windows.Forms.ToolStripButton();
+            this.btnDisconnectSerial = new System.Windows.Forms.ToolStripButton();
+            this.btnConnectSerial = new System.Windows.Forms.ToolStripButton();
+            this.btnSend = new System.Windows.Forms.ToolStripButton();
+            this.btnRecipients = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpSerialPortDetails = new System.Windows.Forms.GroupBox();
@@ -57,9 +66,9 @@ namespace GSM_Client
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblSignal = new System.Windows.Forms.Label();
+            this.lblStatusGSM = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblProvider = new System.Windows.Forms.Label();
+            this.lblSignalStrength = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -69,15 +78,9 @@ namespace GSM_Client
             this.lblMsgCount = new System.Windows.Forms.Label();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.timerMonitorPort = new System.Windows.Forms.Timer(this.components);
-            this.btnSettings = new System.Windows.Forms.ToolStripButton();
-            this.btnSerialMonitor = new System.Windows.Forms.ToolStripButton();
-            this.btnDisconnectSerial = new System.Windows.Forms.ToolStripButton();
-            this.btnConnectSerial = new System.Windows.Forms.ToolStripButton();
-            this.btnSend = new System.Windows.Forms.ToolStripButton();
-            this.btnRecipients = new System.Windows.Forms.ToolStripButton();
-            this.toolStripIconLoading = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripIconConnected = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripIconDisconnected = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblProvider = new System.Windows.Forms.Label();
+            this.timerRefreshSignal = new System.Windows.Forms.Timer(this.components);
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -93,6 +96,7 @@ namespace GSM_Client
             // comPort
             // 
             this.comPort.PortName = " ";
+            this.comPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.comPort_DataReceived);
             // 
             // mainStatusStrip
             // 
@@ -110,6 +114,47 @@ namespace GSM_Client
             this.mainStatusStrip.SizingGrip = false;
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "mainStatusStrip";
+            // 
+            // toolStripIconLoading
+            // 
+            this.toolStripIconLoading.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripIconLoading.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripIconLoading.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripIconLoading.Image = global::GSM_Client.Properties.Resources.loader;
+            this.toolStripIconLoading.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.toolStripIconLoading.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.toolStripIconLoading.Name = "toolStripIconLoading";
+            this.toolStripIconLoading.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripIconLoading.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconLoading.Text = "toolStripStatusConnected";
+            this.toolStripIconLoading.Visible = false;
+            // 
+            // toolStripIconConnected
+            // 
+            this.toolStripIconConnected.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripIconConnected.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripIconConnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripIconConnected.Image = global::GSM_Client.Properties.Resources.check_circle_green;
+            this.toolStripIconConnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.toolStripIconConnected.Name = "toolStripIconConnected";
+            this.toolStripIconConnected.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripIconConnected.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconConnected.Text = "toolStripStatusConnected";
+            this.toolStripIconConnected.Visible = false;
+            // 
+            // toolStripIconDisconnected
+            // 
+            this.toolStripIconDisconnected.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripIconDisconnected.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripIconDisconnected.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.toolStripIconDisconnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripIconDisconnected.Image = global::GSM_Client.Properties.Resources.times_circle_red;
+            this.toolStripIconDisconnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.toolStripIconDisconnected.Name = "toolStripIconDisconnected";
+            this.toolStripIconDisconnected.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripIconDisconnected.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconDisconnected.Text = "toolStripStatusDisconnected";
+            this.toolStripIconDisconnected.Visible = false;
             // 
             // toolStripStatusLabel
             // 
@@ -233,6 +278,123 @@ namespace GSM_Client
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "mainToolStrip";
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSettings.AutoSize = false;
+            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.ForeColor = System.Drawing.Color.White;
+            this.btnSettings.Image = global::GSM_Client.Properties.Resources.cog_white;
+            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSettings.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnSettings.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnSettings.Size = new System.Drawing.Size(70, 59);
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSettings.ToolTipText = "Settings";
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnSerialMonitor
+            // 
+            this.btnSerialMonitor.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSerialMonitor.AutoSize = false;
+            this.btnSerialMonitor.BackColor = System.Drawing.Color.Transparent;
+            this.btnSerialMonitor.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSerialMonitor.ForeColor = System.Drawing.Color.White;
+            this.btnSerialMonitor.Image = global::GSM_Client.Properties.Resources.tv_white;
+            this.btnSerialMonitor.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSerialMonitor.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSerialMonitor.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnSerialMonitor.Name = "btnSerialMonitor";
+            this.btnSerialMonitor.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnSerialMonitor.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnSerialMonitor.Size = new System.Drawing.Size(70, 59);
+            this.btnSerialMonitor.Text = "Monitor";
+            this.btnSerialMonitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSerialMonitor.Visible = false;
+            this.btnSerialMonitor.Click += new System.EventHandler(this.btnSerialMonitor_Click);
+            // 
+            // btnDisconnectSerial
+            // 
+            this.btnDisconnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnDisconnectSerial.AutoSize = false;
+            this.btnDisconnectSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnDisconnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisconnectSerial.ForeColor = System.Drawing.Color.White;
+            this.btnDisconnectSerial.Image = global::GSM_Client.Properties.Resources.unlink_white;
+            this.btnDisconnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDisconnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnDisconnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnDisconnectSerial.Name = "btnDisconnectSerial";
+            this.btnDisconnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnDisconnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnDisconnectSerial.Size = new System.Drawing.Size(70, 59);
+            this.btnDisconnectSerial.Text = "Disconnect";
+            this.btnDisconnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDisconnectSerial.Visible = false;
+            this.btnDisconnectSerial.Click += new System.EventHandler(this.btnDisconnectSerial_Click);
+            // 
+            // btnConnectSerial
+            // 
+            this.btnConnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnConnectSerial.AutoSize = false;
+            this.btnConnectSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnConnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConnectSerial.ForeColor = System.Drawing.Color.White;
+            this.btnConnectSerial.Image = global::GSM_Client.Properties.Resources.plug_white;
+            this.btnConnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnConnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnConnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnConnectSerial.Name = "btnConnectSerial";
+            this.btnConnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnConnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnConnectSerial.Size = new System.Drawing.Size(70, 59);
+            this.btnConnectSerial.Text = "Connect";
+            this.btnConnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnConnectSerial.Click += new System.EventHandler(this.btnConnectSerial_Click);
+            // 
+            // btnSend
+            // 
+            this.btnSend.AutoSize = false;
+            this.btnSend.BackColor = System.Drawing.Color.Transparent;
+            this.btnSend.Enabled = false;
+            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSend.ForeColor = System.Drawing.Color.White;
+            this.btnSend.Image = global::GSM_Client.Properties.Resources.paper_plane_white;
+            this.btnSend.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSend.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSend.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnSend.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnSend.Size = new System.Drawing.Size(70, 59);
+            this.btnSend.Text = "Send";
+            this.btnSend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // btnRecipients
+            // 
+            this.btnRecipients.AutoSize = false;
+            this.btnRecipients.BackColor = System.Drawing.Color.Transparent;
+            this.btnRecipients.Enabled = false;
+            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecipients.ForeColor = System.Drawing.Color.White;
+            this.btnRecipients.Image = global::GSM_Client.Properties.Resources.address_book_white;
+            this.btnRecipients.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRecipients.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRecipients.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnRecipients.Name = "btnRecipients";
+            this.btnRecipients.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnRecipients.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnRecipients.Size = new System.Drawing.Size(70, 59);
+            this.btnRecipients.Text = "Recipients";
+            this.btnRecipients.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
+            // 
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.tableLayoutPanel1);
@@ -276,8 +438,10 @@ namespace GSM_Client
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.47287F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.52713F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.96386F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.03614F));
+            this.tableLayoutPanel4.Controls.Add(this.label2, 0, 6);
+            this.tableLayoutPanel4.Controls.Add(this.lblProvider, 0, 6);
             this.tableLayoutPanel4.Controls.Add(this.label7, 0, 5);
             this.tableLayoutPanel4.Controls.Add(this.lblBaudRate, 1, 3);
             this.tableLayoutPanel4.Controls.Add(this.lblPortName, 1, 2);
@@ -285,20 +449,21 @@ namespace GSM_Client
             this.tableLayoutPanel4.Controls.Add(this.label5, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.lblSignal, 1, 4);
+            this.tableLayoutPanel4.Controls.Add(this.lblStatusGSM, 1, 4);
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 4);
-            this.tableLayoutPanel4.Controls.Add(this.lblProvider, 1, 5);
+            this.tableLayoutPanel4.Controls.Add(this.lblSignalStrength, 1, 5);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 20);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 6;
+            this.tableLayoutPanel4.RowCount = 7;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(249, 306);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(249, 356);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // label7
@@ -307,12 +472,12 @@ namespace GSM_Client
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 253);
+            this.label7.Location = new System.Drawing.Point(3, 250);
             this.label7.Margin = new System.Windows.Forms.Padding(3);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(97, 50);
+            this.label7.Size = new System.Drawing.Size(96, 47);
             this.label7.TabIndex = 14;
-            this.label7.Text = "Provider:";
+            this.label7.Text = "Signal:";
             // 
             // lblBaudRate
             // 
@@ -320,10 +485,10 @@ namespace GSM_Client
             this.lblBaudRate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBaudRate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblBaudRate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBaudRate.Location = new System.Drawing.Point(106, 143);
+            this.lblBaudRate.Location = new System.Drawing.Point(105, 144);
             this.lblBaudRate.Margin = new System.Windows.Forms.Padding(3);
             this.lblBaudRate.Name = "lblBaudRate";
-            this.lblBaudRate.Size = new System.Drawing.Size(140, 49);
+            this.lblBaudRate.Size = new System.Drawing.Size(141, 47);
             this.lblBaudRate.TabIndex = 9;
             this.lblBaudRate.Text = "N/A";
             // 
@@ -333,10 +498,10 @@ namespace GSM_Client
             this.lblPortName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPortName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblPortName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPortName.Location = new System.Drawing.Point(106, 88);
+            this.lblPortName.Location = new System.Drawing.Point(105, 91);
             this.lblPortName.Margin = new System.Windows.Forms.Padding(3);
             this.lblPortName.Name = "lblPortName";
-            this.lblPortName.Size = new System.Drawing.Size(140, 49);
+            this.lblPortName.Size = new System.Drawing.Size(141, 47);
             this.lblPortName.TabIndex = 8;
             this.lblPortName.Text = "N/A";
             // 
@@ -347,10 +512,10 @@ namespace GSM_Client
             this.lblStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(106, 33);
+            this.lblStatus.Location = new System.Drawing.Point(105, 38);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(3);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(140, 49);
+            this.lblStatus.Size = new System.Drawing.Size(141, 47);
             this.lblStatus.TabIndex = 7;
             this.lblStatus.Text = "Disconnected";
             // 
@@ -360,10 +525,10 @@ namespace GSM_Client
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 143);
+            this.label5.Location = new System.Drawing.Point(3, 144);
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 49);
+            this.label5.Size = new System.Drawing.Size(96, 47);
             this.label5.TabIndex = 6;
             this.label5.Text = "Baud Rate:";
             // 
@@ -373,10 +538,10 @@ namespace GSM_Client
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 88);
+            this.label3.Location = new System.Drawing.Point(3, 91);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 49);
+            this.label3.Size = new System.Drawing.Size(96, 47);
             this.label3.TabIndex = 4;
             this.label3.Text = "Port Name:";
             // 
@@ -386,25 +551,26 @@ namespace GSM_Client
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 33);
+            this.label1.Location = new System.Drawing.Point(3, 38);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 49);
+            this.label1.Size = new System.Drawing.Size(96, 47);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Status:";
+            this.label1.Text = "Port Status:";
             // 
-            // lblSignal
+            // lblStatusGSM
             // 
-            this.lblSignal.BackColor = System.Drawing.Color.White;
-            this.lblSignal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSignal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblSignal.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSignal.Location = new System.Drawing.Point(106, 198);
-            this.lblSignal.Margin = new System.Windows.Forms.Padding(3);
-            this.lblSignal.Name = "lblSignal";
-            this.lblSignal.Size = new System.Drawing.Size(140, 49);
-            this.lblSignal.TabIndex = 10;
-            this.lblSignal.Text = "N/A";
+            this.lblStatusGSM.BackColor = System.Drawing.Color.White;
+            this.lblStatusGSM.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblStatusGSM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblStatusGSM.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatusGSM.ForeColor = System.Drawing.Color.Red;
+            this.lblStatusGSM.Location = new System.Drawing.Point(105, 197);
+            this.lblStatusGSM.Margin = new System.Windows.Forms.Padding(3);
+            this.lblStatusGSM.Name = "lblStatusGSM";
+            this.lblStatusGSM.Size = new System.Drawing.Size(141, 47);
+            this.lblStatusGSM.TabIndex = 10;
+            this.lblStatusGSM.Text = "Disconnected";
             // 
             // label4
             // 
@@ -412,25 +578,25 @@ namespace GSM_Client
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 198);
+            this.label4.Location = new System.Drawing.Point(3, 197);
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 49);
+            this.label4.Size = new System.Drawing.Size(96, 47);
             this.label4.TabIndex = 13;
-            this.label4.Text = "Signal:";
+            this.label4.Text = "GSM Status:";
             // 
-            // lblProvider
+            // lblSignalStrength
             // 
-            this.lblProvider.BackColor = System.Drawing.Color.White;
-            this.lblProvider.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblProvider.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProvider.Location = new System.Drawing.Point(106, 253);
-            this.lblProvider.Margin = new System.Windows.Forms.Padding(3);
-            this.lblProvider.Name = "lblProvider";
-            this.lblProvider.Size = new System.Drawing.Size(140, 50);
-            this.lblProvider.TabIndex = 12;
-            this.lblProvider.Text = "N/A";
+            this.lblSignalStrength.BackColor = System.Drawing.Color.White;
+            this.lblSignalStrength.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSignalStrength.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblSignalStrength.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSignalStrength.Location = new System.Drawing.Point(105, 250);
+            this.lblSignalStrength.Margin = new System.Windows.Forms.Padding(3);
+            this.lblSignalStrength.Name = "lblSignalStrength";
+            this.lblSignalStrength.Size = new System.Drawing.Size(141, 47);
+            this.lblSignalStrength.TabIndex = 12;
+            this.lblSignalStrength.Text = "0%";
             // 
             // tableLayoutPanel2
             // 
@@ -550,163 +716,36 @@ namespace GSM_Client
             this.timerMonitorPort.Interval = 300;
             this.timerMonitorPort.Tick += new System.EventHandler(this.timerMonitorPort_Tick);
             // 
-            // btnSettings
+            // label2
             // 
-            this.btnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnSettings.AutoSize = false;
-            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Image = global::GSM_Client.Properties.Resources.cog_white;
-            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSettings.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSettings.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSettings.Size = new System.Drawing.Size(70, 59);
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSettings.ToolTipText = "Settings";
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 303);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 50);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Provider:";
             // 
-            // btnSerialMonitor
+            // lblProvider
             // 
-            this.btnSerialMonitor.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnSerialMonitor.AutoSize = false;
-            this.btnSerialMonitor.BackColor = System.Drawing.Color.Transparent;
-            this.btnSerialMonitor.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerialMonitor.ForeColor = System.Drawing.Color.White;
-            this.btnSerialMonitor.Image = global::GSM_Client.Properties.Resources.tv_white;
-            this.btnSerialMonitor.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSerialMonitor.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSerialMonitor.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnSerialMonitor.Name = "btnSerialMonitor";
-            this.btnSerialMonitor.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSerialMonitor.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSerialMonitor.Size = new System.Drawing.Size(70, 59);
-            this.btnSerialMonitor.Text = "Monitor";
-            this.btnSerialMonitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSerialMonitor.Visible = false;
-            this.btnSerialMonitor.Click += new System.EventHandler(this.btnSerialMonitor_Click);
+            this.lblProvider.BackColor = System.Drawing.Color.White;
+            this.lblProvider.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblProvider.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProvider.Location = new System.Drawing.Point(105, 303);
+            this.lblProvider.Margin = new System.Windows.Forms.Padding(3);
+            this.lblProvider.Name = "lblProvider";
+            this.lblProvider.Size = new System.Drawing.Size(141, 50);
+            this.lblProvider.TabIndex = 15;
+            this.lblProvider.Text = "N/A";
             // 
-            // btnDisconnectSerial
+            // timerRefreshSignal
             // 
-            this.btnDisconnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnDisconnectSerial.AutoSize = false;
-            this.btnDisconnectSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnDisconnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisconnectSerial.ForeColor = System.Drawing.Color.White;
-            this.btnDisconnectSerial.Image = global::GSM_Client.Properties.Resources.unlink_white;
-            this.btnDisconnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDisconnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnDisconnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnDisconnectSerial.Name = "btnDisconnectSerial";
-            this.btnDisconnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnDisconnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnDisconnectSerial.Size = new System.Drawing.Size(70, 59);
-            this.btnDisconnectSerial.Text = "Disconnect";
-            this.btnDisconnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDisconnectSerial.Visible = false;
-            this.btnDisconnectSerial.Click += new System.EventHandler(this.btnDisconnectSerial_Click);
-            // 
-            // btnConnectSerial
-            // 
-            this.btnConnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnConnectSerial.AutoSize = false;
-            this.btnConnectSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnConnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConnectSerial.ForeColor = System.Drawing.Color.White;
-            this.btnConnectSerial.Image = global::GSM_Client.Properties.Resources.plug_white;
-            this.btnConnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnConnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnConnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnConnectSerial.Name = "btnConnectSerial";
-            this.btnConnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnConnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnConnectSerial.Size = new System.Drawing.Size(70, 59);
-            this.btnConnectSerial.Text = "Connect";
-            this.btnConnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnConnectSerial.Click += new System.EventHandler(this.btnConnectSerial_Click);
-            // 
-            // btnSend
-            // 
-            this.btnSend.AutoSize = false;
-            this.btnSend.BackColor = System.Drawing.Color.Transparent;
-            this.btnSend.Enabled = false;
-            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSend.ForeColor = System.Drawing.Color.White;
-            this.btnSend.Image = global::GSM_Client.Properties.Resources.paper_plane_white;
-            this.btnSend.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSend.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSend.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSend.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSend.Size = new System.Drawing.Size(70, 59);
-            this.btnSend.Text = "Send";
-            this.btnSend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // btnRecipients
-            // 
-            this.btnRecipients.AutoSize = false;
-            this.btnRecipients.BackColor = System.Drawing.Color.Transparent;
-            this.btnRecipients.Enabled = false;
-            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecipients.ForeColor = System.Drawing.Color.White;
-            this.btnRecipients.Image = global::GSM_Client.Properties.Resources.address_book_white;
-            this.btnRecipients.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnRecipients.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnRecipients.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnRecipients.Name = "btnRecipients";
-            this.btnRecipients.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnRecipients.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnRecipients.Size = new System.Drawing.Size(70, 59);
-            this.btnRecipients.Text = "Recipients";
-            this.btnRecipients.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
-            // 
-            // toolStripIconLoading
-            // 
-            this.toolStripIconLoading.ActiveLinkColor = System.Drawing.Color.Red;
-            this.toolStripIconLoading.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripIconLoading.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripIconLoading.Image = global::GSM_Client.Properties.Resources.loader;
-            this.toolStripIconLoading.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.toolStripIconLoading.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.toolStripIconLoading.Name = "toolStripIconLoading";
-            this.toolStripIconLoading.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconLoading.Size = new System.Drawing.Size(26, 23);
-            this.toolStripIconLoading.Text = "toolStripStatusConnected";
-            this.toolStripIconLoading.Visible = false;
-            // 
-            // toolStripIconConnected
-            // 
-            this.toolStripIconConnected.ActiveLinkColor = System.Drawing.Color.Red;
-            this.toolStripIconConnected.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripIconConnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripIconConnected.Image = global::GSM_Client.Properties.Resources.check_circle_green;
-            this.toolStripIconConnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.toolStripIconConnected.Name = "toolStripIconConnected";
-            this.toolStripIconConnected.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconConnected.Size = new System.Drawing.Size(26, 23);
-            this.toolStripIconConnected.Text = "toolStripStatusConnected";
-            this.toolStripIconConnected.Visible = false;
-            // 
-            // toolStripIconDisconnected
-            // 
-            this.toolStripIconDisconnected.ActiveLinkColor = System.Drawing.Color.Red;
-            this.toolStripIconDisconnected.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripIconDisconnected.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripIconDisconnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripIconDisconnected.Image = global::GSM_Client.Properties.Resources.times_circle_red;
-            this.toolStripIconDisconnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.toolStripIconDisconnected.Name = "toolStripIconDisconnected";
-            this.toolStripIconDisconnected.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconDisconnected.Size = new System.Drawing.Size(26, 23);
-            this.toolStripIconDisconnected.Text = "toolStripStatusDisconnected";
-            this.toolStripIconDisconnected.Visible = false;
+            this.timerRefreshSignal.Interval = 1000;
+            this.timerRefreshSignal.Tick += new System.EventHandler(this.timerRefreshSignal_Tick);
             // 
             // MainForm
             // 
@@ -791,10 +830,13 @@ namespace GSM_Client
         private System.Windows.Forms.Label lblMsgCount;
         private System.Windows.Forms.Label lblRecipientsCount;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblSignal;
+        private System.Windows.Forms.Label lblStatusGSM;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblProvider;
+        private System.Windows.Forms.Label lblSignalStrength;
         private System.Windows.Forms.ToolStripStatusLabel toolStripIconLoading;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblProvider;
+        private System.Windows.Forms.Timer timerRefreshSignal;
     }
 }
 
