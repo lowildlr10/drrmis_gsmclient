@@ -184,14 +184,14 @@ namespace GSM_Client
             // toolStripMenuConnect
             // 
             this.toolStripMenuConnect.Name = "toolStripMenuConnect";
-            this.toolStripMenuConnect.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuConnect.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuConnect.Text = "Connect...";
             this.toolStripMenuConnect.Click += new System.EventHandler(this.toolStripMenuConnect_Click);
             // 
             // toolStripMenuDisconnect
             // 
             this.toolStripMenuDisconnect.Name = "toolStripMenuDisconnect";
-            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuDisconnect.Text = "Disconnect...";
             this.toolStripMenuDisconnect.Visible = false;
             this.toolStripMenuDisconnect.Click += new System.EventHandler(this.toolStripMenuDisconnect_Click);
@@ -199,19 +199,19 @@ namespace GSM_Client
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -257,7 +257,7 @@ namespace GSM_Client
             // 
             this.serialMonitorToolStripMenuItem.Enabled = false;
             this.serialMonitorToolStripMenuItem.Name = "serialMonitorToolStripMenuItem";
-            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.serialMonitorToolStripMenuItem.Text = "Serial Monitor";
             this.serialMonitorToolStripMenuItem.Click += new System.EventHandler(this.serialMonitorToolStripMenuItem_Click);
             // 

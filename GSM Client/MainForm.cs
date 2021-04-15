@@ -93,7 +93,7 @@ namespace GSM_Client
         public void ConnectSerialPort() {
             isLoading = true;
             isInitialApplicationExec = false;
-
+            isSignalAwait = true;
 
             if (!comPort.IsOpen) {
                 try {
@@ -210,6 +210,9 @@ namespace GSM_Client
             lblStatusGSM.ForeColor = gsmStatusColor;
             lblStatusGSM.Text = gsmStatus;
             lblSignalStrength.Text = signalStatus;
+            picSignalStatus.Image = !isInitGSM ? 
+                                    (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px") :
+                                    picSignalStatus.Image;
             timerRefreshSignal.Enabled = isSignalRefresh;
 
             // Compose message
