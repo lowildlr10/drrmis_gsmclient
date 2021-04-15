@@ -1,0 +1,14 @@
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\bin\Release\GSM Client.exe.config
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\bin\Release\GSM Client.exe
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\bin\Release\GSM Client.pdb
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.csprojAssemblyReference.cache
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM_Client.AboutBoxForm.resources
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM_Client.MainForm.resources
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM_Client.Properties.Resources.resources
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM_Client.RecipientForm.resources
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM_Client.SelectSerialForm.resources
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM_Client.SerialMonitorForm.resources
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.csproj.GenerateResource.cache
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.csproj.CoreCompileInputs.cache
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.exe
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.pdb

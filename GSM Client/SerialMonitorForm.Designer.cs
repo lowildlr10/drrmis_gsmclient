@@ -33,13 +33,13 @@ namespace GSM_Client
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SerialMonitorForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtSerialWrite = new System.Windows.Forms.TextBox();
             this.btnWriteSerial = new System.Windows.Forms.Button();
             this.txtFeedback = new System.Windows.Forms.TextBox();
             this.timerMonitorFeedback = new System.Windows.Forms.Timer(this.components);
-            this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -71,6 +71,18 @@ namespace GSM_Client
             this.toolStrip1.Size = new System.Drawing.Size(584, 30);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnClearFeedback
+            // 
+            this.btnClearFeedback.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnClearFeedback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClearFeedback.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearFeedback.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFeedback.Image")));
+            this.btnClearFeedback.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClearFeedback.Name = "btnClearFeedback";
+            this.btnClearFeedback.Size = new System.Drawing.Size(37, 27);
+            this.btnClearFeedback.Text = "Clear";
+            this.btnClearFeedback.Click += new System.EventHandler(this.btnClearFeedback_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -146,18 +158,6 @@ namespace GSM_Client
             // timerMonitorFeedback
             // 
             this.timerMonitorFeedback.Interval = 500;
-            // 
-            // btnClearFeedback
-            // 
-            this.btnClearFeedback.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnClearFeedback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnClearFeedback.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearFeedback.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFeedback.Image")));
-            this.btnClearFeedback.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnClearFeedback.Name = "btnClearFeedback";
-            this.btnClearFeedback.Size = new System.Drawing.Size(37, 27);
-            this.btnClearFeedback.Text = "Clear";
-            this.btnClearFeedback.Click += new System.EventHandler(this.btnClearFeedback_Click);
             // 
             // SerialMonitorForm
             // 

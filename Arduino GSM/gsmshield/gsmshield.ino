@@ -66,7 +66,8 @@ void loop() {
       String params = getValue(cmd, '|', 1);      
       if (cond == "send_msg") {
         bool res = sendMessage(params);
-        Serial.println("message_stat:" + String(res) + ":" + getValue(params, ':', 0));
+        String responseMsg = res ? "success" : "failed"; 
+        Serial.println("message_stat:" + responseMsg + ":" + getValue(params, ':', 0));
       } else if (cond == "get_signal_str") {
         int signalStr = getSignalStr();
         Serial.println("signal_str:" + String(signalStr));
