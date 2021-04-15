@@ -16,7 +16,7 @@ namespace GSM_Client
     {
         RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
-        SerialMonitorForm frmSerialMonitor;
+        SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
         AboutBoxForm frmAboutBox;
 
         private delegate void _ConnectSerialPort();
@@ -30,6 +30,7 @@ namespace GSM_Client
         private bool isSending = false;
         private bool isSendingProcess = false;
         private List<string> sendMessageLogs;
+        private int countSent = 0;
 
         public string PortName {
             get { return comPort.PortName; }
@@ -46,6 +47,10 @@ namespace GSM_Client
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
+            frmSerialMonitor.MainForm = this;
+            frmSerialMonitor.Show();
+            frmSerialMonitor.Visible = false;
+
             RefreshDisplays();
         }
 
@@ -120,6 +125,7 @@ namespace GSM_Client
         private void DisconnectSerialPort() {
             isLoading = true;
             isInitGSM = false;
+            isSendingProcess = false;
 
             if (comPort.IsOpen) {
                 try {
@@ -165,8 +171,12 @@ namespace GSM_Client
             string portName = !string.IsNullOrEmpty(comPort.PortName.Trim()) ? 
                                comPort.PortName : "N/A";
             int baudRate = comPort.BaudRate;
-            int recipientCount = selRecipients.Items.Count;
+            int recipientCount = selRecipients.Items.Count > 0 ? 
+                                 selRecipients.Items.Count - 1 : 0;
             int messageCount = txtMessage.Text.Trim().Length;
+
+            timerRefreshSignal.Enabled = (!isLoading && isInitGSM && !isSendingProcess) ? 
+                                         true : false;
 
             if (!isLoading) {
                 toolStripMenuConnect.Visible = isPortConnected ? false : true;
@@ -208,34 +218,37 @@ namespace GSM_Client
 
                 lblRecipientsCount.Text = "Recipients Count: " + recipientCount.ToString();
                 lblMsgCount.Text = "Message Characters: " + messageCount.ToString();
-                timerRefreshSignal.Enabled = isInitGSM ? true : false;
-                lblSignalStrength.Text = !isInitGSM ? "0%" : lblSignalStrength.Text;
-                
-                if (isSendingProcess) {
-                    toolStripStatusLabel.Text = "Sending...";
-                    toolStripIconLoading.Visible = true;
-                    toolStripIconConnected.Visible = false;
-                    toolStripIconDisconnected.Visible = false;
+                lblSignalStrength.Text = !isInitGSM ? "0% (No Signal)" : lblSignalStrength.Text;
+                picSignalStatus.Image = !isInitGSM ? 
+                                        (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash") :
+                                        picSignalStatus.Image;
+            }
 
-                    btnSend.Enabled = false;
-                    txtMessage.Text = string.Empty;
-                    txtMessage.Enabled = false;
-                } else {
-                    txtMessage.Enabled = true;
-                }
+            if (isSendingProcess) {
+                toolStripStatusLabel.Text = "Sending... (" + countSent + " msg/s sent)";
+                toolStripIconLoading.Visible = true;
+                toolStripIconConnected.Visible = false;
+                toolStripIconDisconnected.Visible = false;
+
+                btnSend.Enabled = false;
+                btnRecipients.Enabled = false;
+                selRecipients.Enabled = false;
+                txtMessage.Text = "";
+                txtMessage.Enabled = false;
+                lblRecipientsCount.Enabled = false;
+            } else {
+                selRecipients.Enabled = true;
+                txtMessage.Enabled = true;
+                lblRecipientsCount.Enabled = true;
             }
         }
 
         private void btnSerialMonitor_Click(object sender, EventArgs e) {
-            frmSerialMonitor = new SerialMonitorForm();
-            frmSerialMonitor.MainForm = this;
-            frmSerialMonitor.Show();
+            frmSerialMonitor.Visible = true;
         }
 
         private void serialMonitorToolStripMenuItem_Click(object sender, EventArgs e) {
-            frmSerialMonitor = new SerialMonitorForm();
-            frmSerialMonitor.MainForm = this;
-            frmSerialMonitor.Show();
+            frmSerialMonitor.Visible = true;
         }
 
         private void timerMonitorPort_Tick(object sender, EventArgs e) {
@@ -259,46 +272,60 @@ namespace GSM_Client
             frmSelectSerial.ShowDialog();
         }
 
-        private void SendMessage(string[] recipients, string message) {
-            if (comPort.IsOpen) {
+        async void RunAsyncMsgSending(string[] recipients, string message) {
+            await Task.Run(() => {
                 isLoading = true;
                 isSendingProcess = true;
+                isSignalAwait = false;
 
-                foreach (string phoneNo in recipients) {
-                    string cmd = "send_msg|" + phoneNo.ToString().Trim() + ":" + message;
-                    isSending = true;
-                    comPort.WriteLine(cmd);
+                while (timerRefreshSignal.Enabled == true) { }
 
-                    
+                MessageBox.Show("Sending...", "",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (comPort.IsOpen) {
+                    foreach (string phoneNo in recipients) {
+                        string cmd = "send_msg|" + phoneNo.ToString().Trim() + ":" + message;
+                        isSending = true;
+                        comPort.WriteLine(cmd);
+
+                        while (isSending) { }
+                    }
+
+                    //sendMessageLogs.Clear();
                 }
 
-                //sendMessageLogs.Clear();
                 isSendingProcess = false;
                 isLoading = false;
-            }
+                isSignalAwait = true;
+                countSent = 0;
+            });
         }
 
         private void btnSend_Click(object sender, EventArgs e) {
-            string[] recipients = new string[selRecipients.Items.Count];
+            string[] recipients = new string[selRecipients.Items.Count - 1];
             int recipientCount = selRecipients.Items.Count;
             String message = txtMessage.Text;
             int selectedIndex = int.Parse(selRecipients.SelectedIndex.ToString());
 
-            for (int key = 0; key < selRecipients.Items.Count; key++)  {
-                recipients[key] = selRecipients.Items[key].ToString();
-            }
-
             if (recipientCount > 1) {
+                for (int key = 1; key < selRecipients.Items.Count; key++) {
+                    recipients[key - 1] = selRecipients.Items[key].ToString();
+                }
+
                 if (selectedIndex == 0) {
-                    this.BeginInvoke(new _SendMessage(SendMessage), 
-                                     new object[] { recipients, message });
-                    
+                    /*this.BeginInvoke(new _SendMessage(SendMessage),
+                                     new object[] { recipients, message });*/
+                    //SendMessage(recipients, message);
+                    RunAsyncMsgSending(recipients, message);
                 } else {
                     var phoneNo = selRecipients.SelectedItem;
                     string[] phoneNos = { phoneNo.ToString().Trim() };
 
-                    this.BeginInvoke(new _SendMessage(SendMessage),
-                                     new object[] { phoneNos, message });
+                    //SendMessage(phoneNos, message);
+                    /*this.BeginInvoke(new _SendMessage(SendMessage),
+                                     new object[] { phoneNos, message });*/
+                    RunAsyncMsgSending(phoneNos, message);
                 }
             }
         }
@@ -318,13 +345,16 @@ namespace GSM_Client
 
         private void comPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             try {
-                Thread.Sleep(300);
-                string dataReceived = comPort.ReadLine();
+                Thread.Sleep(100);
+
+                string dataReceived = comPort.ReadLine().ToString();
+                frmSerialMonitor.SerialMonitorFeedback = dataReceived;
 
                 if (dataReceived.Trim().Contains("signal_str:")) {
                     this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
                 } else if (dataReceived.Trim().Contains("message_stat:")) {
                     //sendMessageLogs.Add(dataReceived.ToString().Trim());
+                    countSent++;
                     isSending = false;
                 } else if (dataReceived.Trim().Contains("gsm_init_success")) {
                     if (!isInitGSM) {
@@ -345,21 +375,31 @@ namespace GSM_Client
             string[] signalArray = data.Split(':');
             double signalValue = double.Parse(signalArray[1]);
             double signalPercentage = Math.Round((signalValue / 30) * 100, 2);
-            string signalCondition = "";
+            string signalCondition = "No Signal";
+            var imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash");
 
-            if (signalValue > 0 && signalValue <= 9) {
+            if (signalValue > 1 && signalValue <= 9) {
                 signalCondition = "Marginal";
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-1");
             } else if (signalValue >= 10 && signalValue <= 14) {
                 signalCondition = "OK";
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-2");
             } else if (signalValue >= 15 && signalValue <= 19) {
                 signalCondition = "Good";
-            } else if (signalValue >= 20 && signalValue <= 30) {
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-3");
+            } else if (signalValue >= 20 && signalValue <= 25) {
                 signalCondition = "Excellent";
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-4");
+            } else if (signalValue >= 26 && signalValue <= 30) {
+                signalCondition = "Excellent";
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-5");
             } else {
-                signalCondition = "Error";
+                signalCondition = "No Signal";
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash");
             }
-            
+
             lblSignalStrength.Text = signalPercentage.ToString() + "% (" + signalCondition + ")";
+            picSignalStatus.Image = imgSignal;
             isSignalAwait = true;
         }
 

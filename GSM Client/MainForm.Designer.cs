@@ -59,6 +59,8 @@ namespace GSM_Client
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpSerialPortDetails = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblProvider = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblBaudRate = new System.Windows.Forms.Label();
             this.lblPortName = new System.Windows.Forms.Label();
@@ -68,7 +70,9 @@ namespace GSM_Client
             this.label1 = new System.Windows.Forms.Label();
             this.lblStatusGSM = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSignalStrength = new System.Windows.Forms.Label();
+            this.picSignalStatus = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -78,9 +82,8 @@ namespace GSM_Client
             this.lblMsgCount = new System.Windows.Forms.Label();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.timerMonitorPort = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblProvider = new System.Windows.Forms.Label();
             this.timerRefreshSignal = new System.Windows.Forms.Timer(this.components);
+            this.backgroundSendMsg = new System.ComponentModel.BackgroundWorker();
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -88,6 +91,8 @@ namespace GSM_Client
             this.tableLayoutPanel1.SuspendLayout();
             this.grpSerialPortDetails.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSignalStatus)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -451,7 +456,7 @@ namespace GSM_Client
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.lblStatusGSM, 1, 4);
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 4);
-            this.tableLayoutPanel4.Controls.Add(this.lblSignalStrength, 1, 5);
+            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 1, 5);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 20);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -465,6 +470,32 @@ namespace GSM_Client
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(249, 356);
             this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 303);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 50);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Provider:";
+            // 
+            // lblProvider
+            // 
+            this.lblProvider.BackColor = System.Drawing.Color.White;
+            this.lblProvider.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblProvider.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProvider.Location = new System.Drawing.Point(105, 303);
+            this.lblProvider.Margin = new System.Windows.Forms.Padding(3);
+            this.lblProvider.Name = "lblProvider";
+            this.lblProvider.Size = new System.Drawing.Size(141, 50);
+            this.lblProvider.TabIndex = 15;
+            this.lblProvider.Text = "N/A";
             // 
             // label7
             // 
@@ -585,18 +616,50 @@ namespace GSM_Client
             this.label4.TabIndex = 13;
             this.label4.Text = "GSM Status:";
             // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.32653F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.67347F));
+            this.tableLayoutPanel6.Controls.Add(this.lblSignalStrength, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.picSignalStatus, 0, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(102, 247);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(147, 53);
+            this.tableLayoutPanel6.TabIndex = 17;
+            // 
             // lblSignalStrength
             // 
             this.lblSignalStrength.BackColor = System.Drawing.Color.White;
             this.lblSignalStrength.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSignalStrength.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblSignalStrength.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSignalStrength.Location = new System.Drawing.Point(105, 250);
+            this.lblSignalStrength.Location = new System.Drawing.Point(26, 3);
             this.lblSignalStrength.Margin = new System.Windows.Forms.Padding(3);
             this.lblSignalStrength.Name = "lblSignalStrength";
-            this.lblSignalStrength.Size = new System.Drawing.Size(141, 47);
-            this.lblSignalStrength.TabIndex = 12;
-            this.lblSignalStrength.Text = "0%";
+            this.lblSignalStrength.Size = new System.Drawing.Size(118, 47);
+            this.lblSignalStrength.TabIndex = 13;
+            this.lblSignalStrength.Text = "0% (No Signal)";
+            // 
+            // picSignalStatus
+            // 
+            this.picSignalStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picSignalStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picSignalStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picSignalStatus.Image = global::GSM_Client.Properties.Resources.signal_slash;
+            this.picSignalStatus.InitialImage = global::GSM_Client.Properties.Resources.signal_slash;
+            this.picSignalStatus.Location = new System.Drawing.Point(5, 3);
+            this.picSignalStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 35);
+            this.picSignalStatus.Name = "picSignalStatus";
+            this.picSignalStatus.Padding = new System.Windows.Forms.Padding(1);
+            this.picSignalStatus.Size = new System.Drawing.Size(18, 15);
+            this.picSignalStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picSignalStatus.TabIndex = 15;
+            this.picSignalStatus.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -716,36 +779,15 @@ namespace GSM_Client
             this.timerMonitorPort.Interval = 300;
             this.timerMonitorPort.Tick += new System.EventHandler(this.timerMonitorPort_Tick);
             // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 303);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 50);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Provider:";
-            // 
-            // lblProvider
-            // 
-            this.lblProvider.BackColor = System.Drawing.Color.White;
-            this.lblProvider.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblProvider.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProvider.Location = new System.Drawing.Point(105, 303);
-            this.lblProvider.Margin = new System.Windows.Forms.Padding(3);
-            this.lblProvider.Name = "lblProvider";
-            this.lblProvider.Size = new System.Drawing.Size(141, 50);
-            this.lblProvider.TabIndex = 15;
-            this.lblProvider.Text = "N/A";
-            // 
             // timerRefreshSignal
             // 
             this.timerRefreshSignal.Interval = 1000;
             this.timerRefreshSignal.Tick += new System.EventHandler(this.timerRefreshSignal_Tick);
+            // 
+            // backgroundSendMsg
+            // 
+            this.backgroundSendMsg.WorkerReportsProgress = true;
+            this.backgroundSendMsg.WorkerSupportsCancellation = true;
             // 
             // MainForm
             // 
@@ -777,6 +819,8 @@ namespace GSM_Client
             this.tableLayoutPanel1.ResumeLayout(false);
             this.grpSerialPortDetails.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picSignalStatus)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -832,11 +876,14 @@ namespace GSM_Client
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblStatusGSM;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblSignalStrength;
         private System.Windows.Forms.ToolStripStatusLabel toolStripIconLoading;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblProvider;
         private System.Windows.Forms.Timer timerRefreshSignal;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label lblSignalStrength;
+        private System.Windows.Forms.PictureBox picSignalStatus;
+        private System.ComponentModel.BackgroundWorker backgroundSendMsg;
     }
 }
 

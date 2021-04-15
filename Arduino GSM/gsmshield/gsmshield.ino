@@ -74,8 +74,10 @@ void loop() {
         bool isConnectedGSM = GSM_MODULE.init();
         String gsmStatus = isConnectedGSM ? "gsm_init_success" : "gsm_init_error";
         Serial.println(gsmStatus);
+      } else {
+        Serial.read();
+        delay(1000);
       }
-      Serial.read();
     }
   }
 }

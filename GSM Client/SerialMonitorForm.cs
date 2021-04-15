@@ -30,13 +30,16 @@ namespace GSM_Client
 
         public string SerialMonitorFeedback {
             get { return txtFeedback.Text; }
-            set { txtFeedback.Text = value; }
+            set {
+                this.BeginInvoke(new SetTextDeleg(DataReceived), new object[] { value });
+            }
         }
 
         private void SerialMonitorForm_Load(object sender, EventArgs e) {
-            frmMain.comPort.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
+            //frmMain.comPort.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
         }
 
+        /*
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             try {
                 Thread.Sleep(100);
@@ -45,7 +48,7 @@ namespace GSM_Client
                 this.BeginInvoke(new SetTextDeleg(DataReceived), new object[] { dataReceived });
             } catch {
             }
-        }
+        }*/
 
         private void DataReceived(string data)  {
             dataReceived = data.Trim();
@@ -66,6 +69,15 @@ namespace GSM_Client
 
         private void btnClearFeedback_Click(object sender, EventArgs e) {
             txtFeedback.Text = string.Empty;
+        }
+
+        private void SerialMonitorForm_VisibleChanged(object sender, EventArgs e) {
+            this.CenterToScreen();
+        }
+
+        private void SerialMonitorForm_FormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            this.Visible = false;
         }
     }
 }

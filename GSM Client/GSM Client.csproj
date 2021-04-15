@@ -205,5 +205,41 @@
   <ItemGroup>
     <None Include="assets\images\icons\loader.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-slash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-1-32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-2-32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-3-32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-4-32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-5-32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\images\icons\signal-slash-32px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
