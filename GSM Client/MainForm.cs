@@ -277,6 +277,12 @@ namespace GSM_Client
             frmSelectSerial.ShowDialog();
         }
 
+        private string FormatPhoneNumber(string phoneNo) {
+            
+            
+            return phoneNo;
+        }
+
         async void RunAsyncMsgSending(string[] recipients, string message) {
             await Task.Run(() => {
                 isLoading = true;

@@ -33,15 +33,16 @@ namespace GSM_Client
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecipientForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataRecipients = new System.Windows.Forms.DataGridView();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnApplyRecipients = new System.Windows.Forms.Button();
-            this.btnImportCSV = new System.Windows.Forms.Button();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.PhoneNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnImportCSV = new System.Windows.Forms.Button();
+            this.btnApplyRecipients = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataRecipients)).BeginInit();
@@ -53,9 +54,8 @@ namespace GSM_Client
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(514, 481);
+            this.panel1.Size = new System.Drawing.Size(386, 391);
             this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -66,18 +66,19 @@ namespace GSM_Client
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.02079F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.97921F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(514, 481);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(386, 391);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // dataRecipients
             // 
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dataRecipients.AllowUserToResizeColumns = false;
+            this.dataRecipients.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.NullValue = null;
             this.dataRecipients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataRecipients.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -93,76 +94,35 @@ namespace GSM_Client
             this.dataRecipients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataRecipients.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PhoneNumber});
-            this.dataRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataRecipients.Location = new System.Drawing.Point(4, 4);
-            this.dataRecipients.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.dataRecipients.Name = "dataRecipients";
-            this.dataRecipients.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataRecipients.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataRecipients.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataRecipients.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataRecipients.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataRecipients.Location = new System.Drawing.Point(3, 3);
+            this.dataRecipients.MultiSelect = false;
+            this.dataRecipients.Name = "dataRecipients";
+            this.dataRecipients.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            this.dataRecipients.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataRecipients.Size = new System.Drawing.Size(506, 425);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataRecipients.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataRecipients.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            this.dataRecipients.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataRecipients.Size = new System.Drawing.Size(380, 345);
             this.dataRecipients.TabIndex = 1;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.btnImportCSV, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnApplyRecipients, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 436);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(508, 42);
-            this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // btnApplyRecipients
-            // 
-            this.btnApplyRecipients.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnApplyRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnApplyRecipients.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnApplyRecipients.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnApplyRecipients.Location = new System.Drawing.Point(258, 4);
-            this.btnApplyRecipients.Margin = new System.Windows.Forms.Padding(4);
-            this.btnApplyRecipients.Name = "btnApplyRecipients";
-            this.btnApplyRecipients.Size = new System.Drawing.Size(246, 34);
-            this.btnApplyRecipients.TabIndex = 3;
-            this.btnApplyRecipients.Text = "Apply";
-            this.btnApplyRecipients.UseVisualStyleBackColor = true;
-            this.btnApplyRecipients.Click += new System.EventHandler(this.btnApplyRecipients_Click);
-            // 
-            // btnImportCSV
-            // 
-            this.btnImportCSV.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnImportCSV.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImportCSV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnImportCSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportCSV.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportCSV.Location = new System.Drawing.Point(4, 4);
-            this.btnImportCSV.Margin = new System.Windows.Forms.Padding(4);
-            this.btnImportCSV.Name = "btnImportCSV";
-            this.btnImportCSV.Size = new System.Drawing.Size(246, 34);
-            this.btnImportCSV.TabIndex = 4;
-            this.btnImportCSV.Text = "Import CSV";
-            this.btnImportCSV.UseVisualStyleBackColor = false;
-            this.btnImportCSV.Click += new System.EventHandler(this.btnImportCSV_Click);
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog";
-            this.openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            this.dataRecipients.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataRecipients_KeyDown);
             // 
             // PhoneNumber
             // 
@@ -172,15 +132,64 @@ namespace GSM_Client
             this.PhoneNumber.Name = "PhoneNumber";
             this.PhoneNumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.btnImportCSV, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnApplyRecipients, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 353);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(382, 36);
+            this.tableLayoutPanel2.TabIndex = 2;
+            // 
+            // btnImportCSV
+            // 
+            this.btnImportCSV.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnImportCSV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportCSV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnImportCSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportCSV.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportCSV.Location = new System.Drawing.Point(3, 3);
+            this.btnImportCSV.Name = "btnImportCSV";
+            this.btnImportCSV.Size = new System.Drawing.Size(185, 30);
+            this.btnImportCSV.TabIndex = 4;
+            this.btnImportCSV.Text = "Import CSV";
+            this.btnImportCSV.UseVisualStyleBackColor = false;
+            this.btnImportCSV.Click += new System.EventHandler(this.btnImportCSV_Click);
+            // 
+            // btnApplyRecipients
+            // 
+            this.btnApplyRecipients.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnApplyRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnApplyRecipients.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnApplyRecipients.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApplyRecipients.Location = new System.Drawing.Point(194, 3);
+            this.btnApplyRecipients.Name = "btnApplyRecipients";
+            this.btnApplyRecipients.Size = new System.Drawing.Size(185, 30);
+            this.btnApplyRecipients.TabIndex = 3;
+            this.btnApplyRecipients.Text = "Apply";
+            this.btnApplyRecipients.UseVisualStyleBackColor = true;
+            this.btnApplyRecipients.Click += new System.EventHandler(this.btnApplyRecipients_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            // 
             // RecipientForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 481);
+            this.ClientSize = new System.Drawing.Size(386, 391);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "RecipientForm";
             this.Opacity = 0.98D;

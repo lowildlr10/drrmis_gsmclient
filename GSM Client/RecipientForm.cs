@@ -87,5 +87,17 @@ namespace GSM_Client
 
             this.Close();
         }
+
+        private void dataRecipients_KeyDown(object sender, KeyEventArgs e) {
+            for (int i = 1; i < dataRecipients.RowCount - 1; i++) {
+                if (dataRecipients.Rows[i].Cells[0].Value.ToString() == "" || 
+                    dataRecipients.Rows[i].Cells[1].Value.ToString() == "") {
+
+                    dataRecipients.Rows.RemoveAt(i);
+                    i--;
+                }
+
+            }
+        }
     }
 }
