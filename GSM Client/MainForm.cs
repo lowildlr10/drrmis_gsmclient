@@ -14,6 +14,7 @@ namespace GSM_Client
 {
     public partial class MainForm : Form
     {
+        LoadingScreenForm frmLoadingScreen;
         RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
         SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
@@ -52,6 +53,10 @@ namespace GSM_Client
             frmSerialMonitor.Show();
             frmSerialMonitor.Visible = false;
 
+            frmLoadingScreen = new LoadingScreenForm();
+            frmLoadingScreen.ShowDialog();
+            this.Hide();
+            
             RefreshDisplays();
         }
 
@@ -156,11 +161,13 @@ namespace GSM_Client
         }
 
         private void ExitApplication() {
+            Environment.Exit(0);
+            /*
             if (System.Windows.Forms.Application.MessageLoop) {
                 System.Windows.Forms.Application.Exit();
             } else {
                 System.Environment.Exit(1);
-            }
+            }*/
         }
 
         public void RefreshDisplays() {
@@ -409,6 +416,10 @@ namespace GSM_Client
                 comPort.WriteLine("get_signal_str|");
                 isSignalAwait = false;
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
+            ExitApplication();
         }
     }
 }

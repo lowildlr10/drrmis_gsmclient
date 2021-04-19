@@ -40,3 +40,9 @@ D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.csproj.GenerateResource
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.csproj.CoreCompileInputs.cache
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.exe
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.LoadingScreenForm.resources
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\GSM Client.exe.manifest
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\GSM Client.application
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.TrustInfo.xml
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.exe.manifest
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM Client.application
