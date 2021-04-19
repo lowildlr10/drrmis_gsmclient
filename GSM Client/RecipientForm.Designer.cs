@@ -122,7 +122,7 @@ namespace GSM_Client
             this.dataRecipients.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataRecipients.Size = new System.Drawing.Size(380, 345);
             this.dataRecipients.TabIndex = 1;
-            this.dataRecipients.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataRecipients_KeyDown);
+            this.dataRecipients.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataRecipients_EditingControlShowing);
             // 
             // PhoneNumber
             // 
@@ -141,7 +141,7 @@ namespace GSM_Client
             this.tableLayoutPanel2.Controls.Add(this.btnApplyRecipients, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 353);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));

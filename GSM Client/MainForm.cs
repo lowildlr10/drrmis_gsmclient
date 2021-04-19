@@ -30,7 +30,7 @@ namespace GSM_Client
         private bool isSignalAwait = true;
         private bool isSending = false;
         private bool isSendingProcess = false;
-        private List<string> sendMessageLogs;
+        private List<string> sendMessageLogs = new List<string>();
         private int countSent = 0;
 
         public string PortName {
@@ -277,12 +277,6 @@ namespace GSM_Client
             frmSelectSerial.ShowDialog();
         }
 
-        private string FormatPhoneNumber(string phoneNo) {
-            
-            
-            return phoneNo;
-        }
-
         async void RunAsyncMsgSending(string[] recipients, string message) {
             await Task.Run(() => {
                 isLoading = true;
@@ -303,7 +297,7 @@ namespace GSM_Client
                         while (isSending) { }
                     }
 
-                    //sendMessageLogs.Clear();
+                    sendMessageLogs.Clear();
                 }
 
                 isSendingProcess = false;
@@ -359,7 +353,7 @@ namespace GSM_Client
                 if (dataReceived.Trim().Contains("signal_str:")) {
                     this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
                 } else if (dataReceived.Trim().Contains("message_stat:")) {
-                    //sendMessageLogs.Add(dataReceived.ToString().Trim());
+                    sendMessageLogs.Add(dataReceived.ToString().Trim());
                     countSent++;
                     isSending = false;
                 } else if (dataReceived.Trim().Contains("gsm_init_success")) {

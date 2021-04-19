@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace GSM_Client
 {
@@ -34,6 +35,46 @@ namespace GSM_Client
             set { frmMain = value; }
         }
 
+        private string FormatPhoneNumber(string phoneNo) {
+            string formatedPhoneNo = Regex.Replace(phoneNo, "/[^+0-9]/", "");
+            int digitCount = formatedPhoneNo.Length;
+            bool isValidNumber = false;
+
+            if (digitCount < 10 && digitCount > 13) {
+                return "not-valid";
+            }
+
+            if (digitCount <= 0) {
+                return "not-valid";
+            }
+
+            if (formatedPhoneNo.Substring(0, 1) == "9" && digitCount == 10) {
+                formatedPhoneNo = "0" + formatedPhoneNo;
+                isValidNumber = true;
+            }
+
+            if (formatedPhoneNo.Substring(0, 2) == "09" && digitCount == 11) {
+                isValidNumber = true;
+            }
+
+            if (formatedPhoneNo.Substring(0, 3) == "639" && digitCount == 12) {
+                formatedPhoneNo = "+" + formatedPhoneNo;
+                formatedPhoneNo = formatedPhoneNo.Replace("+63", "0");
+                isValidNumber = true;
+            }
+
+            if (formatedPhoneNo.Substring(0, 4) == "+639" && digitCount == 13) {
+                formatedPhoneNo = formatedPhoneNo.Replace("+63", "0");
+                isValidNumber = true;
+            }
+
+            if (!isValidNumber) {
+                return "not-valid";
+            }
+
+            return formatedPhoneNo;
+        }
+
         private void btnImportCSV_Click(object sender, EventArgs e) {
             openFileDialog.FilterIndex = 1;
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
@@ -52,8 +93,22 @@ namespace GSM_Client
 
                 for (int rowCtr = 0; rowCtr < rows.Length; rowCtr++) {
                     if (rowCtr > 0) {
-                        string[] items = rows[rowCtr].Split(delimiter.ToCharArray());
-                        dataRecipients.Rows.Add(items);
+                        string[] __items = rows[rowCtr].Split(delimiter.ToCharArray());
+                        List<string> _items = new List<string>();
+                        int numCtr = 0;
+
+                        foreach (string item in __items) {
+                            string formatedPhoneNo = FormatPhoneNumber(__items[numCtr].Trim());
+
+                            if (formatedPhoneNo != "not-valid") {
+                                _items.Add(formatedPhoneNo);
+                            }
+                        }
+
+                        if (_items.Count > 0) {
+                            string[] items = _items.ToArray();
+                            dataRecipients.Rows.Add(items);
+                        }
                     }
                 }
                 
@@ -78,6 +133,7 @@ namespace GSM_Client
                 }
 
                 if (!String.IsNullOrEmpty(phoneNo)) {
+                    phoneNo = FormatPhoneNumber(phoneNo);
                     frmMain.selRecipients.Items.Add(phoneNo);
                 }
             }
@@ -88,15 +144,25 @@ namespace GSM_Client
             this.Close();
         }
 
-        private void dataRecipients_KeyDown(object sender, KeyEventArgs e) {
-            for (int i = 1; i < dataRecipients.RowCount - 1; i++) {
-                if (dataRecipients.Rows[i].Cells[0].Value.ToString() == "" || 
-                    dataRecipients.Rows[i].Cells[1].Value.ToString() == "") {
+        private void Control_KeyDown(object sender, KeyEventArgs e) {
+            var cell = (DataGridViewTextBoxEditingControl)sender;
 
-                    dataRecipients.Rows.RemoveAt(i);
-                    i--;
-                }
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back) {
+                try {
+                    if (string.IsNullOrEmpty(cell.Text.Trim())) {
+                        dataRecipients.Rows.RemoveAt(cell.EditingControlRowIndex);
+                        e.Handled = true;
+                    }
+                } catch (Exception) { }
+            }
+        }
 
+        private void dataRecipients_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e) {
+            var txtBox = e.Control as TextBox;
+
+            if (txtBox != null) {
+                txtBox.KeyDown -= new KeyEventHandler(Control_KeyDown);
+                txtBox.KeyDown += new KeyEventHandler(Control_KeyDown);
             }
         }
     }
