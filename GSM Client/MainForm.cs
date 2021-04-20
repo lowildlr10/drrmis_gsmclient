@@ -218,7 +218,7 @@ namespace GSM_Client
             lblStatusGSM.Text = gsmStatus;
             lblSignalStrength.Text = signalStatus;
             picSignalStatus.Image = !isInitGSM ? 
-                                    (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px") :
+                                    (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-slash-32px") :
                                     picSignalStatus.Image;
             timerRefreshSignal.Enabled = isSignalRefresh;
 
@@ -384,26 +384,26 @@ namespace GSM_Client
             double signalValue = double.Parse(signalArray[1]);
             double signalPercentage = Math.Round((signalValue / 30) * 100, 2);
             string signalCondition = "No Signal";
-            var imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
+            var imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
 
             if (signalValue > 1 && signalValue <= 9) {
                 signalCondition = "Marginal";
-                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-1-32px");
+                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-1-32px");
             } else if (signalValue >= 10 && signalValue <= 14) {
                 signalCondition = "OK";
-                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-2-32px");
+                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-2-32px");
             } else if (signalValue >= 15 && signalValue <= 19) {
                 signalCondition = "Good";
-                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-3-32px");
+                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-3-32px");
             } else if (signalValue >= 20 && signalValue <= 25) {
                 signalCondition = "Excellent";
-                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-4-32px");
+                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-4-32px");
             } else if (signalValue >= 26 && signalValue <= 30) {
                 signalCondition = "Excellent";
-                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-5-32px");
+                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-5-32px");
             } else {
                 signalCondition = "No Signal";
-                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
+                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
             }
 
             lblSignalStrength.Text = signalPercentage.ToString() + "% (" + signalCondition + ")";

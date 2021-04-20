@@ -150,11 +150,12 @@ namespace GSM_Client
             // 
             // btnImportCSV
             // 
-            this.btnImportCSV.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnImportCSV.BackColor = System.Drawing.Color.SeaGreen;
             this.btnImportCSV.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImportCSV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnImportCSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImportCSV.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportCSV.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportCSV.ForeColor = System.Drawing.Color.White;
             this.btnImportCSV.Location = new System.Drawing.Point(3, 3);
             this.btnImportCSV.Name = "btnImportCSV";
             this.btnImportCSV.Size = new System.Drawing.Size(185, 30);
@@ -165,16 +166,18 @@ namespace GSM_Client
             // 
             // btnApplyRecipients
             // 
+            this.btnApplyRecipients.BackColor = System.Drawing.Color.SteelBlue;
             this.btnApplyRecipients.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnApplyRecipients.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnApplyRecipients.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnApplyRecipients.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApplyRecipients.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApplyRecipients.ForeColor = System.Drawing.Color.White;
             this.btnApplyRecipients.Location = new System.Drawing.Point(194, 3);
             this.btnApplyRecipients.Name = "btnApplyRecipients";
             this.btnApplyRecipients.Size = new System.Drawing.Size(185, 30);
             this.btnApplyRecipients.TabIndex = 3;
             this.btnApplyRecipients.Text = "Apply";
-            this.btnApplyRecipients.UseVisualStyleBackColor = true;
+            this.btnApplyRecipients.UseVisualStyleBackColor = false;
             this.btnApplyRecipients.Click += new System.EventHandler(this.btnApplyRecipients_Click);
             // 
             // openFileDialog

@@ -12,3 +12,24 @@ D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.csproj.
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.csproj.CoreCompileInputs.cache
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.exe
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\GSM Client.exe.config
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\GSM Client.exe.manifest
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\GSM Client.application
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\GSM Client.exe
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.csprojAssemblyReference.cache
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.AboutBoxForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.LoadingScreenForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.MainForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.Properties.Resources.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.RecipientForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.SelectSerialForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.SerialMonitorForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.csproj.GenerateResource.cache
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.csproj.CoreCompileInputs.cache
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.TrustInfo.xml
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.exe.manifest
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.application
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.exe
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.Properties.Resources.resources

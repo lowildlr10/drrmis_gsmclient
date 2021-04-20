@@ -1,0 +1,20 @@
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.exe.config
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.exe.manifest
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.application
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.exe
+D:\dev\desktop\gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.AboutBoxForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.LoadingScreenForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.MainForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.Properties.Resources.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.RecipientForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.SelectSerialForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\GSM_Client.SerialMonitorForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.GenerateResource.cache
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.CoreCompileInputs.cache
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.TrustInfo.xml
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.exe.manifest
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.application
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.exe
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache

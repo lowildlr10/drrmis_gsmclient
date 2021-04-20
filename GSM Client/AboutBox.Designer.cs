@@ -69,11 +69,11 @@ namespace GSM_Client
             // 
             this.logoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.logoPictureBox.Image = global::GSM_Client.Properties.Resources.dost_logo;
+            this.logoPictureBox.Image = global::DRRMIS_GSM_Client.Properties.Resources.drrmis_logo;
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
-            this.logoPictureBox.Size = new System.Drawing.Size(167, 174);
+            this.logoPictureBox.Size = new System.Drawing.Size(167, 160);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GSM_Client.Properties {
+namespace DRRMIS_GSM_Client.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace GSM_Client.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("GSM_Client.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DRRMIS_GSM_Client.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -116,6 +116,16 @@ namespace GSM_Client.Properties {
         internal static System.Drawing.Bitmap dost_logo {
             get {
                 object obj = ResourceManager.GetObject("dost-logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap drrmis_logo {
+            get {
+                object obj = ResourceManager.GetObject("drrmis-logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

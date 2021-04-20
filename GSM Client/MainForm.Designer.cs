@@ -33,6 +33,9 @@ namespace GSM_Client
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.comPort = new System.IO.Ports.SerialPort(this.components);
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripIconLoading = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripIconConnected = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripIconDisconnected = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +49,12 @@ namespace GSM_Client
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.btnSettings = new System.Windows.Forms.ToolStripButton();
+            this.btnSerialMonitor = new System.Windows.Forms.ToolStripButton();
+            this.btnDisconnectSerial = new System.Windows.Forms.ToolStripButton();
+            this.btnConnectSerial = new System.Windows.Forms.ToolStripButton();
+            this.btnSend = new System.Windows.Forms.ToolStripButton();
+            this.btnRecipients = new System.Windows.Forms.ToolStripButton();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpSerialPortDetails = new System.Windows.Forms.GroupBox();
@@ -63,6 +72,7 @@ namespace GSM_Client
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSignalStrength = new System.Windows.Forms.Label();
+            this.picSignalStatus = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -74,16 +84,6 @@ namespace GSM_Client
             this.timerMonitorPort = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshSignal = new System.Windows.Forms.Timer(this.components);
             this.backgroundSendMsg = new System.ComponentModel.BackgroundWorker();
-            this.picSignalStatus = new System.Windows.Forms.PictureBox();
-            this.btnSettings = new System.Windows.Forms.ToolStripButton();
-            this.btnSerialMonitor = new System.Windows.Forms.ToolStripButton();
-            this.btnDisconnectSerial = new System.Windows.Forms.ToolStripButton();
-            this.btnConnectSerial = new System.Windows.Forms.ToolStripButton();
-            this.btnSend = new System.Windows.Forms.ToolStripButton();
-            this.btnRecipients = new System.Windows.Forms.ToolStripButton();
-            this.toolStripIconLoading = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripIconConnected = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripIconDisconnected = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -92,10 +92,10 @@ namespace GSM_Client
             this.grpSerialPortDetails.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picSignalStatus)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picSignalStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // comPort
@@ -120,6 +120,47 @@ namespace GSM_Client
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "mainStatusStrip";
             // 
+            // toolStripIconLoading
+            // 
+            this.toolStripIconLoading.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripIconLoading.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripIconLoading.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripIconLoading.Image = global::DRRMIS_GSM_Client.Properties.Resources.loader;
+            this.toolStripIconLoading.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.toolStripIconLoading.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.toolStripIconLoading.Name = "toolStripIconLoading";
+            this.toolStripIconLoading.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripIconLoading.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconLoading.Text = "toolStripStatusConnected";
+            this.toolStripIconLoading.Visible = false;
+            // 
+            // toolStripIconConnected
+            // 
+            this.toolStripIconConnected.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripIconConnected.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripIconConnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripIconConnected.Image = global::DRRMIS_GSM_Client.Properties.Resources.check_circle_green;
+            this.toolStripIconConnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.toolStripIconConnected.Name = "toolStripIconConnected";
+            this.toolStripIconConnected.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripIconConnected.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconConnected.Text = "toolStripStatusConnected";
+            this.toolStripIconConnected.Visible = false;
+            // 
+            // toolStripIconDisconnected
+            // 
+            this.toolStripIconDisconnected.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripIconDisconnected.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripIconDisconnected.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
+            this.toolStripIconDisconnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripIconDisconnected.Image = global::DRRMIS_GSM_Client.Properties.Resources.times_circle_red;
+            this.toolStripIconDisconnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
+            this.toolStripIconDisconnected.Name = "toolStripIconDisconnected";
+            this.toolStripIconDisconnected.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripIconDisconnected.Size = new System.Drawing.Size(26, 23);
+            this.toolStripIconDisconnected.Text = "toolStripStatusDisconnected";
+            this.toolStripIconDisconnected.Visible = false;
+            // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.ForeColor = System.Drawing.Color.White;
@@ -143,14 +184,14 @@ namespace GSM_Client
             // toolStripMenuConnect
             // 
             this.toolStripMenuConnect.Name = "toolStripMenuConnect";
-            this.toolStripMenuConnect.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuConnect.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuConnect.Text = "Connect...";
             this.toolStripMenuConnect.Click += new System.EventHandler(this.toolStripMenuConnect_Click);
             // 
             // toolStripMenuDisconnect
             // 
             this.toolStripMenuDisconnect.Name = "toolStripMenuDisconnect";
-            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuDisconnect.Text = "Disconnect...";
             this.toolStripMenuDisconnect.Visible = false;
             this.toolStripMenuDisconnect.Click += new System.EventHandler(this.toolStripMenuDisconnect_Click);
@@ -158,19 +199,19 @@ namespace GSM_Client
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -241,6 +282,123 @@ namespace GSM_Client
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "mainToolStrip";
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSettings.AutoSize = false;
+            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
+            this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSettings.ForeColor = System.Drawing.Color.White;
+            this.btnSettings.Image = global::DRRMIS_GSM_Client.Properties.Resources.cog_white;
+            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSettings.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnSettings.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnSettings.Size = new System.Drawing.Size(70, 59);
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSettings.ToolTipText = "Settings";
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnSerialMonitor
+            // 
+            this.btnSerialMonitor.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnSerialMonitor.AutoSize = false;
+            this.btnSerialMonitor.BackColor = System.Drawing.Color.Transparent;
+            this.btnSerialMonitor.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSerialMonitor.ForeColor = System.Drawing.Color.White;
+            this.btnSerialMonitor.Image = global::DRRMIS_GSM_Client.Properties.Resources.tv_white;
+            this.btnSerialMonitor.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSerialMonitor.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSerialMonitor.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnSerialMonitor.Name = "btnSerialMonitor";
+            this.btnSerialMonitor.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnSerialMonitor.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnSerialMonitor.Size = new System.Drawing.Size(70, 59);
+            this.btnSerialMonitor.Text = "Monitor";
+            this.btnSerialMonitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSerialMonitor.Visible = false;
+            this.btnSerialMonitor.Click += new System.EventHandler(this.btnSerialMonitor_Click);
+            // 
+            // btnDisconnectSerial
+            // 
+            this.btnDisconnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnDisconnectSerial.AutoSize = false;
+            this.btnDisconnectSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnDisconnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDisconnectSerial.ForeColor = System.Drawing.Color.White;
+            this.btnDisconnectSerial.Image = global::DRRMIS_GSM_Client.Properties.Resources.unlink_white;
+            this.btnDisconnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDisconnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnDisconnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnDisconnectSerial.Name = "btnDisconnectSerial";
+            this.btnDisconnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnDisconnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnDisconnectSerial.Size = new System.Drawing.Size(70, 59);
+            this.btnDisconnectSerial.Text = "Disconnect";
+            this.btnDisconnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDisconnectSerial.Visible = false;
+            this.btnDisconnectSerial.Click += new System.EventHandler(this.btnDisconnectSerial_Click);
+            // 
+            // btnConnectSerial
+            // 
+            this.btnConnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnConnectSerial.AutoSize = false;
+            this.btnConnectSerial.BackColor = System.Drawing.Color.Transparent;
+            this.btnConnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConnectSerial.ForeColor = System.Drawing.Color.White;
+            this.btnConnectSerial.Image = global::DRRMIS_GSM_Client.Properties.Resources.plug_white;
+            this.btnConnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnConnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnConnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnConnectSerial.Name = "btnConnectSerial";
+            this.btnConnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnConnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnConnectSerial.Size = new System.Drawing.Size(70, 59);
+            this.btnConnectSerial.Text = "Connect";
+            this.btnConnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnConnectSerial.Click += new System.EventHandler(this.btnConnectSerial_Click);
+            // 
+            // btnSend
+            // 
+            this.btnSend.AutoSize = false;
+            this.btnSend.BackColor = System.Drawing.Color.Transparent;
+            this.btnSend.Enabled = false;
+            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSend.ForeColor = System.Drawing.Color.White;
+            this.btnSend.Image = global::DRRMIS_GSM_Client.Properties.Resources.paper_plane_white;
+            this.btnSend.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSend.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSend.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnSend.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnSend.Size = new System.Drawing.Size(70, 59);
+            this.btnSend.Text = "Send";
+            this.btnSend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // btnRecipients
+            // 
+            this.btnRecipients.AutoSize = false;
+            this.btnRecipients.BackColor = System.Drawing.Color.Transparent;
+            this.btnRecipients.Enabled = false;
+            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecipients.ForeColor = System.Drawing.Color.White;
+            this.btnRecipients.Image = global::DRRMIS_GSM_Client.Properties.Resources.address_book_white;
+            this.btnRecipients.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRecipients.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRecipients.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.btnRecipients.Name = "btnRecipients";
+            this.btnRecipients.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.btnRecipients.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.btnRecipients.Size = new System.Drawing.Size(70, 59);
+            this.btnRecipients.Text = "Recipients";
+            this.btnRecipients.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
             // 
             // mainPanel
             // 
@@ -487,6 +645,22 @@ namespace GSM_Client
             this.lblSignalStrength.TabIndex = 13;
             this.lblSignalStrength.Text = "0% (No Signal)";
             // 
+            // picSignalStatus
+            // 
+            this.picSignalStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picSignalStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picSignalStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picSignalStatus.Image = global::DRRMIS_GSM_Client.Properties.Resources.signal_slash_32px;
+            this.picSignalStatus.InitialImage = global::DRRMIS_GSM_Client.Properties.Resources.signal_slash_32px;
+            this.picSignalStatus.Location = new System.Drawing.Point(5, 3);
+            this.picSignalStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 35);
+            this.picSignalStatus.Name = "picSignalStatus";
+            this.picSignalStatus.Padding = new System.Windows.Forms.Padding(1);
+            this.picSignalStatus.Size = new System.Drawing.Size(18, 15);
+            this.picSignalStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picSignalStatus.TabIndex = 15;
+            this.picSignalStatus.TabStop = false;
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -617,180 +791,6 @@ namespace GSM_Client
             this.backgroundSendMsg.WorkerReportsProgress = true;
             this.backgroundSendMsg.WorkerSupportsCancellation = true;
             // 
-            // picSignalStatus
-            // 
-            this.picSignalStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.picSignalStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSignalStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picSignalStatus.Image = global::GSM_Client.Properties.Resources.signal_slash_32px;
-            this.picSignalStatus.InitialImage = global::GSM_Client.Properties.Resources.signal_slash_32px;
-            this.picSignalStatus.Location = new System.Drawing.Point(5, 3);
-            this.picSignalStatus.Margin = new System.Windows.Forms.Padding(5, 3, 0, 35);
-            this.picSignalStatus.Name = "picSignalStatus";
-            this.picSignalStatus.Padding = new System.Windows.Forms.Padding(1);
-            this.picSignalStatus.Size = new System.Drawing.Size(18, 15);
-            this.picSignalStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picSignalStatus.TabIndex = 15;
-            this.picSignalStatus.TabStop = false;
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnSettings.AutoSize = false;
-            this.btnSettings.BackColor = System.Drawing.Color.Transparent;
-            this.btnSettings.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSettings.ForeColor = System.Drawing.Color.White;
-            this.btnSettings.Image = global::GSM_Client.Properties.Resources.cog_white;
-            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSettings.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSettings.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSettings.Size = new System.Drawing.Size(70, 59);
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSettings.ToolTipText = "Settings";
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
-            // btnSerialMonitor
-            // 
-            this.btnSerialMonitor.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnSerialMonitor.AutoSize = false;
-            this.btnSerialMonitor.BackColor = System.Drawing.Color.Transparent;
-            this.btnSerialMonitor.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerialMonitor.ForeColor = System.Drawing.Color.White;
-            this.btnSerialMonitor.Image = global::GSM_Client.Properties.Resources.tv_white;
-            this.btnSerialMonitor.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSerialMonitor.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSerialMonitor.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnSerialMonitor.Name = "btnSerialMonitor";
-            this.btnSerialMonitor.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSerialMonitor.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSerialMonitor.Size = new System.Drawing.Size(70, 59);
-            this.btnSerialMonitor.Text = "Monitor";
-            this.btnSerialMonitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSerialMonitor.Visible = false;
-            this.btnSerialMonitor.Click += new System.EventHandler(this.btnSerialMonitor_Click);
-            // 
-            // btnDisconnectSerial
-            // 
-            this.btnDisconnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnDisconnectSerial.AutoSize = false;
-            this.btnDisconnectSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnDisconnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDisconnectSerial.ForeColor = System.Drawing.Color.White;
-            this.btnDisconnectSerial.Image = global::GSM_Client.Properties.Resources.unlink_white;
-            this.btnDisconnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDisconnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnDisconnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnDisconnectSerial.Name = "btnDisconnectSerial";
-            this.btnDisconnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnDisconnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnDisconnectSerial.Size = new System.Drawing.Size(70, 59);
-            this.btnDisconnectSerial.Text = "Disconnect";
-            this.btnDisconnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDisconnectSerial.Visible = false;
-            this.btnDisconnectSerial.Click += new System.EventHandler(this.btnDisconnectSerial_Click);
-            // 
-            // btnConnectSerial
-            // 
-            this.btnConnectSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnConnectSerial.AutoSize = false;
-            this.btnConnectSerial.BackColor = System.Drawing.Color.Transparent;
-            this.btnConnectSerial.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConnectSerial.ForeColor = System.Drawing.Color.White;
-            this.btnConnectSerial.Image = global::GSM_Client.Properties.Resources.plug_white;
-            this.btnConnectSerial.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnConnectSerial.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnConnectSerial.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnConnectSerial.Name = "btnConnectSerial";
-            this.btnConnectSerial.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnConnectSerial.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnConnectSerial.Size = new System.Drawing.Size(70, 59);
-            this.btnConnectSerial.Text = "Connect";
-            this.btnConnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnConnectSerial.Click += new System.EventHandler(this.btnConnectSerial_Click);
-            // 
-            // btnSend
-            // 
-            this.btnSend.AutoSize = false;
-            this.btnSend.BackColor = System.Drawing.Color.Transparent;
-            this.btnSend.Enabled = false;
-            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSend.ForeColor = System.Drawing.Color.White;
-            this.btnSend.Image = global::GSM_Client.Properties.Resources.paper_plane_white;
-            this.btnSend.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSend.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnSend.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSend.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnSend.Size = new System.Drawing.Size(70, 59);
-            this.btnSend.Text = "Send";
-            this.btnSend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // btnRecipients
-            // 
-            this.btnRecipients.AutoSize = false;
-            this.btnRecipients.BackColor = System.Drawing.Color.Transparent;
-            this.btnRecipients.Enabled = false;
-            this.btnRecipients.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecipients.ForeColor = System.Drawing.Color.White;
-            this.btnRecipients.Image = global::GSM_Client.Properties.Resources.address_book_white;
-            this.btnRecipients.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnRecipients.ImageTransparentColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnRecipients.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.btnRecipients.Name = "btnRecipients";
-            this.btnRecipients.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnRecipients.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.btnRecipients.Size = new System.Drawing.Size(70, 59);
-            this.btnRecipients.Text = "Recipients";
-            this.btnRecipients.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
-            // 
-            // toolStripIconLoading
-            // 
-            this.toolStripIconLoading.ActiveLinkColor = System.Drawing.Color.Red;
-            this.toolStripIconLoading.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripIconLoading.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripIconLoading.Image = global::GSM_Client.Properties.Resources.loader;
-            this.toolStripIconLoading.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.toolStripIconLoading.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.toolStripIconLoading.Name = "toolStripIconLoading";
-            this.toolStripIconLoading.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconLoading.Size = new System.Drawing.Size(26, 23);
-            this.toolStripIconLoading.Text = "toolStripStatusConnected";
-            this.toolStripIconLoading.Visible = false;
-            // 
-            // toolStripIconConnected
-            // 
-            this.toolStripIconConnected.ActiveLinkColor = System.Drawing.Color.Red;
-            this.toolStripIconConnected.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripIconConnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripIconConnected.Image = global::GSM_Client.Properties.Resources.check_circle_green;
-            this.toolStripIconConnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.toolStripIconConnected.Name = "toolStripIconConnected";
-            this.toolStripIconConnected.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconConnected.Size = new System.Drawing.Size(26, 23);
-            this.toolStripIconConnected.Text = "toolStripStatusConnected";
-            this.toolStripIconConnected.Visible = false;
-            // 
-            // toolStripIconDisconnected
-            // 
-            this.toolStripIconDisconnected.ActiveLinkColor = System.Drawing.Color.Red;
-            this.toolStripIconDisconnected.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripIconDisconnected.BorderStyle = System.Windows.Forms.Border3DStyle.RaisedOuter;
-            this.toolStripIconDisconnected.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripIconDisconnected.Image = global::GSM_Client.Properties.Resources.times_circle_red;
-            this.toolStripIconDisconnected.Margin = new System.Windows.Forms.Padding(2, 3, 0, 2);
-            this.toolStripIconDisconnected.Name = "toolStripIconDisconnected";
-            this.toolStripIconDisconnected.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStripIconDisconnected.Size = new System.Drawing.Size(26, 23);
-            this.toolStripIconDisconnected.Text = "toolStripStatusDisconnected";
-            this.toolStripIconDisconnected.Visible = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -823,11 +823,11 @@ namespace GSM_Client
             this.grpSerialPortDetails.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picSignalStatus)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picSignalStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
