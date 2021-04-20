@@ -18,8 +18,8 @@ namespace DRRMIS_GSM_Client
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
-        private string urlAPI = "http://philsensors.asti.dost.gov.ph/api/data/";
-        private string urlParameters = "?api_key=123";
+        private string urlAPI = "http://philsensors.asti.dost.gov.ph/api/data";
+        private string urlParameters = "/1304/from/2021-01-20/to/2021-01-21";
 
         [DllImportAttribute("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd,
@@ -51,34 +51,24 @@ namespace DRRMIS_GSM_Client
             string resultString = "";
 
             await Task.Run(async () => {
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(urlAPI);
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue(
+                        "Basic", Convert.ToBase64String(byteArray)
                     );
-                    client.DefaultRequestHeaders.Authorization = 
-                        new System.Net.Http.Headers.AuthenticationHeaderValue(
-                            "Basic", Convert.ToBase64String(byteArray)
-                        );
 
-                    HttpResponseMessage response = await client.GetAsync(urlAPI);
-                    HttpContent content = response.Content;
+                HttpResponseMessage response = await client.GetAsync(urlAPI + urlParameters);
+                HttpContent content = response.Content;
 
-                    // ... Check Status Code
-                    resultString = "Response StatusCode: " + ((int)response.StatusCode).ToString();
-                    MessageBox.Show(resultString);
+                // ... Check Status Code
+                resultString = "Response StatusCode: " + ((int)response.StatusCode).ToString();
+                MessageBox.Show(resultString);
 
-                    // ... Read the string.
-                    string result = await content.ReadAsStringAsync();
+                // ... Read the string.
+                string result = await content.ReadAsStringAsync();
 
-                    // ... Display the result.
-                    if (result != null && result.Length >= 50) {
-                        resultString = result.Substring(0, 50) + "...";
-
-                        MessageBox.Show(resultString);
-                    }
-                }
+                // ... Display the result.
+                MessageBox.Show(result);
                 //MessageBox.Show("Username: " + username + " Password: " + password);
             });
         }
