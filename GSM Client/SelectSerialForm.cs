@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     public partial class SelectSerialForm : Form
     {

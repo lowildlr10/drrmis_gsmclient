@@ -1,5 +1,5 @@
 ﻿
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     partial class MainForm
     {
@@ -106,7 +106,7 @@ namespace GSM_Client
             // mainStatusStrip
             // 
             this.mainStatusStrip.AutoSize = false;
-            this.mainStatusStrip.BackColor = System.Drawing.SystemColors.Desktop;
+            this.mainStatusStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripIconLoading,
             this.toolStripIconConnected,
@@ -233,7 +233,7 @@ namespace GSM_Client
             // 
             // mainMenuStrip
             // 
-            this.mainMenuStrip.BackColor = System.Drawing.SystemColors.Desktop;
+            this.mainMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
@@ -264,7 +264,7 @@ namespace GSM_Client
             // toolStrip
             // 
             this.toolStrip.AutoSize = false;
-            this.toolStrip.BackColor = System.Drawing.Color.SlateGray;
+            this.toolStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(87)))), ((int)(((byte)(92)))));
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(25, 25);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -801,6 +801,7 @@ namespace GSM_Client
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenuStrip);
+            this.Enabled = false;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;

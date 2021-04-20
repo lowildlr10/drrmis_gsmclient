@@ -17,3 +17,4 @@ D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.exe.manifest
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.application
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.exe
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csprojAssemblyReference.cache

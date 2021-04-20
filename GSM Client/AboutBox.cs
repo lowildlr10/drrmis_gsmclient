@@ -6,13 +6,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     partial class AboutBoxForm : Form
     {
-        public AboutBoxForm()
-        {
+        public AboutBoxForm() {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
@@ -102,9 +102,12 @@ namespace GSM_Client
         }
         #endregion
 
-        private void btnOK_Click(object sender, EventArgs e)
-        {
+        private void linkDOST_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://car.dost.gov.ph");
+        }
 
+        private void linkDRRMIS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("http://drrmis.dostcar.ph");
         }
     }
 }

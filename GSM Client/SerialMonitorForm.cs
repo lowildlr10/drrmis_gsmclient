@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     public partial class SerialMonitorForm : Form
     {

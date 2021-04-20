@@ -1,5 +1,5 @@
 ﻿
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     partial class SelectSerialForm
     {
@@ -112,7 +112,7 @@ namespace GSM_Client
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(338, 257);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpSerialPort);

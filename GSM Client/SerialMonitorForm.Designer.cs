@@ -1,5 +1,5 @@
 ﻿
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     partial class SerialMonitorForm
     {
@@ -33,13 +33,13 @@ namespace GSM_Client
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SerialMonitorForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.txtSerialWrite = new System.Windows.Forms.TextBox();
             this.btnWriteSerial = new System.Windows.Forms.Button();
             this.txtFeedback = new System.Windows.Forms.TextBox();
             this.timerMonitorFeedback = new System.Windows.Forms.Timer(this.components);
-            this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -60,7 +60,7 @@ namespace GSM_Client
             // toolStrip1
             // 
             this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(87)))), ((int)(((byte)(92)))));
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -71,6 +71,19 @@ namespace GSM_Client
             this.toolStrip1.Size = new System.Drawing.Size(584, 30);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnClearFeedback
+            // 
+            this.btnClearFeedback.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnClearFeedback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClearFeedback.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearFeedback.ForeColor = System.Drawing.Color.White;
+            this.btnClearFeedback.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFeedback.Image")));
+            this.btnClearFeedback.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClearFeedback.Name = "btnClearFeedback";
+            this.btnClearFeedback.Size = new System.Drawing.Size(37, 27);
+            this.btnClearFeedback.Text = "Clear";
+            this.btnClearFeedback.Click += new System.EventHandler(this.btnClearFeedback_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -116,14 +129,16 @@ namespace GSM_Client
             // 
             // btnWriteSerial
             // 
+            this.btnWriteSerial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnWriteSerial.BackColor = System.Drawing.Color.White;
-            this.btnWriteSerial.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnWriteSerial.FlatAppearance.BorderColor = System.Drawing.Color.White;
             this.btnWriteSerial.FlatAppearance.BorderSize = 0;
+            this.btnWriteSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWriteSerial.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWriteSerial.Location = new System.Drawing.Point(461, 3);
             this.btnWriteSerial.Name = "btnWriteSerial";
-            this.btnWriteSerial.Size = new System.Drawing.Size(114, 28);
+            this.btnWriteSerial.Size = new System.Drawing.Size(114, 27);
             this.btnWriteSerial.TabIndex = 1;
             this.btnWriteSerial.Text = "Write";
             this.btnWriteSerial.UseVisualStyleBackColor = false;
@@ -135,35 +150,23 @@ namespace GSM_Client
             this.txtFeedback.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFeedback.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFeedback.Location = new System.Drawing.Point(5, 56);
-            this.txtFeedback.Margin = new System.Windows.Forms.Padding(5);
+            this.txtFeedback.Margin = new System.Windows.Forms.Padding(5, 5, 5, 40);
             this.txtFeedback.Multiline = true;
             this.txtFeedback.Name = "txtFeedback";
             this.txtFeedback.ReadOnly = true;
             this.txtFeedback.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtFeedback.Size = new System.Drawing.Size(574, 313);
+            this.txtFeedback.Size = new System.Drawing.Size(574, 303);
             this.txtFeedback.TabIndex = 1;
             // 
             // timerMonitorFeedback
             // 
             this.timerMonitorFeedback.Interval = 500;
             // 
-            // btnClearFeedback
-            // 
-            this.btnClearFeedback.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btnClearFeedback.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnClearFeedback.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearFeedback.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFeedback.Image")));
-            this.btnClearFeedback.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnClearFeedback.Name = "btnClearFeedback";
-            this.btnClearFeedback.Size = new System.Drawing.Size(37, 27);
-            this.btnClearFeedback.Text = "Clear";
-            this.btnClearFeedback.Click += new System.EventHandler(this.btnClearFeedback_Click);
-            // 
             // SerialMonitorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(584, 399);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

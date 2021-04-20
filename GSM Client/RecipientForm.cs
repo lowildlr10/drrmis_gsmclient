@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     public partial class RecipientForm : Form
     {

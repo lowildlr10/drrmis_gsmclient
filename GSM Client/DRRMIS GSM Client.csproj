@@ -52,7 +52,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>GSM_Client.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>drrmis-ico.ico</ApplicationIcon>
@@ -123,6 +124,12 @@
     <Compile Include="LoadingScreenForm.Designer.cs">
       <DependentUpon>LoadingScreenForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="RecipientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingScreenForm.resx">
       <DependentUpon>LoadingScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -302,6 +312,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\images\icons\drrmis-logo.png" />
+    <None Include="assets\images\icons\drrmis-ico.png" />
+    <None Include="assets\images\icons\key.png" />
+    <None Include="assets\images\icons\key-whit-32px.png" />
+    <None Include="assets\images\icons\key-white.png" />
     <Content Include="dost-logo-ico.ico" />
     <Content Include="drrmis-ico.ico" />
   </ItemGroup>

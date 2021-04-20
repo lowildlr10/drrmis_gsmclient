@@ -10,11 +10,12 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     public partial class MainForm : Form
     {
         LoadingScreenForm frmLoadingScreen;
+        LoginForm frmLogin = new LoginForm();
         RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
         SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
@@ -46,6 +47,8 @@ namespace GSM_Client
 
         public MainForm() {
             InitializeComponent();
+            frmLoadingScreen = new LoadingScreenForm();
+            frmLoadingScreen.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -53,10 +56,9 @@ namespace GSM_Client
             frmSerialMonitor.Show();
             frmSerialMonitor.Visible = false;
 
-            frmLoadingScreen = new LoadingScreenForm();
-            frmLoadingScreen.ShowDialog();
-            this.Hide();
-            
+            frmLogin.ShowDialog();
+
+
             RefreshDisplays();
         }
 
@@ -218,7 +220,7 @@ namespace GSM_Client
             lblStatusGSM.Text = gsmStatus;
             lblSignalStrength.Text = signalStatus;
             picSignalStatus.Image = !isInitGSM ? 
-                                    (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-slash-32px") :
+                                    (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px") :
                                     picSignalStatus.Image;
             timerRefreshSignal.Enabled = isSignalRefresh;
 
@@ -384,26 +386,26 @@ namespace GSM_Client
             double signalValue = double.Parse(signalArray[1]);
             double signalPercentage = Math.Round((signalValue / 30) * 100, 2);
             string signalCondition = "No Signal";
-            var imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
+            var imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
 
             if (signalValue > 1 && signalValue <= 9) {
                 signalCondition = "Marginal";
-                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-1-32px");
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-1-32px");
             } else if (signalValue >= 10 && signalValue <= 14) {
                 signalCondition = "OK";
-                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-2-32px");
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-2-32px");
             } else if (signalValue >= 15 && signalValue <= 19) {
                 signalCondition = "Good";
-                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-3-32px");
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-3-32px");
             } else if (signalValue >= 20 && signalValue <= 25) {
                 signalCondition = "Excellent";
-                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-4-32px");
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-4-32px");
             } else if (signalValue >= 26 && signalValue <= 30) {
                 signalCondition = "Excellent";
-                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-5-32px");
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-5-32px");
             } else {
                 signalCondition = "No Signal";
-                imgSignal = (Bitmap)DRRMIS_GSM_Client.Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
+                imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
             }
 
             lblSignalStrength.Text = signalPercentage.ToString() + "% (" + signalCondition + ")";

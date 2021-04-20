@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GSM_Client
+namespace DRRMIS_GSM_Client
 {
     public partial class LoadingScreenForm : Form
     {
