@@ -14,8 +14,6 @@ namespace DRRMIS_GSM_Client
 {
     public partial class MainForm : Form
     {
-        LoadingScreenForm frmLoadingScreen;
-        LoginForm frmLogin = new LoginForm();
         RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
         SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
@@ -45,10 +43,8 @@ namespace DRRMIS_GSM_Client
             set { comPort.BaudRate = value; }
         }
 
-        public MainForm() {
+        public MainForm(Dictionary<string, dynamic> userResources = null) {
             InitializeComponent();
-            frmLoadingScreen = new LoadingScreenForm();
-            frmLoadingScreen.ShowDialog();
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -56,10 +52,12 @@ namespace DRRMIS_GSM_Client
             frmSerialMonitor.Show();
             frmSerialMonitor.Visible = false;
 
-            frmLogin.ShowDialog();
-
-
+            //frmLogin.ShowDialog();
             RefreshDisplays();
+
+            this.WindowState = FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Normal;
+            this.Focus(); this.Show();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {

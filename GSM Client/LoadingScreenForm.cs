@@ -6,28 +6,47 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace DRRMIS_GSM_Client
 {
     public partial class LoadingScreenForm : Form
     {
-        Timer timer;
+        private delegate void CloseDelegate();
+        private static LoadingScreenForm frmLoadingScreen;
 
         public LoadingScreenForm() {
             InitializeComponent();
         }
 
-        private void timer_Tick(object sender, EventArgs e) {
-            timer.Stop();
-            this.Hide();
+        static public void ShowLoadingScreen() {  
+            if (frmLoadingScreen != null) return;
+            frmLoadingScreen = new LoadingScreenForm();
+            Thread thread = new Thread(new ThreadStart(LoadingScreenForm.ShowForm));
+            thread.IsBackground = true;
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
-        private void LoadingScreenForm_Shown(object sender, EventArgs e) {
-            timer = new Timer();
-            timer.Interval = 3000;
-            timer.Start();
-            timer.Tick += timer_Tick;
+        static private void ShowForm() {
+            if (frmLoadingScreen != null) {
+                Application.Run(frmLoadingScreen);
+            }
+        }
+
+        static public void CloseForm() {
+            Thread.Sleep(3000);
+            frmLoadingScreen?.Invoke(
+                new CloseDelegate(LoadingScreenForm.CloseFormInternal)
+            );
+        }
+
+        static private void CloseFormInternal() {
+            if (frmLoadingScreen != null) {
+                frmLoadingScreen.Close();
+                frmLoadingScreen = null;
+            };
         }
     }
 }

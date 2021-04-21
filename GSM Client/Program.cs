@@ -16,7 +16,11 @@ namespace DRRMIS_GSM_Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            LoadingScreenForm.ShowLoadingScreen();
+            LoginForm frmLogin = new LoginForm();
+            LoadingScreenForm.CloseForm();
+            Application.Run(frmLogin);
         }
     }
 }

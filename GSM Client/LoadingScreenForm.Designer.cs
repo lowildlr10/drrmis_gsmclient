@@ -104,8 +104,8 @@ namespace DRRMIS_GSM_Client
             // 
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox2.Image = global::DRRMIS_GSM_Client.Properties.Resources.drrmis_logo;
-            this.pictureBox2.Location = new System.Drawing.Point(274, 20);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(30, 20, 110, 10);
+            this.pictureBox2.Location = new System.Drawing.Point(274, 15);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(30, 15, 110, 15);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(104, 105);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -116,8 +116,8 @@ namespace DRRMIS_GSM_Client
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::DRRMIS_GSM_Client.Properties.Resources.dost_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(110, 20);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(110, 20, 30, 10);
+            this.pictureBox1.Location = new System.Drawing.Point(110, 15);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(110, 15, 30, 15);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(104, 105);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -150,7 +150,6 @@ namespace DRRMIS_GSM_Client
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Shown += new System.EventHandler(this.LoadingScreenForm_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

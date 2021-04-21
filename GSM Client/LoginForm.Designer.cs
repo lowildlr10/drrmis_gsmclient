@@ -325,6 +325,7 @@ namespace DRRMIS_GSM_Client
             this.Opacity = 0.98D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
+            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.toolStripLogin.ResumeLayout(false);
             this.toolStripLogin.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
