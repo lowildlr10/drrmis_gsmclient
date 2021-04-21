@@ -413,6 +413,16 @@ namespace DRRMIS_GSM_Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap user {
+            get {
+                object obj = ResourceManager.GetObject("user", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap user_plus {
             get {
                 object obj = ResourceManager.GetObject("user-plus", resourceCulture);
@@ -426,6 +436,26 @@ namespace DRRMIS_GSM_Client.Properties {
         internal static System.Drawing.Bitmap user_plus_white {
             get {
                 object obj = ResourceManager.GetObject("user-plus-white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_white {
+            get {
+                object obj = ResourceManager.GetObject("user-white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_white_128px {
+            get {
+                object obj = ResourceManager.GetObject("user-white-128px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

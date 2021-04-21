@@ -130,7 +130,7 @@ namespace DRRMIS_GSM_Client
 
         private async Task<string> GetUser(string token) {
             string result = null;
-            string apiURL = "http://localhost:8000/api/get-details";
+            string apiURL = "http://localhost:8000/api/user-info";
             Uri url = new Uri(apiURL);
 
             var _data = new {
@@ -143,7 +143,6 @@ namespace DRRMIS_GSM_Client
                     httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
                     httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-                    //result = await httpClient.GetStringAsync(url).ConfigureAwait(false);
                     var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
                     result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -196,6 +195,8 @@ namespace DRRMIS_GSM_Client
                 string userResult = await GetUser(token);
                 var jsonUser = JsonConvert.DeserializeObject<Dictionary<string, object>>(userResult);
                 bool isUserSuccess = jsonUser.ContainsKey("success");
+
+                usrDict["token"] = token;
 
                 if (isUserSuccess) {
                     successVal = jsonUser["success"].ToString();

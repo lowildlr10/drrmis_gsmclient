@@ -320,6 +320,9 @@
     <None Include="assets\images\icons\key.png" />
     <None Include="assets\images\icons\key-whit-32px.png" />
     <None Include="assets\images\icons\key-white.png" />
+    <None Include="assets\images\icons\user.png" />
+    <None Include="assets\images\icons\user-white.png" />
+    <None Include="assets\images\icons\user-white-128px.png" />
     <Content Include="dost-logo-ico.ico" />
     <Content Include="drrmis-ico.ico" />
   </ItemGroup>

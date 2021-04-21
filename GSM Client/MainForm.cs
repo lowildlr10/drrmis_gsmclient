@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace DRRMIS_GSM_Client
 {
@@ -33,6 +36,13 @@ namespace DRRMIS_GSM_Client
         private List<string> sendMessageLogs = new List<string>();
         private int countSent = 0;
 
+        protected int userID;
+        protected string firstname;
+        protected string lastname;
+        protected string username;
+        protected string token;
+        protected bool userWithError;
+
         public string PortName {
             get { return comPort.PortName; }
             set { comPort.PortName = value; }
@@ -45,6 +55,13 @@ namespace DRRMIS_GSM_Client
 
         public MainForm(Dictionary<string, dynamic> userResources = null) {
             InitializeComponent();
+
+            userID = int.Parse(userResources["user_id"].ToString());
+            firstname = userResources["firstname"].ToString();
+            lastname = userResources["lastname"].ToString();
+            username = userResources["username"].ToString();
+            token = userResources["token"].ToString();
+            userWithError = Convert.ToBoolean(userResources["with_error"]);
         }
 
         private void MainForm_Load(object sender, EventArgs e) {
@@ -58,6 +75,11 @@ namespace DRRMIS_GSM_Client
             this.WindowState = FormWindowState.Minimized;
             this.WindowState = FormWindowState.Normal;
             this.Focus(); this.Show();
+
+            toolStripMenuUsername.Text = "Profile: " + username.ToUpper();
+
+            MessageBox.Show("Welcome " + firstname.ToUpper() + "!", "Message",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -251,6 +273,9 @@ namespace DRRMIS_GSM_Client
             toolStripIconConnected.Visible = isIconConnectedVisible;
             toolStripIconDisconnected.Visible = isIconDisconnectedVisible;
             toolStripStatusLabel.Text = statusText;
+
+            // User
+            this.Enabled = !userWithError ? true : false;
         }
 
         private void btnSerialMonitor_Click(object sender, EventArgs e) {
@@ -420,6 +445,54 @@ namespace DRRMIS_GSM_Client
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
             ExitApplication();
+        }
+
+        private StringContent ParseJson(object _data) {
+            string json = JsonConvert.SerializeObject(_data);
+            StringContent data = new StringContent(
+                json, Encoding.UTF8, "application/json"
+            );
+
+            return data;
+        }
+
+        private async Task<string> Logout() {
+            string result = null;
+            string apiURL = "http://localhost:8000/api/logout/" + userID;
+            Uri url = new Uri(apiURL);
+
+            var _data = new {
+                token = token
+            };
+            StringContent data = ParseJson(_data);
+
+            try {
+                using (var httpClient = new HttpClient()) {
+                    httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
+                    result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    httpClient.Dispose();
+                }
+            } catch (Exception) { }
+
+            return result;
+        }
+
+        private async void toolStripMenuLogout_Click(object sender, EventArgs e) {
+            string logoutResult = await Logout();
+
+            var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(logoutResult);
+            bool isSuccess = json.ContainsKey("success");
+
+            if (isSuccess) {
+                this.Hide();
+                LoginForm frmLogin = new LoginForm();
+                frmLogin.Show();
+                Application.Exit();
+            }
         }
     }
 }
