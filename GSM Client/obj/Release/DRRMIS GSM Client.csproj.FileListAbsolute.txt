@@ -3,13 +3,7 @@ D:\dev\desktop\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.exe.manifest
 D:\dev\desktop\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.application
 D:\dev\desktop\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.exe
 D:\dev\desktop\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.pdb
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.AboutBoxForm.resources
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.LoadingScreenForm.resources
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.MainForm.resources
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.Properties.Resources.resources
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.RecipientForm.resources
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.SelectSerialForm.resources
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\GSM_Client.SerialMonitorForm.resources
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csproj.GenerateResource.cache
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csproj.CoreCompileInputs.cache
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.TrustInfo.xml
@@ -17,4 +11,13 @@ D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.exe.manifest
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.application
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.exe
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.pdb
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csprojAssemblyReference.cache
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\Newtonsoft.Json.dll
+D:\dev\desktop\gsmclient\GSM Client\bin\Release\Newtonsoft.Json.xml
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.AboutBoxForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.LoadingScreenForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.LoginForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.MainForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.RecipientForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.SelectSerialForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.SerialMonitorForm.resources
+D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csproj.CopyComplete

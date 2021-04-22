@@ -21,10 +21,12 @@ namespace DRRMIS_GSM_Client
 {
     public partial class LoginForm : Form
     {
+        MainForm frmMain;
+
         private bool isLogin = false;
+        private string baseURL = "http://localhost:8000";
 
         private delegate void RefreshDisplaysThread();
-        private delegate void _RunMainForm(Dictionary<string, dynamic> userResources);
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -37,6 +39,11 @@ namespace DRRMIS_GSM_Client
 
         public class DataObject {
             public string Name { get; set; }
+        }
+
+        public MainForm MainForm {
+            get { return frmMain; }
+            set { frmMain = value; }
         }
 
         public LoginForm() {
@@ -92,7 +99,7 @@ namespace DRRMIS_GSM_Client
 
         private async Task<string> RunAsyncLogin(string username, string password) {
             string result = null;
-            string apiURL = "http://localhost:8000/api/login";
+            string apiURL = baseURL + "/api/login";
             Uri url = new Uri(apiURL);
 
             var _data = new {
@@ -130,7 +137,7 @@ namespace DRRMIS_GSM_Client
 
         private async Task<string> GetUser(string token) {
             string result = null;
-            string apiURL = "http://localhost:8000/api/user-info";
+            string apiURL = baseURL + "/api/user-info";
             Uri url = new Uri(apiURL);
 
             var _data = new {
@@ -148,7 +155,10 @@ namespace DRRMIS_GSM_Client
 
                     httpClient.Dispose();
                 }
-            } catch (Exception) { }
+            } catch (Exception) {
+                MessageBox.Show("There is an error accessing the server. Please try again.", "Critical",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             return result;
         }
@@ -210,6 +220,7 @@ namespace DRRMIS_GSM_Client
                     usrDict["firstname"] = usrFirstname;
                     usrDict["lastname"] = usrLastname;
                     usrDict["username"] = usrUsername;
+                    usrDict["base_url"] = baseURL;
                     usrDict["with_error"] = false;
                 } else {
 
@@ -266,10 +277,29 @@ namespace DRRMIS_GSM_Client
         }
 
         private void CloseForm(Dictionary<string, dynamic> userResources) {
-            this.Hide();
-            MainForm frmMain = new MainForm(userResources);
-            frmMain.Show();
-            Application.Exit();
+            frmMain.UserResources = userResources;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void txtBaseURL_KeyDown(object sender, KeyEventArgs e)  {
+            if (e.KeyCode == Keys.Enter) {
+                baseURL = txtBaseURL.Text.Trim();
+                MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
+        }
+
+        private void toolTipItem_Click(object sender, EventArgs e) {
+            baseURL = txtBaseURL.Text.Trim();
+            MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+        }
+
+        private void toolStripMenuSaveSettings_Click(object sender, EventArgs e) {
+            baseURL = txtBaseURL.Text.Trim();
+            MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
     }
 }

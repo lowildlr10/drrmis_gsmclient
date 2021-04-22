@@ -323,6 +323,9 @@
     <None Include="assets\images\icons\user.png" />
     <None Include="assets\images\icons\user-white.png" />
     <None Include="assets\images\icons\user-white-128px.png" />
+    <None Include="assets\images\icons\cog-white-128px.png" />
+    <None Include="assets\images\icons\tv-white-128px.png" />
+    <None Include="assets\images\icons\cog-32px.png" />
     <Content Include="dost-logo-ico.ico" />
     <Content Include="drrmis-ico.ico" />
   </ItemGroup>

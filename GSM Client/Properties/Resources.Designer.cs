@@ -103,9 +103,29 @@ namespace DRRMIS_GSM_Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cog_32px {
+            get {
+                object obj = ResourceManager.GetObject("cog-32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cog_white {
             get {
                 object obj = ResourceManager.GetObject("cog-white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cog_white_128px {
+            get {
+                object obj = ResourceManager.GetObject("cog-white-128px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -386,6 +406,16 @@ namespace DRRMIS_GSM_Client.Properties {
         internal static System.Drawing.Bitmap tv_white {
             get {
                 object obj = ResourceManager.GetObject("tv-white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tv_white_128px {
+            get {
+                object obj = ResourceManager.GetObject("tv-white-128px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

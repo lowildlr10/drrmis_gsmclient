@@ -56,12 +56,14 @@ namespace DRRMIS_GSM_Client
                 
             } else {
                 if (serialPort == null) {
-                    MessageBox.Show("Please select a serial port.");
+                    MessageBox.Show("Please select a serial port.", "Warning",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     selSerialPort.Focus();
                 }
 
                 if (string.IsNullOrEmpty(baudRate)) {
-                    MessageBox.Show("Please select a baud rate.");
+                    MessageBox.Show("Please select a baud rate.", "Warning",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtBaudRate.Focus();
                 }
 

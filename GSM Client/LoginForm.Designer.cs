@@ -37,6 +37,10 @@ namespace DRRMIS_GSM_Client
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripIconStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolTipItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtBaseURL = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuSaveSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -119,7 +123,8 @@ namespace DRRMIS_GSM_Client
             this.statusStrip1.Dock = System.Windows.Forms.DockStyle.Top;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel,
-            this.toolStripIconStatus});
+            this.toolStripIconStatus,
+            this.toolStripDropDownButton1});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.statusStrip1.Location = new System.Drawing.Point(0, 36);
             this.statusStrip1.Name = "statusStrip1";
@@ -148,6 +153,60 @@ namespace DRRMIS_GSM_Client
             this.toolStripIconStatus.Name = "toolStripIconStatus";
             this.toolStripIconStatus.Size = new System.Drawing.Size(16, 17);
             this.toolStripIconStatus.Visible = false;
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripDropDownButton1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolTipItem,
+            this.txtBaseURL,
+            this.toolStripMenuSaveSettings});
+            this.toolStripDropDownButton1.ForeColor = System.Drawing.Color.Snow;
+            this.toolStripDropDownButton1.Image = global::DRRMIS_GSM_Client.Properties.Resources.cog_white;
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Padding = new System.Windows.Forms.Padding(4);
+            this.toolStripDropDownButton1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripDropDownButton1.ShowDropDownArrow = false;
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(77, 29);
+            this.toolStripDropDownButton1.Text = "Settings";
+            this.toolStripDropDownButton1.ToolTipText = "Settings";
+            // 
+            // toolTipItem
+            // 
+            this.toolTipItem.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolTipItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.toolTipItem.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.toolTipItem.Name = "toolTipItem";
+            this.toolTipItem.Size = new System.Drawing.Size(240, 22);
+            this.toolTipItem.Text = "DRRMIS BASE URL";
+            this.toolTipItem.Click += new System.EventHandler(this.toolTipItem_Click);
+            // 
+            // txtBaseURL
+            // 
+            this.txtBaseURL.AutoSize = false;
+            this.txtBaseURL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBaseURL.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBaseURL.Margin = new System.Windows.Forms.Padding(1, 3, 1, 3);
+            this.txtBaseURL.MaxLength = 255;
+            this.txtBaseURL.Name = "txtBaseURL";
+            this.txtBaseURL.Size = new System.Drawing.Size(180, 23);
+            this.txtBaseURL.Text = "http://localhost:8000";
+            this.txtBaseURL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBaseURL_KeyDown);
+            // 
+            // toolStripMenuSaveSettings
+            // 
+            this.toolStripMenuSaveSettings.AutoSize = false;
+            this.toolStripMenuSaveSettings.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.toolStripMenuSaveSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuSaveSettings.Margin = new System.Windows.Forms.Padding(0, 5, 0, 15);
+            this.toolStripMenuSaveSettings.Name = "toolStripMenuSaveSettings";
+            this.toolStripMenuSaveSettings.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.toolStripMenuSaveSettings.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripMenuSaveSettings.Size = new System.Drawing.Size(240, 30);
+            this.toolStripMenuSaveSettings.Text = "SAVE";
+            this.toolStripMenuSaveSettings.Click += new System.EventHandler(this.toolStripMenuSaveSettings_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -361,5 +420,9 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.ToolStripStatusLabel toolStripIconStatus;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem toolTipItem;
+        private System.Windows.Forms.ToolStripTextBox txtBaseURL;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuSaveSettings;
     }
 }
