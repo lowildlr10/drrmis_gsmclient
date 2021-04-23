@@ -17,6 +17,7 @@ namespace DRRMIS_GSM_Client
 {
     public partial class MainForm : Form
     {
+        User user;
         LoginForm frmLogin = new LoginForm();
         RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
@@ -58,13 +59,15 @@ namespace DRRMIS_GSM_Client
             set { comPort.BaudRate = value; }
         }
 
-        public Dictionary<string, dynamic> UserResources {
-            get { return userResources; }
-            set { userResources = value; }
+        public MainForm(dynamic _user = null) {
+            InitializeComponent();
+
+            user = _user;
         }
 
-        public MainForm() {
-            InitializeComponent();
+        public User User {
+            get { return user; }
+            set { user = value; }
         }
 
         private void RefreshForm() {
@@ -74,21 +77,19 @@ namespace DRRMIS_GSM_Client
             comPort.PortName = " ";
             comPort.BaudRate = 9600;
 
-            if (userResources.Count > 0) {
-                userID = int.Parse(userResources["user_id"].ToString());
-                firstname = userResources["firstname"].ToString();
-                lastname = userResources["lastname"].ToString();
-                username = userResources["username"].ToString();
-                token = userResources["token"].ToString();
-                baseURL = userResources["base_url"].ToString();
-                userWithError = Convert.ToBoolean(userResources["with_error"]);
-            }
+            userID = user.Id;
+            firstname = user.Firstname;
+            lastname = user.Lastname;
+            username = user.Username;
+            token = user.Token;
+            baseURL = user.BaseUrl;
+            userWithError = user.HasError;
 
             frmSerialMonitor.MainForm = this;
             frmSerialMonitor.Show();
             frmSerialMonitor.Visible = false;
 
-            this.WindowState = FormWindowState.Minimized;
+            //this.WindowState = FormWindowState.Minimized;
             this.WindowState = FormWindowState.Normal;
             this.Focus(); 
             this.Show();
@@ -104,11 +105,10 @@ namespace DRRMIS_GSM_Client
             RefreshForm();
         }
 
-        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+        private async void ClosingApplication() {
             DialogResult msgClosing = MessageBox.Show("Are you sure you want to exit the application?",
                                               "Exit Application", MessageBoxButtons.YesNo,
                                               MessageBoxIcon.Question);
-            e.Cancel = true;
 
             if (msgClosing == DialogResult.Yes) {
                 bool isLogoutSuccess = await Logout();
@@ -118,6 +118,10 @@ namespace DRRMIS_GSM_Client
                     ExitApplication();
                 }
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {e.Cancel = true;
+            MinimizeTOTray(true);
         }
 
         private void btnConnectSerial_Click(object sender, EventArgs e) {
@@ -148,7 +152,7 @@ namespace DRRMIS_GSM_Client
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            this.Close();
+            ClosingApplication();
         }
 
         public void ConnectSerialPort() {
@@ -276,10 +280,12 @@ namespace DRRMIS_GSM_Client
             // Device details
             lblStatus.ForeColor = serialStatusColor;
             lblStatus.Text = serialStatus;
+            toolStripMenuItemSerialStatus.Text = "COM Status: " + serialStatus;
             lblPortName.Text = portName;
             lblBaudRate.Text = baudRate.ToString().Trim();
             lblStatusGSM.ForeColor = gsmStatusColor;
             lblStatusGSM.Text = gsmStatus;
+            toolStripMenuItemGsmStatus.Text = "GSM Status: " + gsmStatus;
             lblSignalStrength.Text = signalStatus;
             picSignalStatus.Image = !isInitGSM ? 
                                     (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px") :
@@ -302,6 +308,8 @@ namespace DRRMIS_GSM_Client
             // Connect/disconnect
             toolStripMenuConnect.Visible = isConnectControlVisible;
             toolStripMenuDisconnect.Visible = !isConnectControlVisible;
+            toolStripMenuItemConnectSerial.Visible = isConnectControlVisible;
+            toolStripMenuItemDisonnectSerial.Visible = !isConnectControlVisible;
             serialMonitorToolStripMenuItem.Enabled = !isConnectControlVisible;
             settingsToolStripMenuItem.Enabled = isConnectControlVisible;
 
@@ -309,6 +317,7 @@ namespace DRRMIS_GSM_Client
             btnDisconnectSerial.Visible = !isConnectControlVisible;
             btnSerialMonitor.Visible = !isConnectControlVisible;
             btnSettings.Enabled = isConnectControlVisible;
+            toolStripMenuItemSettings.Enabled = isConnectControlVisible;
 
             // Status display
             toolStripIconLoading.Visible = isLoading;
@@ -490,44 +499,6 @@ namespace DRRMIS_GSM_Client
             ExitApplication();
         }
 
-        private StringContent ParseJson(object _data) {
-            string json = JsonConvert.SerializeObject(_data);
-            StringContent data = new StringContent(
-                json, Encoding.UTF8, "application/json"
-            );
-
-            return data;
-        }
-
-        private async Task<string> RunAsyncLogout() {
-            string result = null;
-            string apiURL = baseURL + "/api/logout/" + userID;
-            Uri url = new Uri(apiURL);
-
-            var _data = new {
-                token = token
-            };
-            StringContent data = ParseJson(_data);
-
-            try {
-                using (var httpClient = new HttpClient()) {
-                    httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-                    var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
-                    result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                    httpClient.Dispose();
-                }
-            }
-            catch (Exception) {
-                MessageBox.Show("There is an error accessing the server. Please try again.", "Critical",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return result;
-        }
-
         private async Task<bool> Logout() {
             bool isLogoutSuccess = false;
 
@@ -556,13 +527,13 @@ namespace DRRMIS_GSM_Client
                         break;
                     }
 
-                    string logoutResult = await RunAsyncLogout();
+                    string logoutResult = await user.Logout();
 
-                    if (!string.IsNullOrEmpty(logoutResult)) {
-                        var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(logoutResult);
-                        bool isSuccess = json.ContainsKey("success");
-
-                        isLogoutSuccess = isSuccess;
+                    if (logoutResult == "no-error") {
+                        isLogoutSuccess = true;
+                    } else if (logoutResult == "error-connection") {
+                        MessageBox.Show("There is an error accessing the server. Please try again.", "Critical",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     logoutRetriesLeft--;
@@ -600,6 +571,45 @@ namespace DRRMIS_GSM_Client
                     OpenLoginForm();
                 }
             }
+        }
+
+        private void MinimizeTOTray(bool toMinimize) {
+            if (toMinimize) {
+                this.Hide();
+                notifyIcon.Visible = true;
+                notifyIcon.ShowBalloonTip(3000);
+            } else {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                this.Focus();
+                notifyIcon.Visible = false;
+            }
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
+            MinimizeTOTray(false);
+        }
+
+        private void toolStripMenuItemShowForm_Click(object sender, EventArgs e)  {
+            MinimizeTOTray(false);
+        }
+
+        private void toolStripMenuItemExitApp_Click(object sender, EventArgs e) {
+            ClosingApplication();
+        }
+
+        private void toolStripMenuItemConnectSerial_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
+        }
+
+        private void toolStripMenuItemDisonnectSerial_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
+        }
+
+        private void toolStripMenuItemSettings_Click(object sender, EventArgs e) {
+            frmSelectSerial = new SelectSerialForm();
+            frmSelectSerial.MainForm = this;
+            frmSelectSerial.ShowDialog();
         }
     }
 }

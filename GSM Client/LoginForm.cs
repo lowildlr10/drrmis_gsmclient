@@ -22,6 +22,7 @@ namespace DRRMIS_GSM_Client
     public partial class LoginForm : Form
     {
         MainForm frmMain;
+        User user = new User();
 
         private bool isLogin = false;
         private string baseURL = "http://localhost:8000";
@@ -97,73 +98,7 @@ namespace DRRMIS_GSM_Client
             return data;
         }
 
-        private async Task<string> RunAsyncLogin(string username, string password) {
-            string result = null;
-            string apiURL = baseURL + "/api/login";
-            Uri url = new Uri(apiURL);
-
-            var _data = new {
-                login = username,
-                password = password
-            };
-            StringContent data = ParseJson(_data);
-
-            isLogin = true;
-            this.BeginInvoke(new RefreshDisplaysThread(RefreshDisplays), new object[] { });
-
-            try {
-                using (var httpClient = new HttpClient()) {
-                    httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
-
-                    var authCredentials = System.Text.Encoding.ASCII.GetBytes($"{ username }:{password}");
-                    string encodedAuth = System.Convert.ToBase64String(authCredentials);
-                    httpClient.DefaultRequestHeaders.Add("Authorization", "Basic " + encodedAuth);
-
-                    var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
-                    result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                    httpClient.Dispose();
-                }
-            } catch (Exception) {
-                MessageBox.Show("There is an error accessing the server. Please try again.", "Critical",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            isLogin = false;
-            this.BeginInvoke(new RefreshDisplaysThread(RefreshDisplays), new object[] { });
-
-            return result;
-        }
-
-        private async Task<string> GetUser(string token) {
-            string result = null;
-            string apiURL = baseURL + "/api/user-info";
-            Uri url = new Uri(apiURL);
-
-            var _data = new {
-                token = token
-            };
-            StringContent data = ParseJson(_data);
-
-            try {
-                using (var httpClient = new HttpClient()) {
-                    httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
-                    var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
-                    result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                    httpClient.Dispose();
-                }
-            } catch (Exception) {
-                MessageBox.Show("There is an error accessing the server. Please try again.", "Critical",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            return result;
-        }
-
-        private async Task<string> Login() {
+        private async void Login() {
             string loginResult = null;
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
@@ -184,100 +119,47 @@ namespace DRRMIS_GSM_Client
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtUsername.Focus();
             } else {
-                loginResult = await RunAsyncLogin(username, password);
-            }
+                isLogin = true;
+                this.BeginInvoke(new RefreshDisplaysThread(RefreshDisplays), new object[] { });
 
-            return loginResult;
-        }
+                loginResult = await user.Login(username, password);
 
-        private async Task<Dictionary<string, dynamic>> ParseUserData(string jsonString) {
-            var usrDict = new Dictionary<string, dynamic>();
-            usrDict["with_error"] = true;
-
-            var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonString);
-            bool isSuccess = json.ContainsKey("success");
-
-            if (isSuccess) {
-                string successVal = json["success"].ToString();
-                var jsonSuccess = JsonConvert.DeserializeObject<Dictionary<string, object>>(successVal);
-                string token = jsonSuccess["token"].ToString();
-
-                string userResult = await GetUser(token);
-                var jsonUser = JsonConvert.DeserializeObject<Dictionary<string, object>>(userResult);
-                bool isUserSuccess = jsonUser.ContainsKey("success");
-
-                usrDict["token"] = token;
-
-                if (isUserSuccess) {
-                    successVal = jsonUser["success"].ToString();
-                    jsonSuccess = JsonConvert.DeserializeObject<Dictionary<string, object>>(successVal);
-                    int usrID = int.Parse(jsonSuccess["id"].ToString());
-                    string usrFirstname = jsonSuccess["first_name"].ToString();
-                    string usrLastname = jsonSuccess["last_name"].ToString();
-                    string usrUsername = jsonSuccess["username"].ToString();
-
-                    usrDict["user_id"] = usrID;
-                    usrDict["firstname"] = usrFirstname;
-                    usrDict["lastname"] = usrLastname;
-                    usrDict["username"] = usrUsername;
-                    usrDict["base_url"] = baseURL;
-                    usrDict["with_error"] = false;
-                } else {
-
-                }
-            } else {
-                MessageBox.Show("Incorrect username or password. Try again.", "Login Failed", 
-                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            return usrDict;
-        }
-
-        private async void btnLogin_Click(object sender, EventArgs e) {
-            string loginResult = await Login();
-
-            if (!string.IsNullOrEmpty(loginResult)) {
-                Dictionary<string, dynamic> userResources = await ParseUserData(loginResult);
-                bool userHasError = Convert.ToBoolean(userResources["with_error"]);
-
-                if (!userHasError) {
-                    CloseForm(userResources);
-                }
-            }
-        }
-
-        private async void txtUsername_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyData == Keys.Enter) {
-                string loginResult = await Login();
-
-                if (!string.IsNullOrEmpty(loginResult)) {
-                    Dictionary<string, dynamic> userResources = await ParseUserData(loginResult);
-                    bool userHasError = Convert.ToBoolean(userResources["with_error"]);
-
-                    if (!userHasError) {
-                        CloseForm(userResources);
+                if (loginResult == "no-error") {
+                    if (!user.HasError) {
+                        
+                        CloseForm();
                     }
+                } else if (loginResult == "error-connection") {
+                    MessageBox.Show("There is an error accessing the server. Please try again.", "Critical",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } else if (loginResult == "error-credentials") {
+                    MessageBox.Show("Incorrect username or password. Try again.", "Login Failed",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+
+                isLogin = false;
+                this.BeginInvoke(new RefreshDisplaysThread(RefreshDisplays), new object[] { });
             }
         }
 
-        private async void txtPassword_KeyDown(object sender, KeyEventArgs e) {
+        private void btnLogin_Click(object sender, EventArgs e) {
+            Login();
+        }
+
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyData == Keys.Enter) {
-                string loginResult = await Login();
-
-                if (!string.IsNullOrEmpty(loginResult)) {
-                    Dictionary<string, dynamic> userResources = await ParseUserData(loginResult);
-                    bool userHasError = Convert.ToBoolean(userResources["with_error"]);
-
-                    if (!userHasError) {
-                        CloseForm(userResources);
-                    }
-                }
+                Login();
             }
         }
 
-        private void CloseForm(Dictionary<string, dynamic> userResources) {
-            frmMain.UserResources = userResources;
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Enter) {
+                Login();
+            }
+        }
+
+        private void CloseForm() {
+            frmMain.User = user;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

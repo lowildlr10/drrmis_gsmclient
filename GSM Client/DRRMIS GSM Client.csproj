@@ -121,6 +121,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="JsonProcessor.cs" />
     <Compile Include="LoadingScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +160,7 @@
     <Compile Include="SelectSerialForm.Designer.cs">
       <DependentUpon>SelectSerialForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
