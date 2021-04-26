@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using System.IO.Ports;
 
 namespace DRRMIS_GSM_Client
@@ -14,6 +15,15 @@ namespace DRRMIS_GSM_Client
     public partial class SelectSerialForm : Form
     {
         MainForm frmMain;
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd,
+                         int Msg, int wParam, int lParam);
+        [DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
 
         public SelectSerialForm() {
             InitializeComponent();
@@ -37,23 +47,31 @@ namespace DRRMIS_GSM_Client
         }
 
         private void SelectSerialForm_Load(object sender, EventArgs e) {
-            Font fntSerialPort = new Font("Segoe UI", 11, FontStyle.Regular);
-            Font fntBaudRate = new Font("Segoe UI", 11, FontStyle.Regular);
-
             RefreshPortList();
 
-            selSerialPort.Font = fntSerialPort;
             txtBaudRate.Text = frmMain.comPort.BaudRate.ToString();
-            txtBaudRate.Font = fntBaudRate;
+        }
+
+        private void txtBaudRate_KeyPress(object sender, KeyPressEventArgs e) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
+        private void selSerialPort_Click(object sender, EventArgs e) {
+            RefreshPortList();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e) {
+            this.Close();
         }
 
         private void btnConSelSerial_Click(object sender, EventArgs e) {
             var serialPort = selSerialPort.SelectedItem;
             string baudRate = txtBaudRate.Text.Trim();
-            //frmMain = new MainForm();
 
             if (serialPort != null && !string.IsNullOrEmpty(baudRate)) {
-                
+
             } else {
                 if (serialPort == null) {
                     MessageBox.Show("Please select a serial port.", "Warning",
@@ -77,14 +95,11 @@ namespace DRRMIS_GSM_Client
             this.Close();
         }
 
-        private void txtBaudRate_KeyPress(object sender, KeyPressEventArgs e) {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
-                e.Handled = true;
+        private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
-        }
-
-        private void selSerialPort_Click(object sender, EventArgs e) {
-            RefreshPortList();
         }
     }
 }

@@ -38,8 +38,11 @@ namespace DRRMIS_GSM_Client
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        public class DataObject {
-            public string Name { get; set; }
+        private void toolStripLogin_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
 
         public MainForm MainForm {
@@ -62,13 +65,6 @@ namespace DRRMIS_GSM_Client
             Environment.Exit(0);
         }
 
-        private void toolStripLogin_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-
         private void RefreshDisplays() {
             if (!isLogin) {
                 toolStripIconStatus.Visible = false;
@@ -76,7 +72,6 @@ namespace DRRMIS_GSM_Client
                 txtUsername.Enabled = true;
                 txtPassword.Enabled = true;
                 btnLogin.Enabled = true;
-
                 txtUsername.Focus();
             } else {
                 toolStripIconStatus.Visible = true;
@@ -87,15 +82,6 @@ namespace DRRMIS_GSM_Client
                 txtUsername.Clear();
                 txtPassword.Clear();
             }
-        }
-
-        private StringContent ParseJson(object _data) {
-            string json = JsonConvert.SerializeObject(_data);
-            StringContent data = new StringContent(
-                json, Encoding.UTF8, "application/json"
-            );
-
-            return data;
         }
 
         private async void Login() {

@@ -100,6 +100,11 @@ namespace DRRMIS_GSM_Client
             this.timerMonitorPort = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshSignal = new System.Windows.Forms.Timer(this.components);
             this.backgroundSendMsg = new System.ComponentModel.BackgroundWorker();
+            this.toolStripMain = new System.Windows.Forms.ToolStrip();
+            this.btnClose = new System.Windows.Forms.ToolStripButton();
+            this.btnMinimize = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -113,6 +118,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.contextMenuStripTray.SuspendLayout();
+            this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // comPort
@@ -130,9 +136,9 @@ namespace DRRMIS_GSM_Client
             this.toolStripIconDisconnected,
             this.toolStripStatusLabel});
             this.mainStatusStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 483);
+            this.mainStatusStrip.Location = new System.Drawing.Point(2, 583);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(984, 28);
+            this.mainStatusStrip.Size = new System.Drawing.Size(996, 28);
             this.mainStatusStrip.SizingGrip = false;
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "mainStatusStrip";
@@ -255,9 +261,9 @@ namespace DRRMIS_GSM_Client
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Location = new System.Drawing.Point(2, 40);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(984, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(996, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "mainMenuStrip";
             // 
@@ -293,11 +299,11 @@ namespace DRRMIS_GSM_Client
             this.btnConnectSerial,
             this.btnSend,
             this.btnRecipients});
-            this.toolStrip.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip.Location = new System.Drawing.Point(2, 64);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(10, 2, 10, 4);
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip.Size = new System.Drawing.Size(984, 55);
+            this.toolStrip.Size = new System.Drawing.Size(996, 55);
             this.toolStrip.Stretch = true;
             this.toolStrip.TabIndex = 3;
             this.toolStrip.Text = "mainToolStrip";
@@ -475,11 +481,13 @@ namespace DRRMIS_GSM_Client
             // 
             // mainPanel
             // 
+            this.mainPanel.BackColor = System.Drawing.Color.White;
             this.mainPanel.Controls.Add(this.tableLayoutPanel1);
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(0, 79);
+            this.mainPanel.Location = new System.Drawing.Point(2, 119);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(984, 404);
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.mainPanel.Size = new System.Drawing.Size(996, 464);
             this.mainPanel.TabIndex = 4;
             // 
             // tableLayoutPanel1
@@ -491,11 +499,11 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel1.Controls.Add(this.grpSerialPortDetails, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(984, 404);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(992, 464);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // grpSerialPortDetails
@@ -504,11 +512,11 @@ namespace DRRMIS_GSM_Client
             this.grpSerialPortDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpSerialPortDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpSerialPortDetails.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpSerialPortDetails.Location = new System.Drawing.Point(714, 10);
+            this.grpSerialPortDetails.Location = new System.Drawing.Point(719, 10);
             this.grpSerialPortDetails.Margin = new System.Windows.Forms.Padding(3, 10, 15, 15);
             this.grpSerialPortDetails.Name = "grpSerialPortDetails";
             this.grpSerialPortDetails.Padding = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.grpSerialPortDetails.Size = new System.Drawing.Size(255, 379);
+            this.grpSerialPortDetails.Size = new System.Drawing.Size(258, 439);
             this.grpSerialPortDetails.TabIndex = 0;
             this.grpSerialPortDetails.TabStop = false;
             this.grpSerialPortDetails.Text = "DEVICE DETAILS";
@@ -530,7 +538,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel4.Controls.Add(this.lblStatusGSM, 1, 4);
             this.tableLayoutPanel4.Controls.Add(this.label4, 0, 4);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 1, 5);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 20);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 7;
@@ -541,7 +549,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(249, 356);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(252, 416);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // label2
@@ -550,10 +558,10 @@ namespace DRRMIS_GSM_Client
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 303);
+            this.label2.Location = new System.Drawing.Point(3, 354);
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(96, 50);
+            this.label2.Size = new System.Drawing.Size(97, 59);
             this.label2.TabIndex = 16;
             this.label2.Text = "Provider:";
             this.label2.Visible = false;
@@ -564,10 +572,10 @@ namespace DRRMIS_GSM_Client
             this.lblProvider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProvider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblProvider.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProvider.Location = new System.Drawing.Point(105, 303);
+            this.lblProvider.Location = new System.Drawing.Point(106, 354);
             this.lblProvider.Margin = new System.Windows.Forms.Padding(3);
             this.lblProvider.Name = "lblProvider";
-            this.lblProvider.Size = new System.Drawing.Size(141, 50);
+            this.lblProvider.Size = new System.Drawing.Size(143, 59);
             this.lblProvider.TabIndex = 15;
             this.lblProvider.Text = "N/A";
             this.lblProvider.Visible = false;
@@ -578,10 +586,10 @@ namespace DRRMIS_GSM_Client
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 250);
+            this.label7.Location = new System.Drawing.Point(3, 292);
             this.label7.Margin = new System.Windows.Forms.Padding(3);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 47);
+            this.label7.Size = new System.Drawing.Size(97, 56);
             this.label7.TabIndex = 14;
             this.label7.Text = "Signal:";
             // 
@@ -591,10 +599,10 @@ namespace DRRMIS_GSM_Client
             this.lblBaudRate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBaudRate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblBaudRate.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBaudRate.Location = new System.Drawing.Point(105, 144);
+            this.lblBaudRate.Location = new System.Drawing.Point(106, 168);
             this.lblBaudRate.Margin = new System.Windows.Forms.Padding(3);
             this.lblBaudRate.Name = "lblBaudRate";
-            this.lblBaudRate.Size = new System.Drawing.Size(141, 47);
+            this.lblBaudRate.Size = new System.Drawing.Size(143, 56);
             this.lblBaudRate.TabIndex = 9;
             this.lblBaudRate.Text = "N/A";
             // 
@@ -604,10 +612,10 @@ namespace DRRMIS_GSM_Client
             this.lblPortName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblPortName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblPortName.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPortName.Location = new System.Drawing.Point(105, 91);
+            this.lblPortName.Location = new System.Drawing.Point(106, 106);
             this.lblPortName.Margin = new System.Windows.Forms.Padding(3);
             this.lblPortName.Name = "lblPortName";
-            this.lblPortName.Size = new System.Drawing.Size(141, 47);
+            this.lblPortName.Size = new System.Drawing.Size(143, 56);
             this.lblPortName.TabIndex = 8;
             this.lblPortName.Text = "N/A";
             // 
@@ -618,10 +626,10 @@ namespace DRRMIS_GSM_Client
             this.lblStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(105, 38);
+            this.lblStatus.Location = new System.Drawing.Point(106, 44);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(3);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(141, 47);
+            this.lblStatus.Size = new System.Drawing.Size(143, 56);
             this.lblStatus.TabIndex = 7;
             this.lblStatus.Text = "Disconnected";
             // 
@@ -631,10 +639,10 @@ namespace DRRMIS_GSM_Client
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 144);
+            this.label5.Location = new System.Drawing.Point(3, 168);
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 47);
+            this.label5.Size = new System.Drawing.Size(97, 56);
             this.label5.TabIndex = 6;
             this.label5.Text = "Baud Rate:";
             // 
@@ -644,10 +652,10 @@ namespace DRRMIS_GSM_Client
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 91);
+            this.label3.Location = new System.Drawing.Point(3, 106);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(96, 47);
+            this.label3.Size = new System.Drawing.Size(97, 56);
             this.label3.TabIndex = 4;
             this.label3.Text = "Port Name:";
             // 
@@ -657,10 +665,10 @@ namespace DRRMIS_GSM_Client
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 38);
+            this.label1.Location = new System.Drawing.Point(3, 44);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 47);
+            this.label1.Size = new System.Drawing.Size(97, 56);
             this.label1.TabIndex = 2;
             this.label1.Text = "Port Status:";
             // 
@@ -671,10 +679,10 @@ namespace DRRMIS_GSM_Client
             this.lblStatusGSM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblStatusGSM.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatusGSM.ForeColor = System.Drawing.Color.Red;
-            this.lblStatusGSM.Location = new System.Drawing.Point(105, 197);
+            this.lblStatusGSM.Location = new System.Drawing.Point(106, 230);
             this.lblStatusGSM.Margin = new System.Windows.Forms.Padding(3);
             this.lblStatusGSM.Name = "lblStatusGSM";
-            this.lblStatusGSM.Size = new System.Drawing.Size(141, 47);
+            this.lblStatusGSM.Size = new System.Drawing.Size(143, 56);
             this.lblStatusGSM.TabIndex = 10;
             this.lblStatusGSM.Text = "Disconnected";
             // 
@@ -684,10 +692,10 @@ namespace DRRMIS_GSM_Client
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 197);
+            this.label4.Location = new System.Drawing.Point(3, 230);
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 47);
+            this.label4.Size = new System.Drawing.Size(97, 56);
             this.label4.TabIndex = 13;
             this.label4.Text = "GSM Status:";
             // 
@@ -698,7 +706,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.67347F));
             this.tableLayoutPanel6.Controls.Add(this.lblSignalStrength, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.picSignalStatus, 0, 0);
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(102, 247);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(103, 289);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
@@ -750,7 +758,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.908046F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.32184F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(698, 398);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(703, 458);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // txtMessage
@@ -758,14 +766,14 @@ namespace DRRMIS_GSM_Client
             this.txtMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMessage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMessage.Location = new System.Drawing.Point(15, 77);
+            this.txtMessage.Location = new System.Drawing.Point(15, 88);
             this.txtMessage.Margin = new System.Windows.Forms.Padding(15, 3, 5, 15);
             this.txtMessage.MaxLength = 1000;
             this.txtMessage.Multiline = true;
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.ReadOnly = true;
             this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtMessage.Size = new System.Drawing.Size(678, 306);
+            this.txtMessage.Size = new System.Drawing.Size(683, 355);
             this.txtMessage.TabIndex = 0;
             this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
             // 
@@ -781,11 +789,11 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(692, 33);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(697, 39);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // selRecipients
@@ -797,7 +805,7 @@ namespace DRRMIS_GSM_Client
             this.selRecipients.Location = new System.Drawing.Point(12, 2);
             this.selRecipients.Margin = new System.Windows.Forms.Padding(12, 2, 2, 2);
             this.selRecipients.Name = "selRecipients";
-            this.selRecipients.Size = new System.Drawing.Size(678, 28);
+            this.selRecipients.Size = new System.Drawing.Size(683, 28);
             this.selRecipients.TabIndex = 0;
             // 
             // tableLayoutPanel5
@@ -808,12 +816,12 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel5.Controls.Add(this.lblRecipientsCount, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.lblMsgCount, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(13, 42);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(13, 48);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(13, 3, 3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(682, 29);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(687, 34);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
             // lblRecipientsCount
@@ -825,7 +833,7 @@ namespace DRRMIS_GSM_Client
             this.lblRecipientsCount.Location = new System.Drawing.Point(2, 2);
             this.lblRecipientsCount.Margin = new System.Windows.Forms.Padding(2);
             this.lblRecipientsCount.Name = "lblRecipientsCount";
-            this.lblRecipientsCount.Size = new System.Drawing.Size(337, 25);
+            this.lblRecipientsCount.Size = new System.Drawing.Size(339, 30);
             this.lblRecipientsCount.TabIndex = 1;
             this.lblRecipientsCount.Text = "Recipient: 0";
             this.lblRecipientsCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -837,10 +845,10 @@ namespace DRRMIS_GSM_Client
             this.lblMsgCount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblMsgCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblMsgCount.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsgCount.Location = new System.Drawing.Point(343, 2);
+            this.lblMsgCount.Location = new System.Drawing.Point(345, 2);
             this.lblMsgCount.Margin = new System.Windows.Forms.Padding(2);
             this.lblMsgCount.Name = "lblMsgCount";
-            this.lblMsgCount.Size = new System.Drawing.Size(337, 25);
+            this.lblMsgCount.Size = new System.Drawing.Size(340, 30);
             this.lblMsgCount.TabIndex = 0;
             this.lblMsgCount.Text = "Message Charater: 0";
             this.lblMsgCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -969,23 +977,97 @@ namespace DRRMIS_GSM_Client
             this.backgroundSendMsg.WorkerReportsProgress = true;
             this.backgroundSendMsg.WorkerSupportsCancellation = true;
             // 
+            // toolStripMain
+            // 
+            this.toolStripMain.AutoSize = false;
+            this.toolStripMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.toolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnClose,
+            this.btnMinimize,
+            this.toolStripLabel2,
+            this.toolStripLabel1});
+            this.toolStripMain.Location = new System.Drawing.Point(2, 0);
+            this.toolStripMain.Name = "toolStripMain";
+            this.toolStripMain.Padding = new System.Windows.Forms.Padding(2, 3, 2, 2);
+            this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStripMain.Size = new System.Drawing.Size(996, 40);
+            this.toolStripMain.Stretch = true;
+            this.toolStripMain.TabIndex = 5;
+            this.toolStripMain.Text = "toolStrip1";
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
+            this.btnClose.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClose.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Padding = new System.Windows.Forms.Padding(10);
+            this.btnClose.Size = new System.Drawing.Size(38, 33);
+            this.btnClose.Text = "x";
+            this.btnClose.ToolTipText = "Close";
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnMinimize
+            // 
+            this.btnMinimize.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btnMinimize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnMinimize.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinimize.ForeColor = System.Drawing.Color.White;
+            this.btnMinimize.Image = ((System.Drawing.Image)(resources.GetObject("btnMinimize.Image")));
+            this.btnMinimize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMinimize.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.btnMinimize.Name = "btnMinimize";
+            this.btnMinimize.Padding = new System.Windows.Forms.Padding(10);
+            this.btnMinimize.Size = new System.Drawing.Size(37, 33);
+            this.btnMinimize.Text = "_";
+            this.btnMinimize.ToolTipText = "Minimize";
+            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripLabel2.Image = global::DRRMIS_GSM_Client.Properties.Resources.drrmis_ico;
+            this.toolStripLabel2.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Padding = new System.Windows.Forms.Padding(5);
+            this.toolStripLabel2.Size = new System.Drawing.Size(26, 32);
+            this.toolStripLabel2.Text = "toolStripLabel2";
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel1.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel1.Margin = new System.Windows.Forms.Padding(5, 1, 0, 2);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(119, 32);
+            this.toolStripLabel1.Text = "DRRMIS GSM Client";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(984, 511);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.ClientSize = new System.Drawing.Size(1000, 611);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.mainMenuStrip);
+            this.Controls.Add(this.toolStripMain);
             this.Enabled = false;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1000, 550);
             this.Name = "MainForm";
+            this.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DRRMIS GSM Client";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -1008,6 +1090,8 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.contextMenuStripTray.ResumeLayout(false);
+            this.toolStripMain.ResumeLayout(false);
+            this.toolStripMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1083,6 +1167,11 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSettings;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStrip toolStripMain;
+        private System.Windows.Forms.ToolStripButton btnClose;
+        private System.Windows.Forms.ToolStripButton btnMinimize;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
     }
 }
 

@@ -56,16 +56,16 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.66666F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.333333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(500, 300);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 370);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pbarLoading
             // 
             this.pbarLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbarLoading.Location = new System.Drawing.Point(3, 292);
+            this.pbarLoading.Location = new System.Drawing.Point(3, 360);
             this.pbarLoading.MarqueeAnimationSpeed = 10;
             this.pbarLoading.Name = "pbarLoading";
-            this.pbarLoading.Size = new System.Drawing.Size(494, 5);
+            this.pbarLoading.Size = new System.Drawing.Size(594, 7);
             this.pbarLoading.Step = 50;
             this.pbarLoading.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.pbarLoading.TabIndex = 0;
@@ -83,7 +83,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(494, 283);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(594, 351);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -94,21 +94,21 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel3.Controls.Add(this.pictureBox2, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 31);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 38);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(488, 135);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(588, 169);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox2.Image = global::DRRMIS_GSM_Client.Properties.Resources.drrmis_logo;
-            this.pictureBox2.Location = new System.Drawing.Point(274, 15);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(30, 15, 110, 15);
+            this.pictureBox2.Location = new System.Drawing.Point(314, 15);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(20, 15, 135, 15);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(104, 105);
+            this.pictureBox2.Size = new System.Drawing.Size(139, 139);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
@@ -117,10 +117,10 @@ namespace DRRMIS_GSM_Client
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = global::DRRMIS_GSM_Client.Properties.Resources.dost_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(110, 15);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(110, 15, 30, 15);
+            this.pictureBox1.Location = new System.Drawing.Point(135, 15);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(135, 15, 20, 15);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(104, 105);
+            this.pictureBox1.Size = new System.Drawing.Size(139, 139);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -129,12 +129,12 @@ namespace DRRMIS_GSM_Client
             // 
             this.labelProductName.AutoSize = true;
             this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProductName.Font = new System.Drawing.Font("Nachlieli CLM", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.labelProductName.Font = new System.Drawing.Font("Nachlieli CLM", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.labelProductName.ForeColor = System.Drawing.Color.AliceBlue;
-            this.labelProductName.Location = new System.Drawing.Point(3, 172);
+            this.labelProductName.Location = new System.Drawing.Point(3, 213);
             this.labelProductName.Margin = new System.Windows.Forms.Padding(3);
             this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Size = new System.Drawing.Size(488, 108);
+            this.labelProductName.Size = new System.Drawing.Size(588, 135);
             this.labelProductName.TabIndex = 1;
             this.labelProductName.Text = "DRRMIS GSM CLIENT\r\nV1";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -144,7 +144,7 @@ namespace DRRMIS_GSM_Client
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(500, 300);
+            this.ClientSize = new System.Drawing.Size(600, 370);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
