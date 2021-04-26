@@ -25,7 +25,7 @@ namespace DRRMIS_GSM_Client
         User user = new User();
 
         private bool isLogin = false;
-        private string baseURL = "http://localhost:8000";
+        private string baseURL = "http://drrmis.dostcar.ph";
 
         private delegate void RefreshDisplaysThread();
 
@@ -122,11 +122,14 @@ namespace DRRMIS_GSM_Client
                 isLogin = true;
                 this.BeginInvoke(new RefreshDisplaysThread(RefreshDisplays), new object[] { });
 
-                loginResult = await user.Login(username, password);
+                try {
+                    loginResult = await user.Login(username, password);
+                } catch (Exception) {
+                    loginResult = "error-connection";
+                }
 
                 if (loginResult == "no-error") {
                     if (!user.HasError) {
-                        
                         CloseForm();
                     }
                 } else if (loginResult == "error-connection") {
@@ -164,24 +167,25 @@ namespace DRRMIS_GSM_Client
             this.Close();
         }
 
+        private void SaveSettings() {
+            this.baseURL = txtBaseURL.Text.Trim();
+            user.BaseUrl = baseURL;
+            MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+        }
+
         private void txtBaseURL_KeyDown(object sender, KeyEventArgs e)  {
             if (e.KeyCode == Keys.Enter) {
-                baseURL = txtBaseURL.Text.Trim();
-                MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
-                                MessageBoxIcon.Information);
+                SaveSettings();
             }
         }
 
         private void toolTipItem_Click(object sender, EventArgs e) {
-            baseURL = txtBaseURL.Text.Trim();
-            MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            SaveSettings();
         }
 
         private void toolStripMenuSaveSettings_Click(object sender, EventArgs e) {
-            baseURL = txtBaseURL.Text.Trim();
-            MessageBox.Show("Settings saved.", "Success", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+            SaveSettings();
         }
     }
 }

@@ -44,3 +44,4 @@ D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csproj.CopyComplete
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.exe
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.pdb
+D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csprojAssemblyReference.cache

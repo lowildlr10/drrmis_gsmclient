@@ -14,7 +14,7 @@ using System.Net.Http;
 namespace DRRMIS_GSM_Client
 {
     public class User {
-        private static string baseURL = "http://localhost:8000";
+        private static string baseURL = "http://drrmis.dostcar.ph";
         private static int userID;
         private static string firstname;
         private static string lastname;

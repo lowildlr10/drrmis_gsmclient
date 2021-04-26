@@ -192,7 +192,7 @@ namespace DRRMIS_GSM_Client
             this.txtBaseURL.MaxLength = 255;
             this.txtBaseURL.Name = "txtBaseURL";
             this.txtBaseURL.Size = new System.Drawing.Size(180, 23);
-            this.txtBaseURL.Text = "http://localhost:8000";
+            this.txtBaseURL.Text = "http://drrmis.dostcar.ph";
             this.txtBaseURL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBaseURL_KeyDown);
             // 
             // toolStripMenuSaveSettings
