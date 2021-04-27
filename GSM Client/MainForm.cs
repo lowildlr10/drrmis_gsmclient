@@ -41,7 +41,6 @@ namespace DRRMIS_GSM_Client
         private int countSent = 0;
         private int logoutRetriesLeft = 3;
 
-        private static Dictionary<string, dynamic> userResources;
         private int userID;
         private string firstname;
         private string lastname;
@@ -106,7 +105,6 @@ namespace DRRMIS_GSM_Client
             frmSerialMonitor.Show();
             frmSerialMonitor.Visible = false;
 
-            //this.WindowState = FormWindowState.Minimized;
             this.WindowState = FormWindowState.Normal;
             this.Focus(); 
             this.Show();
@@ -377,7 +375,42 @@ namespace DRRMIS_GSM_Client
             frmSelectSerial.ShowDialog();
         }
 
-        async void RunAsyncMsgSending(string[] recipients, string message) {
+        private async Task<string[]> FormatTextMsg(string textMsg) {
+            var msgChunks = new List<string>();
+            int msgCount = textMsg.Length;
+            
+            await Task.Run(() => {
+                if (msgCount <= 170) {
+                    msgChunks.Add(textMsg);
+                } else {
+                    int msgCountDivisor = 164;
+                    int msgChunkCount = (msgCount / msgCountDivisor) + 1;
+
+                    for (int ctrMsgChunk = 1; ctrMsgChunk <= msgChunkCount; ctrMsgChunk++) {
+                        int indexSubstring = (ctrMsgChunk - 1) * msgCountDivisor;
+                        int lengthSubstring = msgCountDivisor;
+                        string msgChunk = "";
+
+                        if (ctrMsgChunk == 1) {
+                            msgChunk = textMsg.Substring(indexSubstring, lengthSubstring) + "...";
+                        } else if (ctrMsgChunk > 1 && ctrMsgChunk < msgChunkCount) {
+                            msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring) + "...";
+                        } else {
+                            lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
+                            msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring);
+                        }
+
+                        msgChunks.Add(msgChunk);
+                    }
+                }
+            });
+
+            return msgChunks.ToArray();
+        }
+
+        private async void RunAsyncMsgSending(string[] recipients, string message) {
+            string[] textMessages = await FormatTextMsg(message);
+
             await Task.Run(() => {
                 isLoading = true;
                 isSendingProcess = true;
@@ -390,11 +423,13 @@ namespace DRRMIS_GSM_Client
 
                 if (comPort.IsOpen) {
                     foreach (string phoneNo in recipients) {
-                        string cmd = "send_msg|" + phoneNo.ToString().Trim() + ":" + message;
-                        isSending = true;
-                        comPort.WriteLine(cmd);
+                        foreach (string msg in textMessages) {
+                            string cmd = "send_msg|" + phoneNo.ToString().Trim() + ":" + msg;
+                            isSending = true;
+                            comPort.WriteLine(cmd);
 
-                        while (isSending) { }
+                            while (isSending) { }
+                        }
                     }
 
                     sendMessageLogs.Clear();
