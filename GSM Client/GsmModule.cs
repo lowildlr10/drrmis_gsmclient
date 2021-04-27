@@ -57,5 +57,83 @@ namespace DRRMIS_GSM_Client
 
             return result;
         }
+
+        public async Task<string> DisposeSentMessages(string token, string filename) {
+            string result;
+            string apiURL = baseURL + "/api/dispose-sent-msgs";
+            Uri url = new Uri(apiURL);
+
+            JsonProcessor jsonProc = new JsonProcessor();
+            var _data = new {
+                token = token,
+                filename = filename
+            };
+            StringContent data = jsonProc.ParseJson(_data);
+
+            try {
+                using (var httpClient = new HttpClient()) {
+                    httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
+                    result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    httpClient.Dispose();
+                }
+            } catch (Exception) {
+                result = "error-connection";
+            }
+
+            var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+            bool isSuccess = json.ContainsKey("success");
+
+            if (isSuccess) {
+                result = "no-error";
+            } else {
+                result = "error-connection";
+            }
+
+            return result;
+        }
+
+        public async Task<string> StoreSentMessages(string token, List<string> logs, string message) {
+            string result;
+            string messageLogs = string.Join(",", logs);
+            string apiURL = baseURL + "/api/store-sent-msgs";
+            Uri url = new Uri(apiURL);
+
+            JsonProcessor jsonProc = new JsonProcessor();
+            var _data = new {
+                token = token,
+                message_logs = messageLogs,
+                message = message
+            };
+            StringContent data = jsonProc.ParseJson(_data);
+
+            try {
+                using (var httpClient = new HttpClient()) {
+                    httpClient.DefaultRequestHeaders.Add("ContentType", "application/json");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+                    var response = await httpClient.PostAsync(url, data).ConfigureAwait(false);
+                    result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    httpClient.Dispose();
+                }
+            } catch (Exception) {
+                result = "error-connection";
+            }
+
+            var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+            bool isSuccess = json.ContainsKey("success");
+
+            if (isSuccess) {
+                result = "no-error";
+            } else {
+                result = "error-connection";
+            }
+
+            return result;
+        }
     }
 }

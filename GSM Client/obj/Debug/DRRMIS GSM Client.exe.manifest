@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DRRMIS GSM Client.exe" size="2554336">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DRRMIS GSM Client.exe" size="2560992">
       <assemblyIdentity name="DRRMIS GSM Client" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>UV9/cM86NH5hw3OzqVKMXeEozBHVGNGJc/nvvViTpYY=</dsig:DigestValue>
+        <dsig:DigestValue>IoCcMX3VAyYGN2Tb3upesT96kQsmgP2CPJ6QANoCDgo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

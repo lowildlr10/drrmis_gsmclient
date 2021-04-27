@@ -411,7 +411,7 @@ namespace DRRMIS_GSM_Client
             return msgChunks.ToArray();
         }
 
-        private async void RunAsyncMsgSending(string[] recipients, string message) {
+        private async void RunAsyncMsgSending(string[] recipients, string message, string filename = null) {
             string[] textMessages = await FormatTextMsg(message);
 
             await Task.Run(() => {
@@ -421,8 +421,7 @@ namespace DRRMIS_GSM_Client
 
                 while (timerRefreshSignal.Enabled == true) { }
 
-                MessageBox.Show("Sending message/s...", "",  MessageBoxButtons.OK, 
-                                MessageBoxIcon.Information);
+                Thread.Sleep(2000);
 
                 if (comPort.IsOpen) {
                     foreach (string phoneNo in recipients) {
@@ -434,8 +433,6 @@ namespace DRRMIS_GSM_Client
                             while (isSending) { }
                         }
                     }
-
-                    sendMessageLogs.Clear();
                 }
 
                 isSendingProcess = false;
@@ -443,6 +440,48 @@ namespace DRRMIS_GSM_Client
                 isSignalAwait = true;
                 countSent = 0;
             });
+
+            if (!string.IsNullOrEmpty(filename)) {
+                string result;
+
+                try {
+                    result = await sms.DisposeSentMessages(token, filename);
+                } catch (Exception) {
+                    result = "error-connection";
+                }
+                
+                if (result == "no-error") {
+                    notifyIcon.Text = "DRRMIS GSM Client";
+                    notifyIcon.BalloonTipTitle = "Message Sending Completed";
+                    notifyIcon.BalloonTipText = "Application has completed sending a batch of message from DRRMIS.";
+                    notifyIcon.ShowBalloonTip(3000);
+                }
+            } else {
+                notifyIcon.Text = "DRRMIS GSM Client";
+                notifyIcon.BalloonTipTitle = "Message Sending Completed";
+                notifyIcon.BalloonTipText = "Application has completed sending message/s.";
+                notifyIcon.ShowBalloonTip(3000);
+            }
+
+            string storeSentResult;
+
+            try {
+                storeSentResult = await sms.StoreSentMessages(token, sendMessageLogs, message);
+            } catch (Exception) {
+                storeSentResult = "error-connection";
+            }
+
+            if (storeSentResult == "no-error") {
+                notifyIcon.BalloonTipTitle = "Message Logs Stored";
+                notifyIcon.BalloonTipText = "Application successfully stored the message logs to the DRRMIS server.";
+                notifyIcon.ShowBalloonTip(3000);
+            } else {
+                notifyIcon.BalloonTipTitle = "Message Logs Storing Error";
+                notifyIcon.BalloonTipText = "Application encountered an error storing the message logs to the DRRMIS server.";
+                notifyIcon.ShowBalloonTip(3000);
+            }
+
+            sendMessageLogs.Clear();
         }
 
         private void btnSend_Click(object sender, EventArgs e) {
@@ -455,6 +494,11 @@ namespace DRRMIS_GSM_Client
                 for (int key = 1; key < selRecipients.Items.Count; key++) {
                     recipients[key - 1] = selRecipients.Items[key].ToString();
                 }
+
+                notifyIcon.Text = "DRRMIS GSM Client Sending...";
+                notifyIcon.BalloonTipTitle = "Message Sending";
+                notifyIcon.BalloonTipText = "Application is sending a message/s.";
+                notifyIcon.ShowBalloonTip(3000);
 
                 if (selectedIndex == 0) {
                     RunAsyncMsgSending(recipients, message);
@@ -496,7 +540,6 @@ namespace DRRMIS_GSM_Client
                     isSending = false;
                 } else if (dataReceived.Trim().Contains("gsm_init_success")) {
                     if (!isInitGSM) {
-                        //this.BeginInvoke(new _InitGSM(InitGSM), new object[] { dataReceived });
                         InitGSM(dataReceived);
                     }
                 }
@@ -630,13 +673,15 @@ namespace DRRMIS_GSM_Client
         private void MinimizeTOTray(bool toMinimize) {
             if (toMinimize) {
                 this.Hide();
-                notifyIcon.Visible = true;
+                //notifyIcon.Visible = true;
+                notifyIcon.BalloonTipTitle = "Minimized";
+                notifyIcon.BalloonTipText = "Application is running in the background.";
                 notifyIcon.ShowBalloonTip(3000);
             } else {
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
                 this.Focus();
-                notifyIcon.Visible = false;
+                //notifyIcon.Visible = false;
             }
         }
 
@@ -675,21 +720,30 @@ namespace DRRMIS_GSM_Client
         }
 
         private async void timerSendApi_Tick(object sender, EventArgs e) {
-            string getQueueResult;
-            sms.BaseUrl = baseURL;
+            if (isInitGSM && !isSendingProcess) {
+                string getQueueResult;
+                sms.BaseUrl = baseURL;
 
-            try {
-                getQueueResult = await sms.GetQueueMessages(token); 
-            } catch (Exception) {
-                getQueueResult = "error-connection";
-            }
+                try {
+                    getQueueResult = await sms.GetQueueMessages(token);
+                } catch (Exception) {
+                    getQueueResult = "error-connection";
+                }
 
-            if (getQueueResult != "error-connection") {
-                var jsonSuccess = JsonConvert.DeserializeObject<Dictionary<string, object>>(getQueueResult);
-                string phoneNumber = jsonSuccess["phone_numbers"].ToString();
-                string message = jsonSuccess["message"].ToString();
+                if (getQueueResult != "error-connection" && !isSendingProcess) {
+                    var jsonSuccess = JsonConvert.DeserializeObject<Dictionary<string, object>>(getQueueResult);
+                    string phoneNumber = jsonSuccess["phone_numbers"].ToString();
+                    string[] phoneNumbers = phoneNumber.Split(',');
+                    string message = jsonSuccess["message"].ToString();
+                    string filename = jsonSuccess["filename"].ToString();
 
-                //timerSendApi.Enabled = false;
+                    notifyIcon.Text = "DRRMIS GSM Client Sending...";
+                    notifyIcon.BalloonTipTitle = "Message Sending from DRRMIS";
+                    notifyIcon.BalloonTipText = "Application is sending a batch of message/s in the background.";
+                    notifyIcon.ShowBalloonTip(3000);
+
+                    RunAsyncMsgSending(phoneNumbers, message, filename);
+                }
             }
         }
     }

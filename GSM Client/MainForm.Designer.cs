@@ -857,11 +857,12 @@ namespace DRRMIS_GSM_Client
             // notifyIcon
             // 
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon.BalloonTipText = "DRRMIS GSM Client minimized to tray.";
+            this.notifyIcon.BalloonTipText = "Application is running in the background.";
             this.notifyIcon.BalloonTipTitle = "Minimize";
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripTray;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "DRRMIS GSM Client";
+            this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
             // contextMenuStripTray
