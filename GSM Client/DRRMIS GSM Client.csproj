@@ -121,6 +121,7 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="GsmModule.cs" />
     <Compile Include="JsonProcessor.cs" />
     <Compile Include="LoadingScreenForm.cs">
       <SubType>Form</SubType>

@@ -105,6 +105,7 @@ namespace DRRMIS_GSM_Client
             this.btnMinimize = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.timerSendApi = new System.Windows.Forms.Timer(this.components);
             this.mainStatusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
@@ -360,7 +361,7 @@ namespace DRRMIS_GSM_Client
             // 
             this.toolStripSeparator2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 49);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 56);
             // 
             // btnSettings
             // 
@@ -789,10 +790,10 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(697, 38);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
@@ -1049,6 +1050,11 @@ namespace DRRMIS_GSM_Client
             this.toolStripLabel1.Size = new System.Drawing.Size(119, 32);
             this.toolStripLabel1.Text = "DRRMIS GSM Client";
             // 
+            // timerSendApi
+            // 
+            this.timerSendApi.Interval = 1000;
+            this.timerSendApi.Tick += new System.EventHandler(this.timerSendApi_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1172,6 +1178,7 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.ToolStripButton btnMinimize;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.Timer timerSendApi;
     }
 }
 

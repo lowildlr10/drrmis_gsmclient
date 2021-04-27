@@ -19,6 +19,7 @@ namespace DRRMIS_GSM_Client
     public partial class MainForm : Form
     {
         User user;
+        GsmModule sms = new GsmModule();
         LoginForm frmLogin = new LoginForm();
         RecipientForm frmRecipient;
         SelectSerialForm frmSelectSerial;
@@ -118,6 +119,8 @@ namespace DRRMIS_GSM_Client
 
         private void MainForm_Load(object sender, EventArgs e) {
             RefreshForm();
+
+            timerSendApi.Enabled = true;
         }
 
         private async void ClosingApplication() {
@@ -669,6 +672,25 @@ namespace DRRMIS_GSM_Client
 
         private void btnClose_Click(object sender, EventArgs e) {
             MinimizeTOTray(true);
+        }
+
+        private async void timerSendApi_Tick(object sender, EventArgs e) {
+            string getQueueResult;
+            sms.BaseUrl = baseURL;
+
+            try {
+                getQueueResult = await sms.GetQueueMessages(token); 
+            } catch (Exception) {
+                getQueueResult = "error-connection";
+            }
+
+            if (getQueueResult != "error-connection") {
+                var jsonSuccess = JsonConvert.DeserializeObject<Dictionary<string, object>>(getQueueResult);
+                string phoneNumber = jsonSuccess["phone_numbers"].ToString();
+                string message = jsonSuccess["message"].ToString();
+
+                //timerSendApi.Enabled = false;
+            }
         }
     }
 }
