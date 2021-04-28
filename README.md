@@ -1,12 +1,32 @@
 # DRRMIS GSM Client
 Desktop application interface to DRRMIS (drrmis.dostcar.ph) GSM Module API.
 
+<br>
+
+## Features
+* Send messages from DRRMIS website (drrmis.dostcar.ph) using the GSM module attach to PC.
+* Send messages by using the GSM client itself.
+* Can be run in the background.
+* Comes with serial monitor for the Arduino.
+
+<br>
+
+## System Requirements
+* Windows 7/8/10
+* .Net Framework 4.7.2
+
+<br>
+
+## Installation
 1. Install the application using the latest release.
+2. Upload the Arduino source code ("Arduino GSM/gsmshield/gsmshield.ino) to your Arduino boards interfacing GSM module (SIM800 and SIM900) shields.
+   * Change the baud rate if necessary.
 
+<br>
 
+## Screenshots
 
-
-Screenshots:
+<p align="center">
 
 | Loading Screen  | Login Screen |
 | ------------- | ------------- |
@@ -23,3 +43,8 @@ Screenshots:
 | Application Icon Tray with Notification |
 | ------------- |
 | ![image](https://user-images.githubusercontent.com/26521475/116352979-995b7c80-a828-11eb-95e9-2e5c1ead7241.png)  ![image](https://user-images.githubusercontent.com/26521475/116352303-898f6880-a827-11eb-8d0d-b6c472723ab6.png)  |
+
+</p>
+
+### DRRMIS Repository
+* https://github.com/dostcarmis/drrmis.git
