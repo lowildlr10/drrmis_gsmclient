@@ -98,7 +98,7 @@ namespace DRRMIS_GSM_Client
             // txtSerialWrite
             // 
             this.txtSerialWrite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSerialWrite.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerialWrite.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerialWrite.Location = new System.Drawing.Point(3, 3);
             this.txtSerialWrite.Name = "txtSerialWrite";
             this.txtSerialWrite.Size = new System.Drawing.Size(450, 29);
@@ -110,13 +110,12 @@ namespace DRRMIS_GSM_Client
             this.btnWriteSerial.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnWriteSerial.BackColor = System.Drawing.Color.White;
-            this.btnWriteSerial.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnWriteSerial.FlatAppearance.BorderSize = 0;
+            this.btnWriteSerial.FlatAppearance.BorderColor = System.Drawing.SystemColors.Desktop;
             this.btnWriteSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnWriteSerial.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWriteSerial.Location = new System.Drawing.Point(459, 3);
             this.btnWriteSerial.Name = "btnWriteSerial";
-            this.btnWriteSerial.Size = new System.Drawing.Size(114, 27);
+            this.btnWriteSerial.Size = new System.Drawing.Size(114, 29);
             this.btnWriteSerial.TabIndex = 1;
             this.btnWriteSerial.Text = "Write";
             this.btnWriteSerial.UseVisualStyleBackColor = false;

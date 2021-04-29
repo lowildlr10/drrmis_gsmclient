@@ -1,4 +1,5 @@
 //INCLUDED LIBRARIES
+#include <sim900.h>
 #include <GPRS_Shield_Arduino.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
@@ -9,8 +10,7 @@
 #define PIN_RX    3
 #define BAUDRATE  9600
 
-SoftwareSerial GSM_SERIAL(PIN_TX,PIN_RX);//RX,TX
-GPRS GSM_MODULE(PIN_TX,PIN_RX,BAUDRATE);//RX,TX,BAUDRATE
+GPRS GSM_MODULE(PIN_TX,PIN_RX,BAUDRATE);//TX,RX,BAUDRATE
 
 void setup() {
   GSM_MODULE.checkPowerUp();
@@ -23,7 +23,6 @@ void setup() {
     delay(1000);
     Serial.println("gsm_init_error");
   }
-  GSM_SERIAL.begin(BAUDRATE);
   Serial.println("gsm_init_success");
 }
 
@@ -33,6 +32,7 @@ bool sendMsgTxt(String params) {
   _message.trim();
   const char* phone = _phone.c_str();
   const char* message = _message.c_str();
+  sim900_flush_serial();
   if(GSM_MODULE.sendSMS(const_cast<char*>(phone), const_cast<char*>(message))){
     return true;
   }else{
@@ -41,23 +41,13 @@ bool sendMsgTxt(String params) {
 }
 
 void sendMsgPDU(String msgStringPDU) {
-  /*byte writeByteInitPDU[12] = "AT+CMGF=0\r\n";
-  byte writeByteMsgCount[10] = "AT+CMGS=42\r\n";
-  byte writeByteMsg[200];
-  flushSerial();
-  GSM_SERIAL.write((char*)writeByteInitPDU);
-  delay(1000);
-  GSM_SERIAL.write((char*)writeByteMsgCount);
-  delay(2000);
-  msgStringPDU.getBytes(writeByteMsg, sizeof(writeByteMsg));
-  GSM_SERIAL.write((char*)writeByteMsg);
-  delay(300);*/
+  // To be developed soon.
 }
 
 int getSignalStr() {
   int signalVal = 2;
   bool isSignal = false;
-  while (!isSignal) {
+  while(!isSignal) {
     isSignal = GSM_MODULE.getSignalStrength(&signalVal);
     signalVal++;
   }
@@ -65,21 +55,43 @@ int getSignalStr() {
 }
 
 String getNetworkProvider() {
-  byte writeByte[64] = "AT+CSPN?\n";
-  flushSerial();
-  GSM_SERIAL.write((char*)writeByte);
+  String srvcProv;
+  char gprsBuffer[15];
+  char* p, *s;
+  int i = 0;
+  sim900_send_cmd("AT+CSPN?\n");
+  sim900_clean_buffer(gprsBuffer, 15);
+  srvcProv = sim900_read_string_until(gprsBuffer, 15, "TNT");
+  if(srvcProv.length()>0){
+    return srvcProv;
+  }
+  srvcProv = sim900_read_string_until(gprsBuffer, 15, "Smart");
+  if(srvcProv.length()>0){
+    return srvcProv;
+  }
+  srvcProv = sim900_read_string_until(gprsBuffer, 15, "TM");
+  if(srvcProv.length()>0){
+    return srvcProv;
+  }
+  srvcProv = sim900_read_string_until(gprsBuffer, 15, "Globe");
+  if(srvcProv.length()>0){
+    return srvcProv;
+  }
+  return "N/A";
 }
 
 void gsmDebug(String writeString) {
-  byte writeByte[255];
+  /* byte writeByte[255];
   writeString.getBytes(writeByte, sizeof(writeByte));
-  flushSerial();
-  GSM_SERIAL.write((char*)writeByte);
+  sim900_flush_serial();
+  sim900_send_cmd((char*)writeByte);
+  sim900_send_End_Mark();*/
 }
 
 void loop() {
+  //GSM_MODULE.AT_Bypass();
   if(Serial.available()){
-    while (Serial.available()) {
+    while(Serial.available()) {
       String cmd = Serial.readString();
       String cond = getSepartedValues(cmd, '|', 0);
       String params = getSepartedValues(cmd, '|', 1);      
@@ -89,7 +101,7 @@ void loop() {
         Serial.println("message_stat:" + responseMsg + ":" + getSepartedValues(params, ':', 0));
       }else if (cond == "send_pdu_msg") {
         String msgStringPDU = getSepartedValues(params, ':', 0);
-        sendMsgPDU("079136190800101011000A9119922547570000FF21C8329BFD06DDDF72363904A296E7F4B4FB0C8212ABA076793E0F9FCB2E\n\r");
+        sendMsgPDU(msgStringPDU);
       }else if (cond == "get_signal_str") {
         int signalStr = getSignalStr();
         Serial.println("signal_str:" + String(signalStr));
@@ -98,18 +110,11 @@ void loop() {
         String gsmStatus = isConnectedGSM ? "gsm_init_success" : "gsm_init_error";
         Serial.println(gsmStatus);
       }else if (cond == "get_network"){
-        getNetworkProvider();
-      }else if (cond == "gsm_debug"){
-        String writeString = getSepartedValues(params, ':', 0);
-        gsmDebug(writeString);
+        String networkProvider = getNetworkProvider();
+        Serial.println(networkProvider);
       }else{
-        flushSerial();
+        sim900_flush_serial();
       }
-    }
-  }
-  if(GSM_SERIAL.available()){
-    while(GSM_SERIAL.available()){
-      Serial.write(GSM_SERIAL.read());
     }
   }
 }
@@ -126,9 +131,4 @@ String getSepartedValues(String data, char separator, int index) {
     }
   }
   return found>index ? data.substring(strIndex[0], strIndex[1]) : "";
-}
-
-void flushSerial() {
-    Serial.read();
-    GSM_SERIAL.read();
 }

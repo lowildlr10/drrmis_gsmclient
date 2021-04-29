@@ -386,25 +386,42 @@ namespace DRRMIS_GSM_Client
                 if (msgCount <= 170) {
                     msgChunks.Add(textMsg);
                 } else {
-                    int msgCountDivisor = 164;
+                    int msgCountDivisor = 160;
                     int msgChunkCount = (msgCount / msgCountDivisor) + 1;
 
-                    for (int ctrMsgChunk = 1; ctrMsgChunk <= msgChunkCount; ctrMsgChunk++) {
-                        int indexSubstring = (ctrMsgChunk - 1) * msgCountDivisor;
-                        int lengthSubstring = msgCountDivisor;
-                        string msgChunk = "";
+                    if (msgChunkCount > 1) {
+                        for (int ctrMsgChunk = 1; ctrMsgChunk <= msgChunkCount; ctrMsgChunk++) {
+                            int indexSubstring = (ctrMsgChunk - 1) * msgCountDivisor;
+                            int lengthSubstring = msgCountDivisor;
+                            string msgChunk = "";
 
-                        if (ctrMsgChunk == 1) {
-                            msgChunk = textMsg.Substring(indexSubstring, lengthSubstring) + "...";
-                        } else if (ctrMsgChunk > 1 && ctrMsgChunk < msgChunkCount) {
-                            msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring) + "...";
-                        } else {
-                            lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
-                            msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring);
+                            if (ctrMsgChunk == 1) {
+                                msgChunk = $"Part {ctrMsgChunk}/{msgChunkCount}:\n" +
+                                           textMsg.Substring(indexSubstring, lengthSubstring);
+                            } else if (ctrMsgChunk > 1 && ctrMsgChunk < msgChunkCount) {
+                                msgChunk = $"Part {ctrMsgChunk}/{msgChunkCount}:\n" +
+                                           textMsg.Substring(indexSubstring, lengthSubstring);
+                            } else {
+                                lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
+                                msgChunk = $"Part {ctrMsgChunk}/{msgChunkCount}:\n" +
+                                           textMsg.Substring(indexSubstring, lengthSubstring);
+                            }
+
+                            /*
+                            if (ctrMsgChunk == 1) {
+                                msgChunk = textMsg.Substring(indexSubstring, lengthSubstring) + "...";
+                            } else if (ctrMsgChunk > 1 && ctrMsgChunk < msgChunkCount) {
+                                msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring);
+                            } else {
+                                lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
+                                msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring);
+                            }*/
+
+                            msgChunks.Add(msgChunk);
                         }
-
-                        msgChunks.Add(msgChunk);
-                    }
+                    } else {
+                        msgChunks.Add(textMsg);
+                    }  
                 }
             });
 
@@ -426,7 +443,7 @@ namespace DRRMIS_GSM_Client
                 if (comPort.IsOpen) {
                     foreach (string phoneNo in recipients) {
                         foreach (string msg in textMessages) {
-                            string cmd = "send_msg|" + phoneNo.ToString().Trim() + ":" + msg;
+                            string cmd = "send_txt_msg|" + phoneNo.ToString().Trim() + ":" + msg;
                             isSending = true;
                             comPort.WriteLine(cmd);
 
