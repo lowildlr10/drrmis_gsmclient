@@ -26,9 +26,7 @@ void setup() {
   Serial.println("gsm_init_success");
 }
 
-bool sendMsgTxt(String params) {
-  String _phone = getSepartedValues(params, ':', 0);
-  String _message = getSepartedValues(params, ':', 1);
+bool sendMsgTxt(String _phone, String _message) {
   _message.trim();
   const char* phone = _phone.c_str();
   const char* message = _message.c_str();
@@ -40,7 +38,7 @@ bool sendMsgTxt(String params) {
   }
 }
 
-void sendMsgPDU(String msgStringPDU) {
+void sendMsgPDU() {
   // To be developed soon.
 }
 
@@ -96,12 +94,13 @@ void loop() {
       String cond = getSepartedValues(cmd, '|', 0);
       String params = getSepartedValues(cmd, '|', 1);      
       if (cond == "send_txt_msg"){
-        bool res = sendMsgTxt(params);
+        String phone = params;
+        String message = getSepartedValues(cmd, '|', 2);
+        bool res = sendMsgTxt(phone,message);
         String responseMsg = res ? "success" : "failed"; 
-        Serial.println("message_stat:" + responseMsg + ":" + getSepartedValues(params, ':', 0));
+        Serial.println("message_stat:" + responseMsg + ":" + phone);
       }else if (cond == "send_pdu_msg") {
-        String msgStringPDU = getSepartedValues(params, ':', 0);
-        sendMsgPDU(msgStringPDU);
+        // To be developed soon.
       }else if (cond == "get_signal_str") {
         int signalStr = getSignalStr();
         Serial.println("signal_str:" + String(signalStr));
