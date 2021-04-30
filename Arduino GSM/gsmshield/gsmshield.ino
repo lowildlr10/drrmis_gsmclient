@@ -31,6 +31,7 @@ bool sendMsgTxt(String _phone, String _message) {
   const char* phone = _phone.c_str();
   const char* message = _message.c_str();
   sim900_flush_serial();
+  delay(1000);
   if(GSM_MODULE.sendSMS(const_cast<char*>(phone), const_cast<char*>(message))){
     return true;
   }else{
