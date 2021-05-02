@@ -45,47 +45,8 @@ namespace DRRMIS_GSM_Client
             set { frmMain = value; }
         }
 
-        private string FormatPhoneNumber(string phoneNo) {
-            string formatedPhoneNo = Regex.Replace(phoneNo, "/[^+0-9]/", "");
-            int digitCount = formatedPhoneNo.Length;
-            bool isValidNumber = false;
-
-            if (digitCount < 10 && digitCount > 13) {
-                return "not-valid";
-            }
-
-            if (digitCount <= 0) {
-                return "not-valid";
-            }
-
-            if (formatedPhoneNo.Substring(0, 1) == "9" && digitCount == 10) {
-                formatedPhoneNo = "0" + formatedPhoneNo;
-                isValidNumber = true;
-            }
-
-            if (formatedPhoneNo.Substring(0, 2) == "09" && digitCount == 11) {
-                isValidNumber = true;
-            }
-
-            if (formatedPhoneNo.Substring(0, 3) == "639" && digitCount == 12) {
-                formatedPhoneNo = "+" + formatedPhoneNo;
-                formatedPhoneNo = formatedPhoneNo.Replace("+63", "0");
-                isValidNumber = true;
-            }
-
-            if (formatedPhoneNo.Substring(0, 4) == "+639" && digitCount == 13) {
-                formatedPhoneNo = formatedPhoneNo.Replace("+63", "0");
-                isValidNumber = true;
-            }
-
-            if (!isValidNumber) {
-                return "not-valid";
-            }
-
-            return formatedPhoneNo;
-        }
-
         private void btnImportCSV_Click(object sender, EventArgs e) {
+            GsmModule sms = new GsmModule();
             openFileDialog.FilterIndex = 1;
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             openFileDialog.FileName = "";
@@ -108,7 +69,7 @@ namespace DRRMIS_GSM_Client
                         int numCtr = 0;
 
                         foreach (string item in __items) {
-                            string formatedPhoneNo = FormatPhoneNumber(__items[numCtr].Trim());
+                            string formatedPhoneNo = sms.FormatPhoneNumber(__items[numCtr].Trim());
 
                             if (formatedPhoneNo != "not-valid") {
                                 _items.Add(formatedPhoneNo);
@@ -143,7 +104,8 @@ namespace DRRMIS_GSM_Client
                 }
 
                 if (!String.IsNullOrEmpty(phoneNo)) {
-                    phoneNo = FormatPhoneNumber(phoneNo);
+                    GsmModule sms = new GsmModule();
+                    phoneNo = sms.FormatPhoneNumber(phoneNo);
                     frmMain.selRecipients.Items.Add(phoneNo);
                 }
             }
