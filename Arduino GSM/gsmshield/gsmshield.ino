@@ -31,6 +31,7 @@ bool sendMsgTxt(String _phone, String _message) {
   const char* phone = _phone.c_str();
   const char* message = _message.c_str();
   sim900_flush_serial();
+  delay(1000);
   if(GSM_MODULE.sendSMS(const_cast<char*>(phone), const_cast<char*>(message))){
     return true;
   }else{
@@ -38,8 +39,23 @@ bool sendMsgTxt(String _phone, String _message) {
   }
 }
 
-void sendMsgPDU() {
-  // To be developed soon.
+bool sendMsgPDU(String _tpduLength, String _tpduParam) {
+  // Under development
+  const char* tpduLength = _tpduLength.c_str();
+  const char* tpduParam = _tpduParam.c_str();
+  sim900_flush_serial();
+  sim900_send_cmd(F("AT+CMGF=0\n"));
+  delay(500);
+  sim900_send_cmd(F("AT+CMGS=\""));
+  sim900_send_cmd(tpduLength);
+  if (!sim900_check_with_cmd(F("\"\r\n"), ">", CMD)) {
+    return false;
+  }
+  delay(1000);
+  sim900_send_cmd(tpduParam);
+  delay(500);
+  sim900_send_End_Mark();
+  return sim900_wait_for_resp("OK\r\n", CMD, 20U, 5000U);
 }
 
 int getSignalStr() {
@@ -79,11 +95,7 @@ String getNetworkProvider() {
 }
 
 void gsmDebug(String writeString) {
-  /* byte writeByte[255];
-  writeString.getBytes(writeByte, sizeof(writeByte));
-  sim900_flush_serial();
-  sim900_send_cmd((char*)writeByte);
-  sim900_send_End_Mark();*/
+  // To developed
 }
 
 void loop() {
@@ -98,9 +110,14 @@ void loop() {
         String message = getSepartedValues(cmd, '|', 2);
         bool res = sendMsgTxt(phone,message);
         String responseMsg = res ? "success" : "failed"; 
-        Serial.println("message_stat:" + responseMsg + ":" + phone);
+        Serial.println("message_txt_stat:" + responseMsg + ":" + phone + ":txt");
       }else if (cond == "send_pdu_msg") {
-        // To be developed soon.
+        String tpduLength = params;
+        String tpduParam = getSepartedValues(cmd, '|', 2);
+        bool res = sendMsgPDU(tpduLength,tpduParam);
+        String responseMsg = res ? "success" : "failed"; 
+        Serial.println("message_pdu_stat:" + responseMsg + ":" + tpduParam + ":pdu");
+        // Under development.
       }else if (cond == "get_signal_str") {
         int signalStr = getSignalStr();
         Serial.println("signal_str:" + String(signalStr));
