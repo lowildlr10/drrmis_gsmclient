@@ -760,9 +760,6 @@ namespace DRRMIS_GSM_Client
                 }
             }
         }
-<<<<<<< HEAD
-=======
-
         private async void txtMessage_KeyDown(object sender, KeyEventArgs e) {
             // For debugging
             /*
@@ -789,6 +786,5 @@ namespace DRRMIS_GSM_Client
             }
             */
         }
->>>>>>> feature-sms
     }
 }
