@@ -730,6 +730,7 @@ namespace DRRMIS_GSM_Client
 
         private async void txtMessage_KeyDown(object sender, KeyEventArgs e) {
             // For debugging
+            /*
             if (e.KeyCode == Keys.Enter) {
                 string txt = txtMessage.Text;
                 string[] textMessages = await sms.ChunkTextMsgs(txt.Trim());
@@ -751,6 +752,7 @@ namespace DRRMIS_GSM_Client
                     }
                 }
             }
+            */
         }
     }
 }
