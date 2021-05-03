@@ -147,16 +147,6 @@ namespace DRRMIS_GSM_Client
             return encoded;
         }
 
-        public string GetEncodedString(string stringVal) {
-            string encoded = "";
-
-            foreach (char charVal in stringVal.ToCharArray()) {
-                encoded += GetEncodedChar(charVal);
-            }
-
-            return encoded;
-        }
-
         public string GetPairInvertPhoneNumber(string phoneNo) {
             phoneNo = "63" + phoneNo.Substring(1);
             int phoneNoCount = phoneNo.Length;
@@ -237,10 +227,11 @@ namespace DRRMIS_GSM_Client
                             } else {
                                 lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
                             }
-
+                            /*
                             msgChunk = $"({ctrMsgChunk}/{msgChunkCount}) " +
-                                           textMsg.Substring(indexSubstring, lengthSubstring);
+                                           textMsg.Substring(indexSubstring, lengthSubstring);*/
 
+                            msgChunk = textMsg.Substring(indexSubstring, lengthSubstring);
                             msgChunks.Add(msgChunk);
                         }
                     } else {
@@ -250,6 +241,16 @@ namespace DRRMIS_GSM_Client
             });
 
             return msgChunks.ToArray();
+        }
+
+        public string EncodedToAscii(string message) {
+            string encoded = "";
+
+            foreach (char msgChar in message.ToCharArray()) {
+                encoded += GetEncodedChar(msgChar);
+            }
+
+            return encoded;
         }
 
         public string EncodeToGSM7(string message) {
@@ -310,6 +311,52 @@ namespace DRRMIS_GSM_Client
             return encodedHex;
         }
 
+        public string EncodeToPaddingZeroBit(string encodedHex) {
+            List<string> hexValues = new List<string>();
+            List<string> binaryValue = new List<string>();
+            encodedHex = Regex.Replace(encodedHex, @"\s+", "");
+            char[] hexCharacters = encodedHex.ToCharArray();
+            int hexCharCount = hexCharacters.Length;
+            string paddedBinaries = "";
+            string paddedHex = "";
+
+            if (hexCharCount % 2 == 0) {
+                string tempBinary = "";
+
+                // Store hex values
+                for (int hexCtr = 0; hexCtr < hexCharCount - 1; hexCtr = hexCtr + 2) {
+                    hexValues.Add(hexCharacters[hexCtr].ToString() + hexCharacters[hexCtr + 1].ToString());
+                }
+
+                // Convert hex to binary and store
+                foreach (string hex in hexValues) {
+                    char[] binChars = Convert.ToString(Convert.ToInt32(hex.ToString(), 16), 2).PadLeft(8, '0').ToCharArray();
+                    Array.Reverse(binChars);
+                    paddedBinaries += new string(binChars);
+                }
+
+                hexValues.Clear();
+
+                paddedBinaries = "0" + paddedBinaries.Substring(0, paddedBinaries.Length - 1);
+
+                foreach (char binChar in paddedBinaries.ToCharArray()) {
+                    tempBinary += binChar.ToString();
+
+                    if (tempBinary.Length == 8) {
+                        char[] bin = tempBinary.ToCharArray();
+                        Array.Reverse(bin);
+                        paddedHex += Convert.ToInt32(new string(bin), 2).ToString("X2");
+
+                        tempBinary = "";
+                    }
+                }
+            } else {
+                return "error";
+            }
+
+            return paddedHex;
+        }
+
         public Dictionary<string, string> GetEncodedMsgPDU(
             string phoneNo, string message, int msgChunkCount, int msgChunkCtr) {
             Dictionary<string, string> encodedPDU = new Dictionary<string, string>();
@@ -343,9 +390,9 @@ namespace DRRMIS_GSM_Client
 
                 string udhLength = "05";
                 string udh = "000300030" + msgChunkCtr;
-                string msgBody = EncodeToGSM7(message);
+                string msgBody = EncodeToPaddingZeroBit(EncodeToGSM7(message));
                 string ud = udhLength + udh + msgBody;
-                string udLength = (((ud.Length / 2) * 8) / 7).ToString("X2");
+                string udLength = (((ud.Length) * 4) / 7).ToString("X2");
 
                 typePDU = "41";
                 encodedStrPDU = smsc + typePDU + msgRefNumber + destLength + destType +
