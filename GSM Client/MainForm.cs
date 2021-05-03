@@ -384,53 +384,6 @@ namespace DRRMIS_GSM_Client
             frmSelectSerial.ShowDialog();
         }
 
-        private async Task<string[]> FormatTextMsg(string textMsg) {
-            var msgChunks = new List<string>();
-            int msgCount = textMsg.Length;
-            
-            await Task.Run(() => {
-                if (msgCount <= 170) {
-                    msgChunks.Add(textMsg);
-                } else {
-                    int msgCountDivisor = 160;
-                    int msgChunkCount = (msgCount / msgCountDivisor) + 1;
-
-                    if (msgChunkCount > 1) {
-                        for (int ctrMsgChunk = 1; ctrMsgChunk <= msgChunkCount; ctrMsgChunk++) {
-                            int indexSubstring = (ctrMsgChunk - 1) * msgCountDivisor;
-                            int lengthSubstring = msgCountDivisor;
-                            string msgChunk = "";
-
-                            if (ctrMsgChunk == 1) {
-                            } else if (ctrMsgChunk > 1 && ctrMsgChunk < msgChunkCount) {
-                            } else {
-                                lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
-                            }
-
-                            msgChunk = $"({ctrMsgChunk}/{msgChunkCount}) " +
-                                           textMsg.Substring(indexSubstring, lengthSubstring);
-
-                            /*
-                            if (ctrMsgChunk == 1) {
-                                msgChunk = textMsg.Substring(indexSubstring, lengthSubstring) + "...";
-                            } else if (ctrMsgChunk > 1 && ctrMsgChunk < msgChunkCount) {
-                                msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring);
-                            } else {
-                                lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
-                                msgChunk = "..." + textMsg.Substring(indexSubstring, lengthSubstring);
-                            }*/
-
-                            msgChunks.Add(msgChunk);
-                        }
-                    } else {
-                        msgChunks.Add(textMsg);
-                    }  
-                }
-            });
-
-            return msgChunks.ToArray();
-        }
-
         private async void RunAsyncMsgSending(string[] recipients, string message, string filename = null) {
             string[] textMessages = await sms.ChunkTextMsgs(messageMode, message.Trim());
 
@@ -569,7 +522,11 @@ namespace DRRMIS_GSM_Client
 
                 if (dataReceived.Trim().Contains("signal_str:")) {
                     this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
-                } else if (dataReceived.Trim().Contains("message_stat:")) {
+                } else if (dataReceived.Trim().Contains("message_txt_stat:")) {
+                    sendMessageLogs.Add(dataReceived.ToString().Trim());
+                    countSent++;
+                    isSending = false;
+                } else if (dataReceived.Trim().Contains("message_pdu_stat:")) {
                     sendMessageLogs.Add(dataReceived.ToString().Trim());
                     countSent++;
                     isSending = false;

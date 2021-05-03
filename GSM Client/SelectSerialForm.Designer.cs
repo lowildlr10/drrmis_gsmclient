@@ -37,18 +37,18 @@ namespace DRRMIS_GSM_Client
             this.txtBaudRate = new System.Windows.Forms.TextBox();
             this.grpSerialPort = new System.Windows.Forms.GroupBox();
             this.selSerialPort = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.selMessageMode = new System.Windows.Forms.ComboBox();
             this.btnClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.selMessageMode = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpSerialPort.SuspendLayout();
-            this.toolStripMain.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.toolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -161,6 +161,42 @@ namespace DRRMIS_GSM_Client
             this.selSerialPort.Sorted = true;
             this.selSerialPort.TabIndex = 1;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.selMessageMode);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.Color.White;
+            this.groupBox3.Location = new System.Drawing.Point(15, 208);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(20, 12, 20, 3);
+            this.groupBox3.Size = new System.Drawing.Size(304, 75);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Message Mode";
+            // 
+            // selMessageMode
+            // 
+            this.selMessageMode.BackColor = System.Drawing.Color.White;
+            this.selMessageMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selMessageMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selMessageMode.DropDownHeight = 125;
+            this.selMessageMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selMessageMode.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selMessageMode.ForeColor = System.Drawing.Color.Black;
+            this.selMessageMode.FormattingEnabled = true;
+            this.selMessageMode.IntegralHeight = false;
+            this.selMessageMode.Items.AddRange(new object[] {
+            "PDU",
+            "Text"});
+            this.selMessageMode.Location = new System.Drawing.Point(20, 27);
+            this.selMessageMode.Name = "selMessageMode";
+            this.selMessageMode.Size = new System.Drawing.Size(264, 28);
+            this.selMessageMode.Sorted = true;
+            this.selMessageMode.TabIndex = 2;
+            // 
             // btnClose
             // 
             this.btnClose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -216,42 +252,6 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Text = "toolStrip1";
             this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.selMessageMode);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.ForeColor = System.Drawing.Color.White;
-            this.groupBox3.Location = new System.Drawing.Point(15, 208);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(20, 12, 20, 3);
-            this.groupBox3.Size = new System.Drawing.Size(304, 75);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Message Mode";
-            // 
-            // selMessageMode
-            // 
-            this.selMessageMode.BackColor = System.Drawing.Color.White;
-            this.selMessageMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.selMessageMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selMessageMode.DropDownHeight = 125;
-            this.selMessageMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selMessageMode.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selMessageMode.ForeColor = System.Drawing.Color.Black;
-            this.selMessageMode.FormattingEnabled = true;
-            this.selMessageMode.IntegralHeight = false;
-            this.selMessageMode.Items.AddRange(new object[] {
-            "PDU",
-            "Text"});
-            this.selMessageMode.Location = new System.Drawing.Point(20, 27);
-            this.selMessageMode.Name = "selMessageMode";
-            this.selMessageMode.Size = new System.Drawing.Size(264, 28);
-            this.selMessageMode.Sorted = true;
-            this.selMessageMode.TabIndex = 2;
-            // 
             // SelectSerialForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,6 +261,7 @@ namespace DRRMIS_GSM_Client
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStripMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SelectSerialForm";
@@ -274,9 +275,9 @@ namespace DRRMIS_GSM_Client
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.grpSerialPort.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

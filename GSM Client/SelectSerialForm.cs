@@ -72,7 +72,7 @@ namespace DRRMIS_GSM_Client
             string baudRate = txtBaudRate.Text.Trim();
             var messageMode = selMessageMode.SelectedItem;
 
-            if (serialPort != null && !string.IsNullOrEmpty(baudRate) && messageMode == null) {
+            if (serialPort != null && !string.IsNullOrEmpty(baudRate) && messageMode != null) {
 
             } else {
                 if (serialPort == null) {
