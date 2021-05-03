@@ -462,6 +462,8 @@ namespace DRRMIS_GSM_Client
                             comPort.WriteLine(cmd);
 
                             while (isSending) { }
+                             
+                            msgChunkCtr++;
                         }
                     }
                 }
