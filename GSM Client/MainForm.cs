@@ -760,5 +760,35 @@ namespace DRRMIS_GSM_Client
                 }
             }
         }
+<<<<<<< HEAD
+=======
+
+        private async void txtMessage_KeyDown(object sender, KeyEventArgs e) {
+            // For debugging
+            /*
+            if (e.KeyCode == Keys.Enter) {
+                string txt = txtMessage.Text;
+                string[] textMessages = await sms.ChunkTextMsgs(txt.Trim());
+
+                foreach (string phoneNo in new string[] { "09129527475" }) {
+                    int msgChunkCtr = 1;
+
+                    foreach (string msg in textMessages) {
+                        Dictionary<string, string> encodedPDU = sms.GetEncodedMsgPDU(
+                            phoneNo, msg, textMessages.Length, msgChunkCtr
+                        );
+
+                        txtMessage.AppendText("Length: " + encodedPDU["total_msg_length"] +
+                                              "\nPDU Content: " + encodedPDU["encoded_pdu_msg"]);
+
+                        txtMessage.AppendText("\n\n\n\n");
+
+                        msgChunkCtr++;
+                    }
+                }
+            }
+            */
+        }
+>>>>>>> feature-sms
     }
 }
