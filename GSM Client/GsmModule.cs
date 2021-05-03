@@ -205,7 +205,7 @@ namespace DRRMIS_GSM_Client
             return formatedPhoneNo;
         }
 
-        public async Task<string[]> ChunkTextMsgs(string textMsg) {
+        public async Task<string[]> ChunkTextMsgs(string messageMode, string textMsg) {
             var msgChunks = new List<string>();
             int msgCount = textMsg.Length;
 
@@ -227,11 +227,14 @@ namespace DRRMIS_GSM_Client
                             } else {
                                 lengthSubstring = msgCount - ((ctrMsgChunk - 1) * msgCountDivisor);
                             }
-                            /*
-                            msgChunk = $"({ctrMsgChunk}/{msgChunkCount}) " +
-                                           textMsg.Substring(indexSubstring, lengthSubstring);*/
 
-                            msgChunk = textMsg.Substring(indexSubstring, lengthSubstring);
+                            if (messageMode == "Text") {
+                                msgChunk = $"({ctrMsgChunk}/{msgChunkCount}) " +
+                                           textMsg.Substring(indexSubstring, lengthSubstring);
+                            } else {
+                                msgChunk = textMsg.Substring(indexSubstring, lengthSubstring);
+                            }
+
                             msgChunks.Add(msgChunk);
                         }
                     } else {

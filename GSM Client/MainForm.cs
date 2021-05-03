@@ -49,6 +49,7 @@ namespace DRRMIS_GSM_Client
         private string token;
         private string baseURL;
         private bool userWithError = true;
+        private static string messageMode = "Text";
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -67,6 +68,11 @@ namespace DRRMIS_GSM_Client
         public int BaudRate {
             get { return comPort.BaudRate; }
             set { comPort.BaudRate = value; }
+        }
+
+        public string MessageMode {
+            get { return messageMode; }
+            set { messageMode = value; }
         }
 
         private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
@@ -379,7 +385,7 @@ namespace DRRMIS_GSM_Client
         }
 
         private async void RunAsyncMsgSending(string[] recipients, string message, string filename = null) {
-            string[] textMessages = await sms.ChunkTextMsgs(message.Trim());
+            string[] textMessages = await sms.ChunkTextMsgs(messageMode, message.Trim());
 
             await Task.Run(() => {
                 isLoading = true;
@@ -395,12 +401,18 @@ namespace DRRMIS_GSM_Client
                         int msgChunkCtr = 1;
 
                         foreach (string msg in textMessages) {
-                            Dictionary<string, string> encodedPDU = sms.GetEncodedMsgPDU(
-                                phoneNo, msg, textMessages.Length, msgChunkCtr
-                            );
-                            //string cmd = "send_txt_msg|" + phoneNo.ToString().Trim() + "|" + msg;
-                            string cmd = "send_pdu_msg|" + encodedPDU["total_msg_length"] + "|" +
-                                         encodedPDU["encoded_pdu_msg"];
+                            string cmd = "";
+                            
+                            if (messageMode == "Text") {
+                                cmd = "send_txt_msg|" + phoneNo.ToString().Trim() + "|" + msg;
+                            } else {
+                                Dictionary<string, string> encodedPDU = sms.GetEncodedMsgPDU(
+                                    phoneNo, msg, textMessages.Length, msgChunkCtr
+                                );
+                                cmd = "send_pdu_msg|" + encodedPDU["total_msg_length"] + "|" +
+                                      encodedPDU["encoded_pdu_msg"];
+                            }
+
                             isSending = true;
                             comPort.WriteLine(cmd);
 

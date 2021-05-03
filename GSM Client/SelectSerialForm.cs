@@ -44,6 +44,7 @@ namespace DRRMIS_GSM_Client
             }
 
             selSerialPort.SelectedItem = frmMain.comPort.PortName;
+            selMessageMode.SelectedItem = frmMain.MessageMode;
         }
 
         private void SelectSerialForm_Load(object sender, EventArgs e) {
@@ -69,8 +70,9 @@ namespace DRRMIS_GSM_Client
         private void btnConSelSerial_Click(object sender, EventArgs e) {
             var serialPort = selSerialPort.SelectedItem;
             string baudRate = txtBaudRate.Text.Trim();
+            var messageMode = selMessageMode.SelectedItem;
 
-            if (serialPort != null && !string.IsNullOrEmpty(baudRate)) {
+            if (serialPort != null && !string.IsNullOrEmpty(baudRate) && messageMode == null) {
 
             } else {
                 if (serialPort == null) {
@@ -85,11 +87,18 @@ namespace DRRMIS_GSM_Client
                     txtBaudRate.Focus();
                 }
 
+                if (messageMode == null) {
+                    MessageBox.Show("Please select a message mode.", "Warning",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    selMessageMode.Focus();
+                }
+
                 return;
             }
 
             frmMain.comPort.PortName = serialPort.ToString();
             frmMain.comPort.BaudRate = int.Parse(baudRate);
+            frmMain.MessageMode = messageMode.ToString();
             frmMain.RefreshDisplays();
 
             this.Close();

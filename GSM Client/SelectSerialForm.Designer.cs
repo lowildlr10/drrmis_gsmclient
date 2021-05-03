@@ -41,11 +41,14 @@ namespace DRRMIS_GSM_Client
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.selMessageMode = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.grpSerialPort.SuspendLayout();
             this.toolStripMain.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -56,26 +59,28 @@ namespace DRRMIS_GSM_Client
             this.panel1.Location = new System.Drawing.Point(1, 41);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(1, 0, 1, 1);
-            this.panel1.Size = new System.Drawing.Size(336, 249);
+            this.panel1.Size = new System.Drawing.Size(336, 362);
             this.panel1.TabIndex = 8;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.btnConSelSerial, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.btnConSelSerial, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.grpSerialPort, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(334, 248);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(334, 361);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnConSelSerial
@@ -86,10 +91,10 @@ namespace DRRMIS_GSM_Client
             this.btnConSelSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConSelSerial.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConSelSerial.ForeColor = System.Drawing.Color.White;
-            this.btnConSelSerial.Location = new System.Drawing.Point(15, 194);
+            this.btnConSelSerial.Location = new System.Drawing.Point(15, 298);
             this.btnConSelSerial.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
             this.btnConSelSerial.Name = "btnConSelSerial";
-            this.btnConSelSerial.Size = new System.Drawing.Size(304, 34);
+            this.btnConSelSerial.Size = new System.Drawing.Size(304, 39);
             this.btnConSelSerial.TabIndex = 9;
             this.btnConSelSerial.Text = "Apply";
             this.btnConSelSerial.UseVisualStyleBackColor = false;
@@ -102,11 +107,11 @@ namespace DRRMIS_GSM_Client
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(15, 108);
+            this.groupBox1.Location = new System.Drawing.Point(15, 118);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(20, 12, 20, 3);
-            this.groupBox1.Size = new System.Drawing.Size(304, 71);
+            this.groupBox1.Size = new System.Drawing.Size(304, 75);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Baud Rate";
@@ -130,11 +135,11 @@ namespace DRRMIS_GSM_Client
             this.grpSerialPort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.grpSerialPort.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpSerialPort.ForeColor = System.Drawing.Color.White;
-            this.grpSerialPort.Location = new System.Drawing.Point(15, 22);
+            this.grpSerialPort.Location = new System.Drawing.Point(15, 28);
             this.grpSerialPort.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
             this.grpSerialPort.Name = "grpSerialPort";
             this.grpSerialPort.Padding = new System.Windows.Forms.Padding(20, 12, 20, 3);
-            this.grpSerialPort.Size = new System.Drawing.Size(304, 71);
+            this.grpSerialPort.Size = new System.Drawing.Size(304, 75);
             this.grpSerialPort.TabIndex = 11;
             this.grpSerialPort.TabStop = false;
             this.grpSerialPort.Text = "Serial Port";
@@ -211,12 +216,48 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Text = "toolStrip1";
             this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.selMessageMode);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.Color.White;
+            this.groupBox3.Location = new System.Drawing.Point(15, 208);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(20, 12, 20, 3);
+            this.groupBox3.Size = new System.Drawing.Size(304, 75);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Message Mode";
+            // 
+            // selMessageMode
+            // 
+            this.selMessageMode.BackColor = System.Drawing.Color.White;
+            this.selMessageMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.selMessageMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selMessageMode.DropDownHeight = 125;
+            this.selMessageMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selMessageMode.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selMessageMode.ForeColor = System.Drawing.Color.Black;
+            this.selMessageMode.FormattingEnabled = true;
+            this.selMessageMode.IntegralHeight = false;
+            this.selMessageMode.Items.AddRange(new object[] {
+            "PDU",
+            "Text"});
+            this.selMessageMode.Location = new System.Drawing.Point(20, 27);
+            this.selMessageMode.Name = "selMessageMode";
+            this.selMessageMode.Size = new System.Drawing.Size(264, 28);
+            this.selMessageMode.Sorted = true;
+            this.selMessageMode.TabIndex = 2;
+            // 
             // SelectSerialForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(338, 291);
+            this.ClientSize = new System.Drawing.Size(338, 404);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStripMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -235,6 +276,7 @@ namespace DRRMIS_GSM_Client
             this.grpSerialPort.ResumeLayout(false);
             this.toolStripMain.ResumeLayout(false);
             this.toolStripMain.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -252,5 +294,7 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStrip toolStripMain;
         public System.Windows.Forms.TextBox txtBaudRate;
+        private System.Windows.Forms.GroupBox groupBox3;
+        public System.Windows.Forms.ComboBox selMessageMode;
     }
 }
