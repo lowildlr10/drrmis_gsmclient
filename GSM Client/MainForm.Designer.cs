@@ -777,7 +777,6 @@ namespace DRRMIS_GSM_Client
             this.txtMessage.Size = new System.Drawing.Size(683, 347);
             this.txtMessage.TabIndex = 0;
             this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
-            this.txtMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMessage_KeyDown);
             // 
             // tableLayoutPanel3
             // 
