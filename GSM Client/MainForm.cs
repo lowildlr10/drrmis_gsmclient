@@ -445,6 +445,8 @@ namespace DRRMIS_GSM_Client
 
                 if (comPort.IsOpen) {
                     foreach (string phoneNo in recipients) {
+                        int msgChunkCtr = 1;
+
                         foreach (string msg in textMessages) {
                             string cmd = "";
                             
@@ -462,7 +464,7 @@ namespace DRRMIS_GSM_Client
                             comPort.WriteLine(cmd);
 
                             while (isSending) { }
-                             
+
                             msgChunkCtr++;
                         }
                     }

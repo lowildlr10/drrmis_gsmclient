@@ -46,3 +46,27 @@ D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.ex
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.pdb
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.AboutBoxForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.LoadingScreenForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.LoginForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.MainForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.Properties.Resources.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.RecipientForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.SelectSerialForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.SerialMonitorForm.resources
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.GenerateResource.cache
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.CoreCompileInputs.cache
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.exe
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.pdb
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.exe.config
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.exe.manifest
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.application
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.exe
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\DRRMIS GSM Client.pdb
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.TrustInfo.xml
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.exe.manifest
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.application
+D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.CopyComplete
