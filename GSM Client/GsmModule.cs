@@ -14,6 +14,8 @@ namespace DRRMIS_GSM_Client
 {
     internal class GsmModule {
         private static string baseURL = "http://drrmis.dostcar.ph";
+
+        // For GSM7
         private static Dictionary<char, string[]> asciiCharsets = new Dictionary<char, string[]>() {
             {'@', new string[] {"01000000", "40"}},
             {'£', new string[] {"10100011", "A3"}},
