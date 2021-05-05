@@ -30,7 +30,7 @@ namespace DRRMIS_GSM_Client
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
-            this.toolStripLogin = new System.Windows.Forms.ToolStrip();
+            this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.btnClose = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -52,7 +52,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnLogin = new System.Windows.Forms.Button();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.toolStripLogin.SuspendLayout();
+            this.toolStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -61,24 +61,24 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStripLogin
+            // toolStripMain
             // 
-            this.toolStripLogin.AutoSize = false;
-            this.toolStripLogin.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripLogin.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripLogin.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMain.AutoSize = false;
+            this.toolStripMain.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnClose,
             this.toolStripLabel2,
             this.toolStripLabel1});
-            this.toolStripLogin.Location = new System.Drawing.Point(0, 0);
-            this.toolStripLogin.Name = "toolStripLogin";
-            this.toolStripLogin.Padding = new System.Windows.Forms.Padding(2);
-            this.toolStripLogin.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStripLogin.Size = new System.Drawing.Size(350, 40);
-            this.toolStripLogin.Stretch = true;
-            this.toolStripLogin.TabIndex = 0;
-            this.toolStripLogin.Text = "toolStrip1";
-            this.toolStripLogin.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripLogin_MouseDown);
+            this.toolStripMain.Location = new System.Drawing.Point(0, 0);
+            this.toolStripMain.Name = "toolStripMain";
+            this.toolStripMain.Padding = new System.Windows.Forms.Padding(2);
+            this.toolStripMain.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStripMain.Size = new System.Drawing.Size(350, 40);
+            this.toolStripMain.Stretch = true;
+            this.toolStripMain.TabIndex = 0;
+            this.toolStripMain.Text = "toolStrip1";
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripMain_MouseDown);
             // 
             // btnClose
             // 
@@ -94,7 +94,7 @@ namespace DRRMIS_GSM_Client
             this.btnClose.Size = new System.Drawing.Size(39, 34);
             this.btnClose.Text = "x";
             this.btnClose.ToolTipText = "Close";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // toolStripLabel2
             // 
@@ -181,7 +181,7 @@ namespace DRRMIS_GSM_Client
             this.toolTipItem.Name = "toolTipItem";
             this.toolTipItem.Size = new System.Drawing.Size(240, 22);
             this.toolTipItem.Text = "DRRMIS BASE URL";
-            this.toolTipItem.Click += new System.EventHandler(this.toolTipItem_Click);
+            this.toolTipItem.Click += new System.EventHandler(this.ToolTipItem_Click);
             // 
             // txtBaseURL
             // 
@@ -193,7 +193,7 @@ namespace DRRMIS_GSM_Client
             this.txtBaseURL.Name = "txtBaseURL";
             this.txtBaseURL.Size = new System.Drawing.Size(180, 23);
             this.txtBaseURL.Text = "http://drrmis.dostcar.ph";
-            this.txtBaseURL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBaseURL_KeyDown);
+            this.txtBaseURL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBaseURL_KeyDown);
             // 
             // toolStripMenuSaveSettings
             // 
@@ -206,7 +206,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuSaveSettings.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.toolStripMenuSaveSettings.Size = new System.Drawing.Size(240, 30);
             this.toolStripMenuSaveSettings.Text = "SAVE";
-            this.toolStripMenuSaveSettings.Click += new System.EventHandler(this.toolStripMenuSaveSettings_Click);
+            this.toolStripMenuSaveSettings.Click += new System.EventHandler(this.ToolStripMenuSaveSettings_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -283,7 +283,7 @@ namespace DRRMIS_GSM_Client
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(227, 25);
             this.txtPassword.TabIndex = 2;
-            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             // 
             // txtUsername
             // 
@@ -293,7 +293,7 @@ namespace DRRMIS_GSM_Client
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(227, 25);
             this.txtUsername.TabIndex = 1;
-            this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUsername_KeyDown);
+            this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtUsername_KeyDown);
             // 
             // label1
             // 
@@ -354,7 +354,7 @@ namespace DRRMIS_GSM_Client
             this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "LOGIN";
             this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // statusStrip2
             // 
@@ -377,7 +377,7 @@ namespace DRRMIS_GSM_Client
             this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStripLogin);
+            this.Controls.Add(this.toolStripMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
@@ -385,8 +385,8 @@ namespace DRRMIS_GSM_Client
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
             this.Load += new System.EventHandler(this.LoginForm_Load);
-            this.toolStripLogin.ResumeLayout(false);
-            this.toolStripLogin.PerformLayout();
+            this.toolStripMain.ResumeLayout(false);
+            this.toolStripMain.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -402,7 +402,7 @@ namespace DRRMIS_GSM_Client
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStripLogin;
+        private System.Windows.Forms.ToolStrip toolStripMain;
         private System.Windows.Forms.ToolStripButton btnClose;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;

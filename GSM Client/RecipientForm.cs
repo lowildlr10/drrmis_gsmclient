@@ -15,7 +15,8 @@ namespace DRRMIS_GSM_Client
 {
     public partial class RecipientForm : Form
     {
-        MainForm frmMain;
+        private static MainForm frmMain;
+        private static readonly GsmModule sms = new GsmModule();
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -30,8 +31,19 @@ namespace DRRMIS_GSM_Client
             InitializeComponent();
         }
 
+        public MainForm MainForm {
+            get { return frmMain; }
+            set { frmMain = value; }
+        }
+
+
+        /* Recipient form
+         */
+
         private void RecipientForm_Load(object sender, EventArgs e) {
             if (frmMain.selRecipients.Items.Count > 0) {
+                dataRecipients.Rows.Clear();
+
                 for (int rowCtr = 0; rowCtr < frmMain.selRecipients.Items.Count; rowCtr++) {
                     if (rowCtr > 0) {
                         dataRecipients.Rows.Add(frmMain.selRecipients.Items[rowCtr]);
@@ -40,52 +52,26 @@ namespace DRRMIS_GSM_Client
             }
         }
 
-        public MainForm MainForm {
-            get { return frmMain; }
-            set { frmMain = value; }
+
+        /* Main tool strip menu
+         */
+
+        private void ToolStripMain_MouseDown(object sender, MouseEventArgs e){
+            if (e.Button == MouseButtons.Left){
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
 
-        private string FormatPhoneNumber(string phoneNo) {
-            string formatedPhoneNo = Regex.Replace(phoneNo, "/[^+0-9]/", "");
-            int digitCount = formatedPhoneNo.Length;
-            bool isValidNumber = false;
-
-            if (digitCount < 10 && digitCount > 13) {
-                return "not-valid";
-            }
-
-            if (digitCount <= 0) {
-                return "not-valid";
-            }
-
-            if (formatedPhoneNo.Substring(0, 1) == "9" && digitCount == 10) {
-                formatedPhoneNo = "0" + formatedPhoneNo;
-                isValidNumber = true;
-            }
-
-            if (formatedPhoneNo.Substring(0, 2) == "09" && digitCount == 11) {
-                isValidNumber = true;
-            }
-
-            if (formatedPhoneNo.Substring(0, 3) == "639" && digitCount == 12) {
-                formatedPhoneNo = "+" + formatedPhoneNo;
-                formatedPhoneNo = formatedPhoneNo.Replace("+63", "0");
-                isValidNumber = true;
-            }
-
-            if (formatedPhoneNo.Substring(0, 4) == "+639" && digitCount == 13) {
-                formatedPhoneNo = formatedPhoneNo.Replace("+63", "0");
-                isValidNumber = true;
-            }
-
-            if (!isValidNumber) {
-                return "not-valid";
-            }
-
-            return formatedPhoneNo;
+        private void BtnClose_Click(object sender, EventArgs e) {
+            this.Close();
         }
 
-        private void btnImportCSV_Click(object sender, EventArgs e) {
+
+        /* Recipients components
+         */
+
+        private void BtnImportCSV_Click(object sender, EventArgs e) {
             openFileDialog.FilterIndex = 1;
             openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             openFileDialog.FileName = "";
@@ -108,7 +94,7 @@ namespace DRRMIS_GSM_Client
                         int numCtr = 0;
 
                         foreach (string item in __items) {
-                            string formatedPhoneNo = FormatPhoneNumber(__items[numCtr].Trim());
+                            string formatedPhoneNo = sms.FormatPhoneNumber(__items[numCtr].Trim());
 
                             if (formatedPhoneNo != "not-valid") {
                                 _items.Add(formatedPhoneNo);
@@ -121,15 +107,13 @@ namespace DRRMIS_GSM_Client
                         }
                     }
                 }
-                
-                MessageBox.Show(filename + " was successfully imported.", "Success!", 
+
+                MessageBox.Show(filename + " was successfully imported.", "Success!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void btnApplyRecipients_Click(object sender, EventArgs e) {
-            var list = new List<string>(dataRecipients.Rows.Count);
-
+        private void BtnApplyRecipients_Click(object sender, EventArgs e) {
             frmMain.selRecipients.Items.Clear();
             frmMain.selRecipients.Items.Add("-- send-to-all --");
 
@@ -143,7 +127,7 @@ namespace DRRMIS_GSM_Client
                 }
 
                 if (!String.IsNullOrEmpty(phoneNo)) {
-                    phoneNo = FormatPhoneNumber(phoneNo);
+                    phoneNo = sms.FormatPhoneNumber(phoneNo);
                     frmMain.selRecipients.Items.Add(phoneNo);
                 }
             }
@@ -167,23 +151,13 @@ namespace DRRMIS_GSM_Client
             }
         }
 
-        private void dataRecipients_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e) {
+        private void DataRecipients_EditingControlShowing(object sender, 
+            DataGridViewEditingControlShowingEventArgs e) {
             var txtBox = e.Control as TextBox;
 
             if (txtBox != null) {
                 txtBox.KeyDown -= new KeyEventHandler(Control_KeyDown);
                 txtBox.KeyDown += new KeyEventHandler(Control_KeyDown);
-            }
-        }
-
-        private void btnClose_Click(object sender, EventArgs e) {
-            this.Close();
-        }
-
-        private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
     }

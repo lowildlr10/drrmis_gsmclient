@@ -40,6 +40,6 @@ namespace DRRMIS_GSM_Client
             }
         }
 
-        private static string appGuid = "28a677a0-1aca-42a3-8750-648c66ed0bc9";
+        private static readonly string appGuid = "28a677a0-1aca-42a3-8750-648c66ed0bc9";
     }
 }

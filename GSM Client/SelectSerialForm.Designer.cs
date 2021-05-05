@@ -98,7 +98,7 @@ namespace DRRMIS_GSM_Client
             this.btnConSelSerial.TabIndex = 9;
             this.btnConSelSerial.Text = "Apply";
             this.btnConSelSerial.UseVisualStyleBackColor = false;
-            this.btnConSelSerial.Click += new System.EventHandler(this.btnConSelSerial_Click);
+            this.btnConSelSerial.Click += new System.EventHandler(this.BtnConSelSerial_Click);
             // 
             // groupBox1
             // 
@@ -127,6 +127,7 @@ namespace DRRMIS_GSM_Client
             this.txtBaudRate.Size = new System.Drawing.Size(264, 27);
             this.txtBaudRate.TabIndex = 2;
             this.txtBaudRate.Text = "9600";
+            this.txtBaudRate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtBaudRate_KeyPress);
             // 
             // grpSerialPort
             // 
@@ -160,6 +161,7 @@ namespace DRRMIS_GSM_Client
             this.selSerialPort.Size = new System.Drawing.Size(264, 28);
             this.selSerialPort.Sorted = true;
             this.selSerialPort.TabIndex = 1;
+            this.selSerialPort.Click += new System.EventHandler(this.SelSerialPort_Click);
             // 
             // groupBox3
             // 
@@ -196,6 +198,7 @@ namespace DRRMIS_GSM_Client
             this.selMessageMode.Size = new System.Drawing.Size(264, 28);
             this.selMessageMode.Sorted = true;
             this.selMessageMode.TabIndex = 2;
+            this.selMessageMode.Click += new System.EventHandler(this.SelMessageMode_Click);
             // 
             // btnClose
             // 
@@ -211,7 +214,7 @@ namespace DRRMIS_GSM_Client
             this.btnClose.Size = new System.Drawing.Size(38, 33);
             this.btnClose.Text = "x";
             this.btnClose.ToolTipText = "Close";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // toolStripLabel2
             // 
@@ -250,7 +253,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Stretch = true;
             this.toolStripMain.TabIndex = 7;
             this.toolStripMain.Text = "toolStrip1";
-            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripMain_MouseDown);
             // 
             // SelectSerialForm
             // 

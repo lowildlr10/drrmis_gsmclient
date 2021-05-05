@@ -78,10 +78,10 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 82.75154F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.49897F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.696099F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 2.000039F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.50076F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.49919F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 1.000009F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(376, 494);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -132,9 +132,9 @@ namespace DRRMIS_GSM_Client
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
             this.dataRecipients.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataRecipients.Size = new System.Drawing.Size(336, 392);
+            this.dataRecipients.Size = new System.Drawing.Size(336, 405);
             this.dataRecipients.TabIndex = 1;
-            this.dataRecipients.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataRecipients_EditingControlShowing);
+            this.dataRecipients.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataRecipients_EditingControlShowing);
             // 
             // PhoneNumber
             // 
@@ -152,7 +152,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel2.Controls.Add(this.btnImportCSV, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnApplyRecipients, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 424);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(20, 437);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(15, 10, 15, 5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -174,7 +174,7 @@ namespace DRRMIS_GSM_Client
             this.btnImportCSV.TabIndex = 4;
             this.btnImportCSV.Text = "Import CSV";
             this.btnImportCSV.UseVisualStyleBackColor = false;
-            this.btnImportCSV.Click += new System.EventHandler(this.btnImportCSV_Click);
+            this.btnImportCSV.Click += new System.EventHandler(this.BtnImportCSV_Click);
             // 
             // btnApplyRecipients
             // 
@@ -190,7 +190,7 @@ namespace DRRMIS_GSM_Client
             this.btnApplyRecipients.TabIndex = 3;
             this.btnApplyRecipients.Text = "Apply";
             this.btnApplyRecipients.UseVisualStyleBackColor = false;
-            this.btnApplyRecipients.Click += new System.EventHandler(this.btnApplyRecipients_Click);
+            this.btnApplyRecipients.Click += new System.EventHandler(this.BtnApplyRecipients_Click);
             // 
             // openFileDialog
             // 
@@ -214,7 +214,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Stretch = true;
             this.toolStripMain.TabIndex = 8;
             this.toolStripMain.Text = "toolStrip1";
-            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripMain_MouseDown);
             // 
             // btnClose
             // 
@@ -230,7 +230,7 @@ namespace DRRMIS_GSM_Client
             this.btnClose.Size = new System.Drawing.Size(38, 33);
             this.btnClose.Text = "x";
             this.btnClose.ToolTipText = "Close";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // toolStripLabel2
             // 

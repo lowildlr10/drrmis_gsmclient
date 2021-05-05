@@ -40,14 +40,14 @@ namespace DRRMIS_GSM_Client
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuConnect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuDisconnect = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serialMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuSerialMonitor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btnUser = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuUsername = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,7 +125,7 @@ namespace DRRMIS_GSM_Client
             // comPort
             // 
             this.comPort.PortName = " ";
-            this.comPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.comPort_DataReceived);
+            this.comPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.ComPort_DataReceived);
             // 
             // mainStatusStrip
             // 
@@ -197,9 +197,9 @@ namespace DRRMIS_GSM_Client
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuConnect,
             this.toolStripMenuDisconnect,
-            this.settingsToolStripMenuItem,
+            this.toolStripMenuSettings,
             this.toolStripSeparator1,
-            this.exitToolStripMenuItem});
+            this.toolStripMenuExit});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -208,52 +208,52 @@ namespace DRRMIS_GSM_Client
             // toolStripMenuConnect
             // 
             this.toolStripMenuConnect.Name = "toolStripMenuConnect";
-            this.toolStripMenuConnect.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuConnect.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuConnect.Text = "Connect...";
-            this.toolStripMenuConnect.Click += new System.EventHandler(this.toolStripMenuConnect_Click);
+            this.toolStripMenuConnect.Click += new System.EventHandler(this.ToolStripMenuConnect_Click);
             // 
             // toolStripMenuDisconnect
             // 
             this.toolStripMenuDisconnect.Name = "toolStripMenuDisconnect";
-            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuDisconnect.Text = "Disconnect...";
             this.toolStripMenuDisconnect.Visible = false;
-            this.toolStripMenuDisconnect.Click += new System.EventHandler(this.toolStripMenuDisconnect_Click);
+            this.toolStripMenuDisconnect.Click += new System.EventHandler(this.ToolStripMenuDisconnect_Click);
             // 
-            // settingsToolStripMenuItem
+            // toolStripMenuSettings
             // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            this.toolStripMenuSettings.Name = "toolStripMenuSettings";
+            this.toolStripMenuSettings.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuSettings.Text = "Settings";
+            this.toolStripMenuSettings.Click += new System.EventHandler(this.ToolStripMenuSettings_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // exitToolStripMenuItem
+            // toolStripMenuExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.toolStripMenuExit.Name = "toolStripMenuExit";
+            this.toolStripMenuExit.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuExit.Text = "Exit";
+            this.toolStripMenuExit.Click += new System.EventHandler(this.ToolStripMenuExit_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
+            this.toolStripMenuAbout});
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // aboutToolStripMenuItem
+            // toolStripMenuAbout
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.toolStripMenuAbout.Name = "toolStripMenuAbout";
+            this.toolStripMenuAbout.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuAbout.Text = "About";
+            this.toolStripMenuAbout.Click += new System.EventHandler(this.ToolStripMenuAbout_Click);
             // 
             // mainMenuStrip
             // 
@@ -271,19 +271,19 @@ namespace DRRMIS_GSM_Client
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.serialMonitorToolStripMenuItem});
+            this.toolStripMenuSerialMonitor});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // serialMonitorToolStripMenuItem
+            // toolStripMenuSerialMonitor
             // 
-            this.serialMonitorToolStripMenuItem.Enabled = false;
-            this.serialMonitorToolStripMenuItem.Name = "serialMonitorToolStripMenuItem";
-            this.serialMonitorToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.serialMonitorToolStripMenuItem.Text = "Serial Monitor";
-            this.serialMonitorToolStripMenuItem.Click += new System.EventHandler(this.serialMonitorToolStripMenuItem_Click);
+            this.toolStripMenuSerialMonitor.Enabled = false;
+            this.toolStripMenuSerialMonitor.Name = "toolStripMenuSerialMonitor";
+            this.toolStripMenuSerialMonitor.Size = new System.Drawing.Size(148, 22);
+            this.toolStripMenuSerialMonitor.Text = "Serial Monitor";
+            this.toolStripMenuSerialMonitor.Click += new System.EventHandler(this.ToolStripMenuSerialMonitor_Click);
             // 
             // toolStrip
             // 
@@ -355,7 +355,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuLogout.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.toolStripMenuLogout.Size = new System.Drawing.Size(129, 26);
             this.toolStripMenuLogout.Text = "Logout";
-            this.toolStripMenuLogout.Click += new System.EventHandler(this.toolStripMenuLogout_Click);
+            this.toolStripMenuLogout.Click += new System.EventHandler(this.ToolStripMenuLogout_Click);
             // 
             // toolStripSeparator2
             // 
@@ -381,7 +381,7 @@ namespace DRRMIS_GSM_Client
             this.btnSettings.Text = "Settings";
             this.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSettings.ToolTipText = "Settings";
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click);
             // 
             // btnSerialMonitor
             // 
@@ -401,7 +401,7 @@ namespace DRRMIS_GSM_Client
             this.btnSerialMonitor.Text = "Monitor";
             this.btnSerialMonitor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSerialMonitor.Visible = false;
-            this.btnSerialMonitor.Click += new System.EventHandler(this.btnSerialMonitor_Click);
+            this.btnSerialMonitor.Click += new System.EventHandler(this.BtnSerialMonitor_Click);
             // 
             // btnDisconnectSerial
             // 
@@ -421,7 +421,7 @@ namespace DRRMIS_GSM_Client
             this.btnDisconnectSerial.Text = "Disconnect";
             this.btnDisconnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnDisconnectSerial.Visible = false;
-            this.btnDisconnectSerial.Click += new System.EventHandler(this.btnDisconnectSerial_Click);
+            this.btnDisconnectSerial.Click += new System.EventHandler(this.BtnDisconnectSerial_Click);
             // 
             // btnConnectSerial
             // 
@@ -440,7 +440,7 @@ namespace DRRMIS_GSM_Client
             this.btnConnectSerial.Size = new System.Drawing.Size(70, 59);
             this.btnConnectSerial.Text = "Connect";
             this.btnConnectSerial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnConnectSerial.Click += new System.EventHandler(this.btnConnectSerial_Click);
+            this.btnConnectSerial.Click += new System.EventHandler(this.BtnConnectSerial_Click);
             // 
             // btnSend
             // 
@@ -459,7 +459,7 @@ namespace DRRMIS_GSM_Client
             this.btnSend.Size = new System.Drawing.Size(70, 59);
             this.btnSend.Text = "Send";
             this.btnSend.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            this.btnSend.Click += new System.EventHandler(this.BtnSend_Click);
             // 
             // btnRecipients
             // 
@@ -478,7 +478,7 @@ namespace DRRMIS_GSM_Client
             this.btnRecipients.Size = new System.Drawing.Size(70, 59);
             this.btnRecipients.Text = "Recipients";
             this.btnRecipients.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRecipients.Click += new System.EventHandler(this.btnRecipients_Click);
+            this.btnRecipients.Click += new System.EventHandler(this.BtnRecipients_Click);
             // 
             // mainPanel
             // 
@@ -776,7 +776,8 @@ namespace DRRMIS_GSM_Client
             this.txtMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtMessage.Size = new System.Drawing.Size(683, 347);
             this.txtMessage.TabIndex = 0;
-            this.txtMessage.TextChanged += new System.EventHandler(this.txtMessage_TextChanged);
+            this.txtMessage.TextChanged += new System.EventHandler(this.TxtMessage_TextChanged);
+            this.txtMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtMessage_KeyDown);
             // 
             // tableLayoutPanel3
             // 
@@ -838,7 +839,7 @@ namespace DRRMIS_GSM_Client
             this.lblRecipientsCount.TabIndex = 1;
             this.lblRecipientsCount.Text = "Recipient: 0";
             this.lblRecipientsCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblRecipientsCount.Click += new System.EventHandler(this.lblRecipientsCount_Click);
+            this.lblRecipientsCount.Click += new System.EventHandler(this.LblRecipientsCount_Click);
             // 
             // lblMsgCount
             // 
@@ -863,7 +864,7 @@ namespace DRRMIS_GSM_Client
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "DRRMIS GSM Client";
             this.notifyIcon.Visible = true;
-            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseDoubleClick);
             // 
             // contextMenuStripTray
             // 
@@ -899,7 +900,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuItemShowForm.Size = new System.Drawing.Size(186, 22);
             this.toolStripMenuItemShowForm.Text = "Show Client";
             this.toolStripMenuItemShowForm.ToolTipText = "Show Client";
-            this.toolStripMenuItemShowForm.Click += new System.EventHandler(this.toolStripMenuItemShowForm_Click);
+            this.toolStripMenuItemShowForm.Click += new System.EventHandler(this.ToolStripMenuItemShowForm_Click);
             // 
             // toolStripSeparator4
             // 
@@ -930,7 +931,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuItemConnectSerial.Size = new System.Drawing.Size(186, 22);
             this.toolStripMenuItemConnectSerial.Text = "Connect...";
             this.toolStripMenuItemConnectSerial.ToolTipText = "Connect to Serial Port";
-            this.toolStripMenuItemConnectSerial.Click += new System.EventHandler(this.toolStripMenuItemConnectSerial_Click);
+            this.toolStripMenuItemConnectSerial.Click += new System.EventHandler(this.ToolStripMenuItemConnectSerial_Click);
             // 
             // toolStripMenuItemDisonnectSerial
             // 
@@ -939,7 +940,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuItemDisonnectSerial.Text = "Disconnect...";
             this.toolStripMenuItemDisonnectSerial.ToolTipText = "Disconnect from the Serial Port";
             this.toolStripMenuItemDisonnectSerial.Visible = false;
-            this.toolStripMenuItemDisonnectSerial.Click += new System.EventHandler(this.toolStripMenuItemDisonnectSerial_Click);
+            this.toolStripMenuItemDisonnectSerial.Click += new System.EventHandler(this.ToolStripMenuItemDisonnectSerial_Click);
             // 
             // toolStripMenuItemSettings
             // 
@@ -947,7 +948,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuItemSettings.Size = new System.Drawing.Size(186, 22);
             this.toolStripMenuItemSettings.Text = "Settings";
             this.toolStripMenuItemSettings.ToolTipText = "Show Settings";
-            this.toolStripMenuItemSettings.Click += new System.EventHandler(this.toolStripMenuItemSettings_Click);
+            this.toolStripMenuItemSettings.Click += new System.EventHandler(this.ToolStripMenuItemSettings_Click);
             // 
             // toolStripSeparator5
             // 
@@ -961,18 +962,18 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuItemExitApp.Size = new System.Drawing.Size(186, 22);
             this.toolStripMenuItemExitApp.Text = "Exit";
             this.toolStripMenuItemExitApp.ToolTipText = "Exit Application";
-            this.toolStripMenuItemExitApp.Click += new System.EventHandler(this.toolStripMenuItemExitApp_Click);
+            this.toolStripMenuItemExitApp.Click += new System.EventHandler(this.ToolStripMenuItemExitApp_Click);
             // 
             // timerMonitorPort
             // 
             this.timerMonitorPort.Enabled = true;
             this.timerMonitorPort.Interval = 300;
-            this.timerMonitorPort.Tick += new System.EventHandler(this.timerMonitorPort_Tick);
+            this.timerMonitorPort.Tick += new System.EventHandler(this.TimerMonitorPort_Tick);
             // 
             // timerRefreshSignal
             // 
             this.timerRefreshSignal.Interval = 1000;
-            this.timerRefreshSignal.Tick += new System.EventHandler(this.timerRefreshSignal_Tick);
+            this.timerRefreshSignal.Tick += new System.EventHandler(this.TimerRefreshSignal_Tick);
             // 
             // backgroundSendMsg
             // 
@@ -997,7 +998,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Stretch = true;
             this.toolStripMain.TabIndex = 0;
             this.toolStripMain.Text = "toolStrip1";
-            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripMain_MouseDown);
             // 
             // btnClose
             // 
@@ -1013,7 +1014,7 @@ namespace DRRMIS_GSM_Client
             this.btnClose.Size = new System.Drawing.Size(38, 33);
             this.btnClose.Text = "x";
             this.btnClose.ToolTipText = "Close";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // btnMinimize
             // 
@@ -1029,7 +1030,7 @@ namespace DRRMIS_GSM_Client
             this.btnMinimize.Size = new System.Drawing.Size(37, 33);
             this.btnMinimize.Text = "_";
             this.btnMinimize.ToolTipText = "Minimize";
-            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            this.btnMinimize.Click += new System.EventHandler(this.BtnMinimize_Click);
             // 
             // toolStripLabel2
             // 
@@ -1054,7 +1055,7 @@ namespace DRRMIS_GSM_Client
             // timerSendApi
             // 
             this.timerSendApi.Interval = 1000;
-            this.timerSendApi.Tick += new System.EventHandler(this.timerSendApi_Tick);
+            this.timerSendApi.Tick += new System.EventHandler(this.TimerSendApi_Tick);
             // 
             // MainForm
             // 
@@ -1108,9 +1109,9 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuExit;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuAbout;
         private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuConnect;
@@ -1139,11 +1140,11 @@ namespace DRRMIS_GSM_Client
         public System.IO.Ports.SerialPort comPort;
         private System.Windows.Forms.ToolStripButton btnSerialMonitor;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem serialMonitorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuSerialMonitor;
         private System.Windows.Forms.Timer timerMonitorPort;
         private System.Windows.Forms.ToolStripButton btnRecipients;
         public System.Windows.Forms.ComboBox selRecipients;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuSettings;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label lblMsgCount;
         private System.Windows.Forms.Label lblRecipientsCount;

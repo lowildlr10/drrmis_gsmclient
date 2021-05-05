@@ -103,7 +103,7 @@ namespace DRRMIS_GSM_Client
             this.txtSerialWrite.Name = "txtSerialWrite";
             this.txtSerialWrite.Size = new System.Drawing.Size(450, 29);
             this.txtSerialWrite.TabIndex = 0;
-            this.txtSerialWrite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerialWrite_KeyPress);
+            this.txtSerialWrite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSerialWrite_KeyPress);
             // 
             // btnWriteSerial
             // 
@@ -119,7 +119,7 @@ namespace DRRMIS_GSM_Client
             this.btnWriteSerial.TabIndex = 1;
             this.btnWriteSerial.Text = "Write";
             this.btnWriteSerial.UseVisualStyleBackColor = false;
-            this.btnWriteSerial.Click += new System.EventHandler(this.btnWriteSerial_Click);
+            this.btnWriteSerial.Click += new System.EventHandler(this.BtnWriteSerial_Click);
             // 
             // txtFeedback
             // 
@@ -170,7 +170,7 @@ namespace DRRMIS_GSM_Client
             this.btnClearFeedback.Padding = new System.Windows.Forms.Padding(10);
             this.btnClearFeedback.Size = new System.Drawing.Size(57, 25);
             this.btnClearFeedback.Text = "Clear";
-            this.btnClearFeedback.Click += new System.EventHandler(this.btnClearFeedback_Click);
+            this.btnClearFeedback.Click += new System.EventHandler(this.BtnClearFeedback_Click);
             // 
             // toolStripMain
             // 
@@ -190,7 +190,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Stretch = true;
             this.toolStripMain.TabIndex = 6;
             this.toolStripMain.Text = "toolStrip1";
-            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripMain_MouseDown);
             // 
             // btnClose
             // 
@@ -206,7 +206,7 @@ namespace DRRMIS_GSM_Client
             this.btnClose.Size = new System.Drawing.Size(38, 33);
             this.btnClose.Text = "x";
             this.btnClose.ToolTipText = "Close";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // btnMinimize
             // 
@@ -222,7 +222,7 @@ namespace DRRMIS_GSM_Client
             this.btnMinimize.Size = new System.Drawing.Size(37, 33);
             this.btnMinimize.Text = "_";
             this.btnMinimize.ToolTipText = "Minimize";
-            this.btnMinimize.Click += new System.EventHandler(this.btnMinimize_Click);
+            this.btnMinimize.Click += new System.EventHandler(this.BtnMinimize_Click);
             // 
             // toolStripLabel2
             // 

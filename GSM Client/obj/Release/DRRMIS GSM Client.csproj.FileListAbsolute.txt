@@ -21,7 +21,6 @@ D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.RecipientForm.
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.SelectSerialForm.resources
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS_GSM_Client.SerialMonitorForm.resources
 D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csproj.CopyComplete
-D:\dev\desktop\gsmclient\GSM Client\obj\Release\DRRMIS GSM Client.csprojAssemblyReference.cache
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.exe.config
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.exe.manifest
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\bin\Release\DRRMIS GSM Client.application

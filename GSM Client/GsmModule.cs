@@ -16,7 +16,8 @@ namespace DRRMIS_GSM_Client
         private static string baseURL = "http://drrmis.dostcar.ph";
 
         // For GSM7
-        private static Dictionary<char, string[]> asciiCharsets = new Dictionary<char, string[]>() {
+        private static readonly Dictionary<char, string[]> asciiCharsets = 
+            new Dictionary<char, string[]>() {
             {'@', new string[] {"01000000", "40"}},
             {'£', new string[] {"10100011", "A3"}},
             {'$', new string[] {"00100100", "24"}},
@@ -155,12 +156,12 @@ namespace DRRMIS_GSM_Client
             string newPhoneNo = "";
             
             if (phoneNoCount % 2 != 0) {
-                phoneNo = phoneNo + "F";
+                phoneNo += "F";
             }
 
             char[] phoneNoChar = phoneNo.ToCharArray();
 
-            for (int x = 0; x < phoneNoCount; x = x + 2) {
+            for (int x = 0; x < phoneNoCount; x += 2) {
                 newPhoneNo += phoneNoChar[x + 1].ToString() + phoneNoChar[x];
             }
 
@@ -318,7 +319,6 @@ namespace DRRMIS_GSM_Client
 
         public string EncodeToPaddingZeroBit(string encodedHex) {
             List<string> hexValues = new List<string>();
-            List<string> binaryValue = new List<string>();
             encodedHex = Regex.Replace(encodedHex, @"\s+", "");
             char[] hexCharacters = encodedHex.ToCharArray();
             int hexCharCount = hexCharacters.Length;
@@ -329,7 +329,7 @@ namespace DRRMIS_GSM_Client
                 string tempBinary = "";
 
                 // Store hex values
-                for (int hexCtr = 0; hexCtr < hexCharCount - 1; hexCtr = hexCtr + 2) {
+                for (int hexCtr = 0; hexCtr < hexCharCount - 1; hexCtr += 2) {
                     hexValues.Add(hexCharacters[hexCtr].ToString() + hexCharacters[hexCtr + 1].ToString());
                 }
 
@@ -365,8 +365,8 @@ namespace DRRMIS_GSM_Client
         public Dictionary<string, string> GetEncodedMsgPDU(
             string phoneNo, string message, int msgChunkCount, int msgChunkCtr) {
             Dictionary<string, string> encodedPDU = new Dictionary<string, string>();
-            string totalMsgLength = "";
-            string encodedStrPDU = "";
+            string totalMsgLength;
+            string encodedStrPDU;
 
             string smsc = "00";
             string typePDU = "01";

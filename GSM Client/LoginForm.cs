@@ -21,8 +21,8 @@ namespace DRRMIS_GSM_Client
 {
     public partial class LoginForm : Form
     {
-        MainForm frmMain;
-        User user = new User();
+        private static MainForm frmMain;
+        private static readonly User user = new User();
 
         private bool isLogin = false;
         private string baseURL = "http://drrmis.dostcar.ph";
@@ -38,31 +38,9 @@ namespace DRRMIS_GSM_Client
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void toolStripLogin_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-
         public MainForm MainForm {
             get { return frmMain; }
             set { frmMain = value; }
-        }
-
-        public LoginForm() {
-            InitializeComponent();
-        }
-
-        private void LoginForm_Load(object sender, EventArgs e) {
-            this.WindowState = FormWindowState.Minimized;
-            this.WindowState = FormWindowState.Normal;
-            this.Focus();
-            this.Show();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e) {
-            Environment.Exit(0);
         }
 
         private void RefreshDisplays() {
@@ -131,22 +109,6 @@ namespace DRRMIS_GSM_Client
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e) {
-            Login();
-        }
-
-        private void txtUsername_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyData == Keys.Enter) {
-                Login();
-            }
-        }
-
-        private void txtPassword_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyData == Keys.Enter) {
-                Login();
-            }
-        }
-
         private void CloseForm() {
             frmMain.User = user;
             this.DialogResult = DialogResult.OK;
@@ -160,18 +122,73 @@ namespace DRRMIS_GSM_Client
                             MessageBoxIcon.Information);
         }
 
-        private void txtBaseURL_KeyDown(object sender, KeyEventArgs e)  {
+
+        /* Login form
+         */
+
+        public LoginForm() {
+            InitializeComponent();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e) {
+            this.WindowState = FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Normal;
+            this.Focus();
+            this.Show();
+        }
+
+
+        /* Main tool strip menu
+         */
+
+        private void ToolStripMain_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e) {
+            Environment.Exit(0);
+        }
+
+
+        /* Settings components
+         */
+
+        private void TxtBaseURL_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
                 SaveSettings();
             }
         }
 
-        private void toolTipItem_Click(object sender, EventArgs e) {
+        private void ToolTipItem_Click(object sender, EventArgs e) {
             SaveSettings();
         }
 
-        private void toolStripMenuSaveSettings_Click(object sender, EventArgs e) {
+        private void ToolStripMenuSaveSettings_Click(object sender, EventArgs e) {
             SaveSettings();
+        }
+
+
+        /* Login components
+         */
+
+
+        private void TxtUsername_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Enter) {
+                Login();
+            }
+        }
+
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Enter) {
+                Login();
+            }
+        }
+
+        private void BtnLogin_Click(object sender, EventArgs e) {
+            Login();
         }
     }
 }

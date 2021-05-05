@@ -125,7 +125,7 @@ namespace DRRMIS_GSM_Client
             this.linkDRRMIS.TabStop = true;
             this.linkDRRMIS.Text = "drrmis.dostcar.ph";
             this.linkDRRMIS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.linkDRRMIS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDRRMIS_LinkClicked);
+            this.linkDRRMIS.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDRRMIS_LinkClicked);
             // 
             // pictureBox2
             // 
@@ -167,7 +167,7 @@ namespace DRRMIS_GSM_Client
             this.linkDOST.TabStop = true;
             this.linkDOST.Text = "car.dost.gov.ph";
             this.linkDOST.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.linkDOST.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDOST_LinkClicked);
+            this.linkDOST.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkDOST_LinkClicked);
             // 
             // tableLayoutPanel2
             // 
@@ -274,7 +274,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMain.Stretch = true;
             this.toolStripMain.TabIndex = 8;
             this.toolStripMain.Text = "toolStrip1";
-            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripMain_MouseDown);
+            this.toolStripMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ToolStripMain_MouseDown);
             // 
             // btnClose
             // 
@@ -290,7 +290,7 @@ namespace DRRMIS_GSM_Client
             this.btnClose.Size = new System.Drawing.Size(38, 33);
             this.btnClose.Text = "x";
             this.btnClose.ToolTipText = "Close";
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
             // toolStripLabel1
             // 
@@ -313,6 +313,7 @@ namespace DRRMIS_GSM_Client
             this.Controls.Add(this.tableLayoutPanel);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBoxForm";

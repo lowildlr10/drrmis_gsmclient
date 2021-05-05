@@ -44,7 +44,6 @@ D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.ap
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.CopyComplete
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.exe
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.pdb
-D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
 D:\Dev\desktop\visual studio\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
 D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
 D:\Dev\desktop\visual studio\drrmis_gsmclient\GSM Client\obj\Debug\DRRMIS_GSM_Client.AboutBoxForm.resources

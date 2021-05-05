@@ -15,7 +15,7 @@ namespace DRRMIS_GSM_Client
 {
     public partial class SerialMonitorForm : Form
     {
-        MainForm frmMain;
+        private static MainForm frmMain;
 
         string dataReceived = string.Empty;
         private delegate void SetTextDeleg(string text);
@@ -50,17 +50,9 @@ namespace DRRMIS_GSM_Client
             txtFeedback.AppendText(dataReceived + "\r\n");
         }
 
-        private void btnWriteSerial_Click(object sender, EventArgs e) {
-            frmMain.comPort.WriteLine(txtSerialWrite.Text);
-            txtSerialWrite.Text = string.Empty;
-        }
 
-        private void txtSerialWrite_KeyPress(object sender, KeyPressEventArgs e) {
-            if (e.KeyChar == (char) Keys.Enter) {
-                frmMain.comPort.WriteLine(txtSerialWrite.Text);
-                txtSerialWrite.Text = string.Empty;
-            }
-        }
+        /* Serial monitor form
+         */
 
         private void SerialMonitorForm_VisibleChanged(object sender, EventArgs e) {
             this.CenterToScreen();
@@ -71,23 +63,44 @@ namespace DRRMIS_GSM_Client
             this.Visible = false;
         }
 
-        private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
+
+
+        /* Serial monitor components
+         */
+
+        private void TxtSerialWrite_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char)Keys.Enter) {
+                frmMain.comPort.WriteLine(txtSerialWrite.Text);
+                txtSerialWrite.Text = string.Empty;
+            }
+        }
+
+        private void BtnWriteSerial_Click(object sender, EventArgs e) {
+            frmMain.comPort.WriteLine(txtSerialWrite.Text);
+            txtSerialWrite.Text = string.Empty;
+        }
+
+        private void BtnClearFeedback_Click(object sender, EventArgs e) {
+            txtFeedback.Text = string.Empty;
+        }
+
+
+        /* Main tool strip menu
+         */
+
+        private void ToolStripMain_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
 
-        private void btnMinimize_Click(object sender, EventArgs e) {
+        private void BtnMinimize_Click(object sender, EventArgs e) {
             this.WindowState = FormWindowState.Minimized;
         }
 
-        private void btnClose_Click(object sender, EventArgs e) {
+        private void BtnClose_Click(object sender, EventArgs e) {
             this.Visible = false;
-        }
-
-        private void btnClearFeedback_Click(object sender, EventArgs e) {
-            txtFeedback.Text = string.Empty;
         }
     }
 }

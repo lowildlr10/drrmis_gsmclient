@@ -10,11 +10,10 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.IO.Ports;
 
-namespace DRRMIS_GSM_Client
-{
-    public partial class SelectSerialForm : Form
-    {
-        MainForm frmMain;
+namespace DRRMIS_GSM_Client {
+
+    public partial class SelectSerialForm : Form {
+        private static MainForm frmMain;
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -47,27 +46,49 @@ namespace DRRMIS_GSM_Client
             selMessageMode.SelectedItem = frmMain.MessageMode;
         }
 
+
+        /* Select serial form
+         */
+
         private void SelectSerialForm_Load(object sender, EventArgs e) {
             RefreshPortList();
-
             txtBaudRate.Text = frmMain.comPort.BaudRate.ToString();
         }
 
-        private void txtBaudRate_KeyPress(object sender, KeyPressEventArgs e) {
+
+        /* Main tool strip menu
+         */
+
+        private void ToolStripMain_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+
+        /* Settings fields
+         */
+
+        private void SelSerialPort_Click(object sender, EventArgs e) {
+            RefreshPortList();
+        }
+
+        private void TxtBaudRate_KeyPress(object sender, KeyPressEventArgs e) {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }
 
-        private void selSerialPort_Click(object sender, EventArgs e) {
+        private void SelMessageMode_Click(object sender, EventArgs e) {
             RefreshPortList();
         }
 
-        private void btnClose_Click(object sender, EventArgs e) {
-            this.Close();
-        }
-
-        private void btnConSelSerial_Click(object sender, EventArgs e) {
+        private void BtnConSelSerial_Click(object sender, EventArgs e) {
             var serialPort = selSerialPort.SelectedItem;
             string baudRate = txtBaudRate.Text.Trim();
             var messageMode = selMessageMode.SelectedItem;
@@ -102,13 +123,6 @@ namespace DRRMIS_GSM_Client
             frmMain.RefreshDisplays();
 
             this.Close();
-        }
-
-        private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
         }
     }
 }

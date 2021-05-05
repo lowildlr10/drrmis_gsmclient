@@ -112,23 +112,31 @@ namespace DRRMIS_GSM_Client
         }
         #endregion
 
-        private void linkDOST_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("https://car.dost.gov.ph");
-        }
 
-        private void linkDRRMIS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            Process.Start("http://drrmis.dostcar.ph");
-        }
+        /* Main tool strip menu
+         */
 
-        private void btnClose_Click(object sender, EventArgs e) {
-            this.Close();
-        }
-
-        private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
+        private void ToolStripMain_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e) {
+            this.Close();
+        }
+
+
+        /* Links
+         */
+
+        private void LinkDOST_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("https://car.dost.gov.ph");
+        }
+
+        private void LinkDRRMIS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            Process.Start("http://drrmis.dostcar.ph");
         }
     }
 }

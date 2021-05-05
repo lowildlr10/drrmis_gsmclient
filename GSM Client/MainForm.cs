@@ -18,13 +18,13 @@ namespace DRRMIS_GSM_Client
 {
     public partial class MainForm : Form
     {
-        User user;
-        GsmModule sms = new GsmModule();
-        LoginForm frmLogin = new LoginForm();
-        RecipientForm frmRecipient;
-        SelectSerialForm frmSelectSerial;
-        SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
-        AboutBoxForm frmAboutBox;
+        private User user;
+        private static readonly GsmModule sms = new GsmModule();
+        private static readonly LoginForm frmLogin = new LoginForm();
+        private static readonly RecipientForm frmRecipient = new RecipientForm();
+        private static readonly SelectSerialForm frmSelectSerial = new SelectSerialForm();
+        private static readonly SerialMonitorForm frmSerialMonitor = new SerialMonitorForm();
+        private static readonly AboutBoxForm frmAboutBox = new AboutBoxForm();
 
         private delegate void _ConnectSerialPort();
         private delegate void _DisconnectSerialPort();
@@ -38,7 +38,7 @@ namespace DRRMIS_GSM_Client
         private bool isSending = false;
         private bool isSendingProcess = false;
         private bool isLogout = false;
-        private List<string> sendMessageLogs = new List<string>();
+        private readonly List<string> sendMessageLogs = new List<string>();
         private int countSent = 0;
         private int logoutRetriesLeft = 3;
 
@@ -73,13 +73,6 @@ namespace DRRMIS_GSM_Client
         public string MessageMode {
             get { return messageMode; }
             set { messageMode = value; }
-        }
-
-        private void toolStripMain_MouseDown(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
         }
 
         public MainForm(dynamic _user = null) {
@@ -123,12 +116,6 @@ namespace DRRMIS_GSM_Client
             RefreshDisplays();
         }
 
-        private void MainForm_Load(object sender, EventArgs e) {
-            RefreshForm();
-
-            timerSendApi.Enabled = true;
-        }
-
         private async void ClosingApplication() {
             DialogResult msgClosing = MessageBox.Show("Are you sure you want to exit the application?",
                                               "Exit Application", MessageBoxButtons.YesNo,
@@ -138,45 +125,11 @@ namespace DRRMIS_GSM_Client
                 bool isLogoutSuccess = await Logout();
 
                 if (isLogoutSuccess) {
+                    notifyIcon.Dispose();
                     DisconnectSerialPort();
                     ExitApplication();
                 }
             }
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {e.Cancel = true;
-            MinimizeTOTray(true);
-        }
-
-        private void btnConnectSerial_Click(object sender, EventArgs e) {
-            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
-        }
-
-        private void toolStripMenuConnect_Click(object sender, EventArgs e) {
-            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
-        }
-
-        private void btnDisconnectSerial_Click(object sender, EventArgs e) {
-            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
-        }
-
-        private void toolStripMenuDisconnect_Click(object sender, EventArgs e) {
-            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
-        }
-
-        private void btnSettings_Click(object sender, EventArgs e) {
-            frmSelectSerial = new SelectSerialForm();
-            frmSelectSerial.MainForm = this;
-            frmSelectSerial.ShowDialog();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
-            frmAboutBox = new AboutBoxForm();
-            frmAboutBox.ShowDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
-            ClosingApplication();
         }
 
         public void ConnectSerialPort() {
@@ -259,7 +212,7 @@ namespace DRRMIS_GSM_Client
         }
 
         public void RefreshDisplays() {
-            bool isPortConnected = comPort.IsOpen ? true : false;
+            bool isPortConnected = comPort.IsOpen;
             string serialStatus = isPortConnected ? "Connected" : "Disconnected";
             var serialStatusColor = isPortConnected ? System.Drawing.Color.Green : 
                                     System.Drawing.Color.Red;
@@ -285,7 +238,7 @@ namespace DRRMIS_GSM_Client
             bool isComposeMessageReadOnly =  isSendingProcess ? true : false;
             bool isRecipientControlEnabled = isPortConnected && isInitGSM && !isSendingProcess ? 
                                              true : false;
-            string statusText = string.Empty;
+            string statusText;
 
             if (!isLogout) {
                 if (!isInitialApplicationExec && !isLoading && isConnectControlVisible) {
@@ -334,8 +287,8 @@ namespace DRRMIS_GSM_Client
             toolStripMenuDisconnect.Visible = !isConnectControlVisible;
             toolStripMenuItemConnectSerial.Visible = isConnectControlVisible;
             toolStripMenuItemDisonnectSerial.Visible = !isConnectControlVisible;
-            serialMonitorToolStripMenuItem.Enabled = !isConnectControlVisible;
-            settingsToolStripMenuItem.Enabled = isConnectControlVisible;
+            toolStripMenuSerialMonitor.Enabled = !isConnectControlVisible;
+            toolStripMenuSettings.Enabled = isConnectControlVisible;
 
             btnConnectSerial.Visible = isConnectControlVisible;
             btnDisconnectSerial.Visible = !isConnectControlVisible;
@@ -352,36 +305,6 @@ namespace DRRMIS_GSM_Client
             // User
             this.Enabled = isLogout && !userWithError ? 
                            false : true;
-        }
-
-        private void btnSerialMonitor_Click(object sender, EventArgs e) {
-            frmSerialMonitor.Visible = true;
-            frmSerialMonitor.Focus();
-        }
-
-        private void serialMonitorToolStripMenuItem_Click(object sender, EventArgs e) {
-            frmSerialMonitor.Visible = true;
-            frmSerialMonitor.Focus();
-        }
-
-        private void timerMonitorPort_Tick(object sender, EventArgs e) {
-            if (!comPort.IsOpen) {
-                DisconnectSerialPort();
-            }
-
-            RefreshDisplays();
-        }
-
-        private void btnRecipients_Click(object sender, EventArgs e) {
-            frmRecipient = new RecipientForm();
-            frmRecipient.MainForm = this;
-            frmRecipient.ShowDialog();
-        }
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
-            frmSelectSerial = new SelectSerialForm();
-            frmSelectSerial.MainForm = this;
-            frmSelectSerial.ShowDialog();
         }
 
         private async void RunAsyncMsgSending(string[] recipients, string message, string filename = null) {
@@ -472,73 +395,6 @@ namespace DRRMIS_GSM_Client
             sendMessageLogs.Clear();
         }
 
-        private void btnSend_Click(object sender, EventArgs e) {
-            string[] recipients = new string[selRecipients.Items.Count - 1];
-            int recipientCount = selRecipients.Items.Count;
-            String message = txtMessage.Text;
-            int selectedIndex = int.Parse(selRecipients.SelectedIndex.ToString());
-
-            if (recipientCount > 1) {
-                for (int key = 1; key < selRecipients.Items.Count; key++) {
-                    recipients[key - 1] = selRecipients.Items[key].ToString();
-                }
-
-                notifyIcon.Text = "DRRMIS GSM Client Sending...";
-                notifyIcon.BalloonTipTitle = "Message Sending";
-                notifyIcon.BalloonTipText = "Application is sending a message/s.";
-                notifyIcon.ShowBalloonTip(3000);
-
-                if (selectedIndex == 0) {
-                    RunAsyncMsgSending(recipients, message);
-                } else {
-                    var phoneNo = selRecipients.SelectedItem;
-                    string[] phoneNos = { phoneNo.ToString().Trim() };
-
-                    RunAsyncMsgSending(phoneNos, message);
-                }
-            }
-        }
-
-        private void txtMessage_TextChanged(object sender, EventArgs e) {
-            int messageCount = txtMessage.Text.Length;
-            lblMsgCount.Text = (messageCount <= 1 ? "Message Character: " : "Message Characters: ") +
-                               messageCount.ToString();
-        }
-
-        private void lblRecipientsCount_Click(object sender, EventArgs e) {
-            if (btnRecipients.Enabled == true) {
-                frmRecipient = new RecipientForm();
-                frmRecipient.MainForm = this;
-                frmRecipient.ShowDialog();
-            }
-        }
-
-        private void comPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
-            try {
-                //Thread.Sleep(100);
-
-                string dataReceived = comPort.ReadLine().ToString();
-                frmSerialMonitor.SerialMonitorFeedback = dataReceived;
-
-                if (dataReceived.Trim().Contains("signal_str:")) {
-                    this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
-                } else if (dataReceived.Trim().Contains("message_txt_stat:")) {
-                    sendMessageLogs.Add(dataReceived.ToString().Trim());
-                    countSent++;
-                    isSending = false;
-                } else if (dataReceived.Trim().Contains("message_pdu_stat:")) {
-                    sendMessageLogs.Add(dataReceived.ToString().Trim());
-                    countSent++;
-                    isSending = false;
-                } else if (dataReceived.Trim().Contains("gsm_init_success")) {
-                    if (!isInitGSM) {
-                        InitGSM(dataReceived);
-                    }
-                }
-            } catch {
-            }
-        }
-
         private void InitGSM(string data) {
             if (data.Trim() == "gsm_init_success") {
                 isInitGSM = true;
@@ -549,8 +405,8 @@ namespace DRRMIS_GSM_Client
             string[] signalArray = data.Split(':');
             double signalValue = double.Parse(signalArray[1]);
             double signalPercentage = Math.Round((signalValue / 30) * 100, 2);
-            string signalCondition = "No Signal";
-            var imgSignal = (Bitmap)Properties.Resources.ResourceManager.GetObject("signal-slash-32px");
+            string signalCondition;
+            Bitmap imgSignal;
 
             if (signalValue > 1 && signalValue <= 9) {
                 signalCondition = "Marginal";
@@ -575,13 +431,6 @@ namespace DRRMIS_GSM_Client
             lblSignalStrength.Text = signalPercentage.ToString() + "% (" + signalCondition + ")";
             picSignalStatus.Image = imgSignal;
             isSignalAwait = true;
-        }
-
-        private void timerRefreshSignal_Tick(object sender, EventArgs e) {
-            if (isInitGSM && isSignalAwait) {
-                comPort.WriteLine("get_signal_str|");
-                isSignalAwait = false;
-            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e) {
@@ -648,7 +497,137 @@ namespace DRRMIS_GSM_Client
             }
         }
 
-        private async void toolStripMenuLogout_Click(object sender, EventArgs e) {
+        private void MinimizeTOTray(bool toMinimize) {
+            if (toMinimize) {
+                this.Hide();
+                notifyIcon.BalloonTipTitle = "Minimized";
+                notifyIcon.BalloonTipText = "Application is running in the background.";
+                notifyIcon.ShowBalloonTip(3000);
+            } else {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                this.Focus();
+            }
+        }
+
+
+        /* Main form
+         */
+
+        private void MainForm_Load(object sender, EventArgs e) {
+            RefreshForm();
+            timerSendApi.Enabled = true;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            e.Cancel = true;
+            MinimizeTOTray(true);
+        }
+
+
+        /* Main tool strip menu
+         */
+
+        private void ToolStripMain_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void BtnMinimize_Click(object sender, EventArgs e) {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void BtnClose_Click(object sender, EventArgs e) {
+            MinimizeTOTray(true);
+        }
+
+
+        /* Main menu strip 
+         */
+
+        private void ToolStripMenuConnect_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
+        }
+
+        private void ToolStripMenuDisconnect_Click(object sender, EventArgs e){
+            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
+        }
+
+        private void ToolStripMenuSettings_Click(object sender, EventArgs e){
+            frmSelectSerial.MainForm = this;
+            frmSelectSerial.ShowDialog();
+        }
+
+        private void ToolStripMenuExit_Click(object sender, EventArgs e){
+            ClosingApplication();
+        }
+
+        private void ToolStripMenuSerialMonitor_Click(object sender, EventArgs e) {
+            frmSerialMonitor.Visible = true;
+            frmSerialMonitor.Focus();
+        }
+
+        private void ToolStripMenuAbout_Click(object sender, EventArgs e) {
+            frmAboutBox.ShowDialog();
+        }
+
+
+        /* Tool strip menu
+         */
+
+        private void BtnSend_Click(object sender, EventArgs e) {
+            string[] recipients = new string[selRecipients.Items.Count - 1];
+            int recipientCount = selRecipients.Items.Count;
+            String message = txtMessage.Text;
+            int selectedIndex = int.Parse(selRecipients.SelectedIndex.ToString());
+
+            if (recipientCount > 1) {
+                for (int key = 1; key < selRecipients.Items.Count; key++) {
+                    recipients[key - 1] = selRecipients.Items[key].ToString();
+                }
+
+                notifyIcon.Text = "DRRMIS GSM Client Sending...";
+                notifyIcon.BalloonTipTitle = "Message Sending";
+                notifyIcon.BalloonTipText = "Application is sending a message/s.";
+                notifyIcon.ShowBalloonTip(3000);
+
+                if (selectedIndex == 0) {
+                    RunAsyncMsgSending(recipients, message);
+                } else {
+                    var phoneNo = selRecipients.SelectedItem;
+                    string[] phoneNos = { phoneNo.ToString().Trim() };
+
+                    RunAsyncMsgSending(phoneNos, message);
+                }
+            }
+        }
+
+        private void BtnRecipients_Click(object sender, EventArgs e) {
+            frmRecipient.MainForm = this;
+            frmRecipient.ShowDialog();
+        }
+
+        private void BtnConnectSerial_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
+        }
+
+        private void BtnDisconnectSerial_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
+        }
+
+        private void BtnSerialMonitor_Click(object sender, EventArgs e) {
+            frmSerialMonitor.Visible = true;
+            frmSerialMonitor.Focus();
+        }
+
+        private void BtnSettings_Click(object sender, EventArgs e) {
+            frmSelectSerial.MainForm = this;
+            frmSelectSerial.ShowDialog();
+        }
+
+        private async void ToolStripMenuLogout_Click(object sender, EventArgs e) {
             DialogResult msgClosing = MessageBox.Show("Are you sure you want to logout your account?",
                                                       "Logout", MessageBoxButtons.YesNo,
                                                       MessageBoxIcon.Question);
@@ -662,61 +641,73 @@ namespace DRRMIS_GSM_Client
             }
         }
 
-        private void MinimizeTOTray(bool toMinimize) {
-            if (toMinimize) {
-                this.Hide();
-                //notifyIcon.Visible = true;
-                notifyIcon.BalloonTipTitle = "Minimized";
-                notifyIcon.BalloonTipText = "Application is running in the background.";
-                notifyIcon.ShowBalloonTip(3000);
-            } else {
-                this.Show();
-                this.WindowState = FormWindowState.Normal;
-                this.Focus();
-                //notifyIcon.Visible = false;
+
+        /* Compose message fields
+         */
+
+        private void LblRecipientsCount_Click(object sender, EventArgs e) {
+            if (btnRecipients.Enabled == true) {
+                frmRecipient.MainForm = this;
+                frmRecipient.ShowDialog();
             }
         }
 
-        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
-            MinimizeTOTray(false);
+        private void TxtMessage_TextChanged(object sender, EventArgs e) {
+            int messageCount = txtMessage.Text.Length;
+            lblMsgCount.Text = (messageCount <= 1 ? "Message Character: " : "Message Characters: ") +
+                               messageCount.ToString();
         }
 
-        private void toolStripMenuItemShowForm_Click(object sender, EventArgs e)  {
-            MinimizeTOTray(false);
+        private void TxtMessage_KeyDown(object sender, KeyEventArgs e) {
+            // For debugging
+            /*if (e.KeyCode == Keys.Enter) {
+                string txt = txtMessage.Text;
+                string[] textMessages = await sms.ChunkTextMsgs(txt.Trim());
+
+                foreach (string phoneNo in new string[] { "09129527475" }) {
+                    int msgChunkCtr = 1;
+
+                    foreach (string msg in textMessages) {
+                        Dictionary<string, string> encodedPDU = sms.GetEncodedMsgPDU(
+                            phoneNo, msg, textMessages.Length, msgChunkCtr
+                        );
+
+                        txtMessage.AppendText("Length: " + encodedPDU["total_msg_length"] +
+                                              "\nPDU Content: " + encodedPDU["encoded_pdu_msg"]);
+
+                        txtMessage.AppendText("\n\n\n\n");
+
+                        msgChunkCtr++;
+                    }
+                }
+            }*/
         }
 
-        private void toolStripMenuItemExitApp_Click(object sender, EventArgs e) {
-            ClosingApplication();
+
+        /* Timers
+         */
+
+        private void TimerRefreshSignal_Tick(object sender, EventArgs e) {
+            if (isInitGSM && isSignalAwait) {
+                comPort.WriteLine("get_signal_str|");
+                isSignalAwait = false;
+            }
         }
 
-        private void toolStripMenuItemConnectSerial_Click(object sender, EventArgs e) {
-            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
+        private void TimerMonitorPort_Tick(object sender, EventArgs e) {
+            if (!comPort.IsOpen) {
+                DisconnectSerialPort();
+            }
+
+            RefreshDisplays();
         }
 
-        private void toolStripMenuItemDisonnectSerial_Click(object sender, EventArgs e) {
-            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
-        }
-
-        private void toolStripMenuItemSettings_Click(object sender, EventArgs e) {
-            frmSelectSerial = new SelectSerialForm();
-            frmSelectSerial.MainForm = this;
-            frmSelectSerial.ShowDialog();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e) {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e) {
-            MinimizeTOTray(true);
-        }
-
-        private async void timerSendApi_Tick(object sender, EventArgs e) {
+        private async void TimerSendApi_Tick(object sender, EventArgs e) {
             if (isInitGSM && !isSendingProcess) {
                 string getQueueResult;
                 sms.BaseUrl = baseURL;
 
-                try {
+                try  {
                     getQueueResult = await sms.GetQueueMessages(token);
                 } catch (Exception) {
                     getQueueResult = "error-connection";
@@ -738,31 +729,62 @@ namespace DRRMIS_GSM_Client
                 }
             }
         }
-        private async void txtMessage_KeyDown(object sender, KeyEventArgs e) {
-            // For debugging
-            /*
-            if (e.KeyCode == Keys.Enter) {
-                string txt = txtMessage.Text;
-                string[] textMessages = await sms.ChunkTextMsgs(txt.Trim());
 
-                foreach (string phoneNo in new string[] { "09129527475" }) {
-                    int msgChunkCtr = 1;
 
-                    foreach (string msg in textMessages) {
-                        Dictionary<string, string> encodedPDU = sms.GetEncodedMsgPDU(
-                            phoneNo, msg, textMessages.Length, msgChunkCtr
-                        );
+        /* COM Port
+         */
 
-                        txtMessage.AppendText("Length: " + encodedPDU["total_msg_length"] +
-                                              "\nPDU Content: " + encodedPDU["encoded_pdu_msg"]);
+        private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
+            try {
+                string dataReceived = comPort.ReadLine().ToString();
+                frmSerialMonitor.SerialMonitorFeedback = dataReceived;
 
-                        txtMessage.AppendText("\n\n\n\n");
-
-                        msgChunkCtr++;
+                if (dataReceived.Trim().Contains("signal_str:")) {
+                    this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
+                } else if (dataReceived.Trim().Contains("message_txt_stat:")) {
+                    sendMessageLogs.Add(dataReceived.ToString().Trim());
+                    countSent++;
+                    isSending = false;
+                } else if (dataReceived.Trim().Contains("message_pdu_stat:")) {
+                    sendMessageLogs.Add(dataReceived.ToString().Trim());
+                    countSent++;
+                    isSending = false;
+                } else if (dataReceived.Trim().Contains("gsm_init_success")) {
+                    if (!isInitGSM) {
+                        InitGSM(dataReceived);
                     }
                 }
+            } catch {
             }
-            */
+        }
+
+
+        /* Notify icon
+         */
+
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e) {
+            MinimizeTOTray(false);
+        }
+
+        private void ToolStripMenuItemShowForm_Click(object sender, EventArgs e) {
+            MinimizeTOTray(false);
+        }
+
+        private void ToolStripMenuItemConnectSerial_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _ConnectSerialPort(ConnectSerialPort), new object[] { });
+        }
+
+        private void ToolStripMenuItemDisonnectSerial_Click(object sender, EventArgs e) {
+            this.BeginInvoke(new _DisconnectSerialPort(DisconnectSerialPort), new object[] { });
+        }
+
+        private void ToolStripMenuItemSettings_Click(object sender, EventArgs e) {
+            frmSelectSerial.MainForm = this;
+            frmSelectSerial.ShowDialog();
+        }
+
+        private void ToolStripMenuItemExitApp_Click(object sender, EventArgs e) {
+            ClosingApplication();
         }
     }
 }
