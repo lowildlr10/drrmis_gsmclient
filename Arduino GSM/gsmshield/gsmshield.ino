@@ -44,16 +44,17 @@ bool sendMsgPDU(String _tpduLength, String _tpduParam) {
   const char* tpduLength = _tpduLength.c_str();
   const char* tpduParam = _tpduParam.c_str();
   sim900_flush_serial();
-  sim900_send_cmd(F("AT+CMGF=0\n"));
-  delay(500);
+  if(!sim900_check_with_cmd(F("AT+CMGF=0\r\n"), "OK\r\n", CMD)){
+    return false;
+  }
   sim900_send_cmd(F("AT+CMGS=\""));
   sim900_send_cmd(tpduLength);
   if (!sim900_check_with_cmd(F("\"\r\n"), ">", CMD)) {
     return false;
   }
-  delay(1000);
+  delay(3000);
   sim900_send_cmd(tpduParam);
-  delay(500);
+  delay(3000);
   sim900_send_End_Mark();
   return sim900_wait_for_resp("OK\r\n", CMD, 20U, 5000U);
 }
