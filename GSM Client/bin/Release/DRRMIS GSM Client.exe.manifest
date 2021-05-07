@@ -4,7 +4,7 @@
   <description asmv2:iconFile="drrmis-ico.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="DRRMIS GSM Client" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="DRRMIS GSM Client" version="1.1.1.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="DRRMIS GSM Client.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DRRMIS GSM Client.exe" size="2898400">
-      <assemblyIdentity name="DRRMIS GSM Client" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DRRMIS GSM Client.exe" size="2900448">
+      <assemblyIdentity name="DRRMIS GSM Client" version="1.1.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>w1OXz6u0DzxWFfROQv0BkiHbFc07hmXCVrteB8wnoYc=</dsig:DigestValue>
+        <dsig:DigestValue>kYGW/vKJwQ3CftawwwNbaXu0GxbGPtpb/wMpI3uFT/s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
