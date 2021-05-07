@@ -39,6 +39,8 @@ Desktop application interface to DRRMIS (drrmis.dostcar.ph) GSM Module API.
 
 ![image](https://user-images.githubusercontent.com/26521475/116345393-99548000-a81a-11eb-8dd8-d0ce867a7fb1.png)
 
+![image](https://user-images.githubusercontent.com/26521475/117154273-46686300-adee-11eb-8985-8272f453cb37.png)
+
 
 | Application Icon Tray with Notification |
 | ------------- |
