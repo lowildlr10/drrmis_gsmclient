@@ -208,14 +208,14 @@ namespace DRRMIS_GSM_Client
             // toolStripMenuConnect
             // 
             this.toolStripMenuConnect.Name = "toolStripMenuConnect";
-            this.toolStripMenuConnect.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuConnect.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuConnect.Text = "Connect...";
             this.toolStripMenuConnect.Click += new System.EventHandler(this.ToolStripMenuConnect_Click);
             // 
             // toolStripMenuDisconnect
             // 
             this.toolStripMenuDisconnect.Name = "toolStripMenuDisconnect";
-            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuDisconnect.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuDisconnect.Text = "Disconnect...";
             this.toolStripMenuDisconnect.Visible = false;
             this.toolStripMenuDisconnect.Click += new System.EventHandler(this.ToolStripMenuDisconnect_Click);
@@ -223,19 +223,19 @@ namespace DRRMIS_GSM_Client
             // toolStripMenuSettings
             // 
             this.toolStripMenuSettings.Name = "toolStripMenuSettings";
-            this.toolStripMenuSettings.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuSettings.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuSettings.Text = "Settings";
             this.toolStripMenuSettings.Click += new System.EventHandler(this.ToolStripMenuSettings_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
             // 
             // toolStripMenuExit
             // 
             this.toolStripMenuExit.Name = "toolStripMenuExit";
-            this.toolStripMenuExit.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuExit.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuExit.Text = "Exit";
             this.toolStripMenuExit.Click += new System.EventHandler(this.ToolStripMenuExit_Click);
             // 
@@ -339,13 +339,13 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuUsername.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.toolStripMenuUsername.Name = "toolStripMenuUsername";
             this.toolStripMenuUsername.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.toolStripMenuUsername.Size = new System.Drawing.Size(129, 26);
+            this.toolStripMenuUsername.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuUsername.Text = "Username";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(126, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripMenuLogout
             // 
@@ -353,7 +353,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuLogout.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.toolStripMenuLogout.Name = "toolStripMenuLogout";
             this.toolStripMenuLogout.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.toolStripMenuLogout.Size = new System.Drawing.Size(129, 26);
+            this.toolStripMenuLogout.Size = new System.Drawing.Size(180, 26);
             this.toolStripMenuLogout.Text = "Logout";
             this.toolStripMenuLogout.Click += new System.EventHandler(this.ToolStripMenuLogout_Click);
             // 
@@ -863,7 +863,6 @@ namespace DRRMIS_GSM_Client
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripTray;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "DRRMIS GSM Client";
-            this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NotifyIcon_MouseDoubleClick);
             // 
             // contextMenuStripTray
@@ -972,6 +971,7 @@ namespace DRRMIS_GSM_Client
             // 
             // timerRefreshSignal
             // 
+            this.timerRefreshSignal.Enabled = true;
             this.timerRefreshSignal.Interval = 1000;
             this.timerRefreshSignal.Tick += new System.EventHandler(this.TimerRefreshSignal_Tick);
             // 

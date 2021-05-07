@@ -51,6 +51,7 @@ namespace DRRMIS_GSM_Client
         private bool userWithError = true;
         private static string messageMode = "Text";
 
+        private string serialDataResult = "";
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -101,6 +102,8 @@ namespace DRRMIS_GSM_Client
             baseURL = user.BaseUrl;
             userWithError = user.HasError;
 
+            notifyIcon.Visible = true;
+
             frmSerialMonitor.MainForm = this;
             frmSerialMonitor.Show();
             frmSerialMonitor.Visible = false;
@@ -117,12 +120,17 @@ namespace DRRMIS_GSM_Client
         }
 
         private async void ClosingApplication() {
+            bool isLogoutSuccess = false;
             DialogResult msgClosing = MessageBox.Show("Are you sure you want to exit the application?",
                                               "Exit Application", MessageBoxButtons.YesNo,
                                               MessageBoxIcon.Question);
 
             if (msgClosing == DialogResult.Yes) {
-                bool isLogoutSuccess = await Logout();
+                if (user.Username != "Guest") {
+                    isLogoutSuccess = await Logout();
+                } else {
+                    isLogoutSuccess = true;
+                }
 
                 if (isLogoutSuccess) {
                     notifyIcon.Dispose();
@@ -130,6 +138,11 @@ namespace DRRMIS_GSM_Client
                     ExitApplication();
                 }
             }
+        }
+
+        private void FlushSerial() {
+            comPort.DiscardInBuffer();
+            comPort.DiscardOutBuffer();
         }
 
         public void ConnectSerialPort() {
@@ -194,6 +207,7 @@ namespace DRRMIS_GSM_Client
                         toolStripIconDisconnected.Visible = false;
 
                         comPort.Close();
+                        isInitGSM = false;
                     }
 
                     MessageBox.Show(comPort.PortName + " is now disconnected.", "Success!",
@@ -490,6 +504,7 @@ namespace DRRMIS_GSM_Client
             frmLogin.MainForm = this;
 
             if (frmLogin.ShowDialog() == DialogResult.OK) {
+                frmLogin.RefreshDisplays();
                 this.Show();
                 RefreshForm();
             } else {
@@ -628,13 +643,19 @@ namespace DRRMIS_GSM_Client
         }
 
         private async void ToolStripMenuLogout_Click(object sender, EventArgs e) {
+            bool isLogoutSuccess = false;
             DialogResult msgClosing = MessageBox.Show("Are you sure you want to logout your account?",
                                                       "Logout", MessageBoxButtons.YesNo,
                                                       MessageBoxIcon.Question);
             if (msgClosing == DialogResult.Yes) {
-                bool isLogoutSuccess = await Logout();
+                if (user.Username != "Guest") {
+                    isLogoutSuccess = await Logout();
+                } else {
+                    isLogoutSuccess = true;
+                }
 
                 if (isLogoutSuccess) {
+                    notifyIcon.Visible = false;
                     DisconnectSerialPort();
                     OpenLoginForm();
                 }
@@ -736,8 +757,8 @@ namespace DRRMIS_GSM_Client
 
         private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e) {
             try {
-                string dataReceived = comPort.ReadLine().ToString();
-                frmSerialMonitor.SerialMonitorFeedback = dataReceived;
+                string dataReceived = comPort.ReadLine();
+                frmSerialMonitor.SerialMonitorFeedback = dataReceived + "\n";
 
                 if (dataReceived.Trim().Contains("signal_str:")) {
                     this.BeginInvoke(new _GetSignalStrength(GetSignalStrength), new object[] { dataReceived });
@@ -754,6 +775,8 @@ namespace DRRMIS_GSM_Client
                         InitGSM(dataReceived);
                     }
                 }
+
+                FlushSerial();
             } catch {
             }
         }

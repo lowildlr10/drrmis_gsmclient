@@ -14,6 +14,7 @@ namespace DRRMIS_GSM_Client
 {
     internal class GsmModule {
         private static string baseURL = "http://drrmis.dostcar.ph";
+        private static MainForm frmMain;
 
         // For GSM7
         private static readonly Dictionary<char, string[]> asciiCharsets = 
@@ -142,6 +143,11 @@ namespace DRRMIS_GSM_Client
         public string BaseUrl {
             get { return baseURL; }
             set { baseURL = value; }
+        }
+
+        public MainForm MainForm {
+            get { return frmMain; }
+            set { frmMain = value; }
         }
 
         public string GetEncodedChar(char charVal) {
@@ -545,5 +551,10 @@ namespace DRRMIS_GSM_Client
 
             return result;
         }
+
+
+        /* GSM module communication operations
+         */
+
     }
 }

@@ -51,6 +51,7 @@ namespace DRRMIS_GSM_Client
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.linkGuestLogin = new System.Windows.Forms.LinkLabel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripMain.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -328,13 +329,15 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16F));
             this.tableLayoutPanel4.Controls.Add(this.btnLogin, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.linkGuestLogin, 1, 2);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 324);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.50538F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.49462F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel4.RowCount = 4;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.619048F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.71428F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(344, 152);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
@@ -344,17 +347,34 @@ namespace DRRMIS_GSM_Client
             this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.Color.White;
             this.btnLogin.Image = global::DRRMIS_GSM_Client.Properties.Resources.key_whit_32px;
             this.btnLogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogin.Location = new System.Drawing.Point(58, 18);
+            this.btnLogin.Location = new System.Drawing.Point(58, 14);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(227, 49);
+            this.btnLogin.Size = new System.Drawing.Size(227, 44);
             this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "LOGIN";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
+            // 
+            // linkGuestLogin
+            // 
+            this.linkGuestLogin.AutoSize = true;
+            this.linkGuestLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.linkGuestLogin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkGuestLogin.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.linkGuestLogin.LinkColor = System.Drawing.Color.LightBlue;
+            this.linkGuestLogin.Location = new System.Drawing.Point(58, 61);
+            this.linkGuestLogin.Name = "linkGuestLogin";
+            this.linkGuestLogin.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.linkGuestLogin.Size = new System.Drawing.Size(227, 50);
+            this.linkGuestLogin.TabIndex = 4;
+            this.linkGuestLogin.TabStop = true;
+            this.linkGuestLogin.Text = "Login as guest";
+            this.linkGuestLogin.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkGuestLogin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkGuestLogin_LinkClicked);
             // 
             // statusStrip2
             // 
@@ -395,6 +415,7 @@ namespace DRRMIS_GSM_Client
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -424,5 +445,6 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.ToolStripMenuItem toolTipItem;
         private System.Windows.Forms.ToolStripTextBox txtBaseURL;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuSaveSettings;
+        private System.Windows.Forms.LinkLabel linkGuestLogin;
     }
 }

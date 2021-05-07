@@ -19,6 +19,7 @@ namespace DRRMIS_GSM_Client
 
         string dataReceived = string.Empty;
         private delegate void SetTextDeleg(string text);
+        AutoCompleteStringCollection autoComplete = new AutoCompleteStringCollection();
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -46,8 +47,32 @@ namespace DRRMIS_GSM_Client
         }
 
         private void DataReceived(string data)  {
-            dataReceived = data.Trim();
-            txtFeedback.AppendText(dataReceived + "\r\n");
+            txtFeedback.AppendText(data);
+        }
+
+        private string GetAppendLineEnding() {
+            string lineEnding = toolStripSelLineEnding.SelectedItem.ToString();
+            string appendLineEnding;
+
+            switch (lineEnding) {
+                case "No line ending":
+                    appendLineEnding = "";
+                    break;
+                case "Newline":
+                    appendLineEnding = "\n";
+                    break;
+                case "Carriage return":
+                    appendLineEnding = "\r";
+                    break;
+                case "Both NL & CR":
+                    appendLineEnding = "\r\n";
+                    break;
+                default:
+                    appendLineEnding = "";
+                    break;
+            }
+
+            return appendLineEnding;
         }
 
 
@@ -55,7 +80,14 @@ namespace DRRMIS_GSM_Client
          */
 
         private void SerialMonitorForm_VisibleChanged(object sender, EventArgs e) {
+            txtSerialWrite.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtSerialWrite.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtSerialWrite.AutoCompleteCustomSource = autoComplete;
+
             this.CenterToScreen();
+            txtSerialWrite.Text = string.Empty;
+            txtFeedback.Text = string.Empty;
+            toolStripSelLineEnding.SelectedItem = "Newline";
         }
 
         private void SerialMonitorForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -68,15 +100,17 @@ namespace DRRMIS_GSM_Client
         /* Serial monitor components
          */
 
-        private void TxtSerialWrite_KeyPress(object sender, KeyPressEventArgs e) {
-            if (e.KeyChar == (char)Keys.Enter) {
-                frmMain.comPort.WriteLine(txtSerialWrite.Text);
+        private void TxtSerialWrite_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                frmMain.comPort.Write(txtSerialWrite.Text + GetAppendLineEnding());
+                autoComplete.Add(txtSerialWrite.Text);
                 txtSerialWrite.Text = string.Empty;
             }
         }
 
         private void BtnWriteSerial_Click(object sender, EventArgs e) {
-            frmMain.comPort.WriteLine(txtSerialWrite.Text);
+            frmMain.comPort.Write(txtSerialWrite.Text + GetAppendLineEnding());
+            autoComplete.Add(txtSerialWrite.Text);
             txtSerialWrite.Text = string.Empty;
         }
 

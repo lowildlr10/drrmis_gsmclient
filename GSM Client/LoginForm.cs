@@ -43,7 +43,7 @@ namespace DRRMIS_GSM_Client
             set { frmMain = value; }
         }
 
-        private void RefreshDisplays() {
+        public void RefreshDisplays() {
             if (!isLogin) {
                 toolStripIconStatus.Visible = false;
                 toolStripStatusLabel.Visible = false;
@@ -109,9 +109,21 @@ namespace DRRMIS_GSM_Client
             }
         }
 
+        private void GuestLogin() {
+            user.Id = 0;
+            user.Firstname = "Guest";
+            user.Lastname = "Account";
+            user.Username = "Guest";
+            user.Token = "";
+            user.HasError = false;
+            RefreshDisplays();
+            CloseForm();
+        }
+
         private void CloseForm() {
             frmMain.User = user;
             this.DialogResult = DialogResult.OK;
+            RefreshDisplays();
             this.Close();
         }
 
@@ -189,6 +201,10 @@ namespace DRRMIS_GSM_Client
 
         private void BtnLogin_Click(object sender, EventArgs e) {
             Login();
+        }
+
+        private void LinkGuestLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            GuestLogin();
         }
     }
 }

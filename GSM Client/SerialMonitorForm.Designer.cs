@@ -40,6 +40,8 @@ namespace DRRMIS_GSM_Client
             this.timerMonitorFeedback = new System.Windows.Forms.Timer(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnClearFeedback = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSelLineEnding = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.btnClose = new System.Windows.Forms.ToolStripButton();
             this.btnMinimize = new System.Windows.Forms.ToolStripButton();
@@ -97,13 +99,14 @@ namespace DRRMIS_GSM_Client
             // 
             // txtSerialWrite
             // 
+            this.txtSerialWrite.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.txtSerialWrite.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSerialWrite.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerialWrite.Location = new System.Drawing.Point(3, 3);
             this.txtSerialWrite.Name = "txtSerialWrite";
             this.txtSerialWrite.Size = new System.Drawing.Size(450, 29);
             this.txtSerialWrite.TabIndex = 0;
-            this.txtSerialWrite.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSerialWrite_KeyPress);
+            this.txtSerialWrite.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSerialWrite_KeyDown);
             // 
             // btnWriteSerial
             // 
@@ -126,7 +129,7 @@ namespace DRRMIS_GSM_Client
             this.txtFeedback.BackColor = System.Drawing.SystemColors.Desktop;
             this.txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFeedback.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFeedback.Font = new System.Drawing.Font("Linux Biolinum G", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFeedback.Font = new System.Drawing.Font("Linux Biolinum G", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFeedback.ForeColor = System.Drawing.Color.LightCyan;
             this.txtFeedback.Location = new System.Drawing.Point(10, 60);
             this.txtFeedback.Margin = new System.Windows.Forms.Padding(10);
@@ -148,7 +151,9 @@ namespace DRRMIS_GSM_Client
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnClearFeedback});
+            this.btnClearFeedback,
+            this.toolStripLabel3,
+            this.toolStripSelLineEnding});
             this.toolStrip1.Location = new System.Drawing.Point(2, 400);
             this.toolStrip1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -171,6 +176,36 @@ namespace DRRMIS_GSM_Client
             this.btnClearFeedback.Size = new System.Drawing.Size(57, 25);
             this.btnClearFeedback.Text = "Clear";
             this.btnClearFeedback.Click += new System.EventHandler(this.BtnClearFeedback_Click);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel3.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel3.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(68, 24);
+            this.toolStripLabel3.Text = "Line Ending:";
+            // 
+            // toolStripSelLineEnding
+            // 
+            this.toolStripSelLineEnding.AutoSize = false;
+            this.toolStripSelLineEnding.DropDownHeight = 100;
+            this.toolStripSelLineEnding.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripSelLineEnding.DropDownWidth = 100;
+            this.toolStripSelLineEnding.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.toolStripSelLineEnding.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripSelLineEnding.IntegralHeight = false;
+            this.toolStripSelLineEnding.Items.AddRange(new object[] {
+            "No line ending",
+            "Newline",
+            "Carriage return",
+            "Both NL & CR"});
+            this.toolStripSelLineEnding.Margin = new System.Windows.Forms.Padding(3);
+            this.toolStripSelLineEnding.MaxDropDownItems = 4;
+            this.toolStripSelLineEnding.Name = "toolStripSelLineEnding";
+            this.toolStripSelLineEnding.Size = new System.Drawing.Size(100, 20);
+            this.toolStripSelLineEnding.Tag = "Newline";
+            this.toolStripSelLineEnding.ToolTipText = "Select a line ending";
             // 
             // toolStripMain
             // 
@@ -293,5 +328,7 @@ namespace DRRMIS_GSM_Client
         private System.Windows.Forms.ToolStripButton btnMinimize;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripComboBox toolStripSelLineEnding;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
     }
 }
