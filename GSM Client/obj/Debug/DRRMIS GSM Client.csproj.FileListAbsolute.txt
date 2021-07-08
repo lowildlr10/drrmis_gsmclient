@@ -69,3 +69,4 @@ D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.application
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csproj.CopyComplete
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.exe
 D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.pdb
+D:\dev\desktop\gsmclient\GSM Client\obj\Debug\DRRMIS GSM Client.csprojAssemblyReference.cache
