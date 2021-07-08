@@ -339,13 +339,13 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuUsername.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.toolStripMenuUsername.Name = "toolStripMenuUsername";
             this.toolStripMenuUsername.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.toolStripMenuUsername.Size = new System.Drawing.Size(180, 26);
+            this.toolStripMenuUsername.Size = new System.Drawing.Size(129, 26);
             this.toolStripMenuUsername.Text = "Username";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(126, 6);
             // 
             // toolStripMenuLogout
             // 
@@ -353,7 +353,7 @@ namespace DRRMIS_GSM_Client
             this.toolStripMenuLogout.Margin = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.toolStripMenuLogout.Name = "toolStripMenuLogout";
             this.toolStripMenuLogout.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.toolStripMenuLogout.Size = new System.Drawing.Size(180, 26);
+            this.toolStripMenuLogout.Size = new System.Drawing.Size(129, 26);
             this.toolStripMenuLogout.Text = "Logout";
             this.toolStripMenuLogout.Click += new System.EventHandler(this.ToolStripMenuLogout_Click);
             // 
