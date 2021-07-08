@@ -339,7 +339,9 @@ namespace DRRMIS_GSM_Client
 
                         foreach (string msg in textMessages) {
                             string cmd = "";
-                            
+
+                            Thread.Sleep(500);
+
                             if (messageMode == "Text") {
                                 cmd = "send_txt_msg|" + phoneNo.ToString().Trim() + "|" + msg;
                             } else {
