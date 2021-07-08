@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DRRMIS GSM Client")]
-[assembly: AssemblyDescription("SMS text blasting linked to DRRMIS. Arduino GSM module compatible and other microcontroller.")]
+[assembly: AssemblyDescription("Desktop application interface to DRRMIS (drrmis.dostcar.ph) GSM Module API.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Department of Science and Technology - CAR")]
 [assembly: AssemblyProduct("DRRMIS GSM Client")]

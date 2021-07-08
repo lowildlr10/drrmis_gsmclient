@@ -251,7 +251,7 @@ namespace DRRMIS_GSM_Client
             // toolStripMenuAbout
             // 
             this.toolStripMenuAbout.Name = "toolStripMenuAbout";
-            this.toolStripMenuAbout.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuAbout.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuAbout.Text = "About";
             this.toolStripMenuAbout.Click += new System.EventHandler(this.ToolStripMenuAbout_Click);
             // 
